@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CalendarComponent } from './calendar/calendar/calendar.component';
 import { EventsFormComponent } from './calendar/events-form/events-form.component';
 import { SharedModule } from './shared/shared.module';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SharedModule } from './shared/shared.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    FullCalendarModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
