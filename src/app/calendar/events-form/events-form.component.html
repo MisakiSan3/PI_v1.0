@@ -1,1 +1,47 @@
-<p>events-form works!</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Eventos</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .form-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <h1>Formulario de Eventos</h1>
+        <div class="form-container">
+          <form>
+            <div class="form-group">
+              <label for="eventName">Nombre del evento:</label>
+              <input type="text" class="form-control" id="eventName" placeholder="Ingrese el nombre del evento">
+            </div>
+            <div class="form-group">
+              <label for="eventDate">Fecha del evento:</label>
+              <input type="date" class="form-control" id="eventDate">
+            </div>
+            <div class="form-group">
+              <label for="eventTime">Hora del evento:</label>
+              <input type="time" class="form-control" id="eventTime">
+            </div>
+            <div class="form-group">
+              <label for="eventDescription">Descripción del evento:</label>
+              <textarea class="form-control" id="eventDescription" rows="3" placeholder="Ingrese una descripción"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
