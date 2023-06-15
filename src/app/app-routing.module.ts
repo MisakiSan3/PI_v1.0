@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CalendarComponent } from './calendar/calendar/calendar.component';
-import { EventsFormComponent } from './calendar/events-form/events-form.component';
+import { CalendarRoutingModule } from './calendar/calendar-routing.module';
 
 const routes: Routes = [
-  {path:'', component: CalendarComponent},
-  {path:'events-form',component: EventsFormComponent}
+  {path:'', redirectTo: 'calendar',pathMatch: 'full'},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),CalendarRoutingModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
