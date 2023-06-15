@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 p-5">
+            <div class="card">
+            <div class="card-header">
+                <h3>Maestros</h3>
+            </div>
+            <div class="card-body ">
+                <div *ngFor="let maestro of maestros;let i = index" class="accordion accordion-flush" id="accordion">
+                    <a class="accordion-button" data-bs-toggle="collapse" href="#{{i}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        {{maestro.nombre + ' ' + maestro.apellido}}
+                    </a>
+                    <div class="collapse" id="{{i}}">
+                        <div class="card bg-brown my-1 card-body">
+                            <div class="row">
+                                <div class="col"><h5>Asignatura:</h5></div>
+                                <div class="col">{{maestro.asignatura.nombre}}</div>
+                            </div>
+                            <div class="row justify-content-evenly">
+                                <div class="col"><h5>Correo:</h5></div>
+                                <div class="col"><p>{{maestro.correo}}</p></div>
+                            </div>
+                            <div class="row justify-content-evenly">
+                                <div class="col"><h5>Contacto:</h5></div>
+                                <div class="col"><p>{{maestro.telf}}</p></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-1 col-md-1 col-sm-12">
+                                    <a class="btn btn-dark"[routerLink]="[ '#', ]">Editar</a>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-12">
+                                    <a class="btn btn-danger"[routerLink]="[ '#', ]">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="card card-footer">
+                <div class="row">
+                    <div class="col-1">
+                        <a class="btn btn-success"[routerLink]="[ '#', ]">Añadir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
