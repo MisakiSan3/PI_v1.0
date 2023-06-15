@@ -9,6 +9,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthRoutingModuleModule } from './auth/auth-routing.module.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarModule } from './calendar/calendar.module';
+import { PagesModule } from './pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { CalendarModule } from './calendar/calendar.module';
   imports: [
     BrowserModule,
     CalendarModule,
-    CalendarModule,
+    PagesModule,
     AppRoutingModule,
     AuthRoutingModuleModule
   ],
