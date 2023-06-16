@@ -10,10 +10,12 @@ import { AuthRoutingModuleModule } from './auth/auth-routing.module.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarModule } from './calendar/calendar.module';
 import { PagesModule } from './pages/pages.module';
+import { NoFoundPagesComponent } from './no-found-pages/no-found-pages.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NoFoundPagesComponent,
     
   ],
   imports: [
