@@ -4,11 +4,12 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { allIcons } from 'ngx-bootstrap-icons';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { SliderComponent } from './slider/slider.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     CommonModule,
@@ -16,7 +17,7 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ]
 })
 export class SharedModule { }
