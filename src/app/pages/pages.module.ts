@@ -6,11 +6,12 @@ import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/shared.module';
 import { RegisterTeacherComponent } from './register-teacher/register-teacher.component';
 import { PagesRoutingModule } from './pages-routing.module';
+import { MaterialComponent } from './material/material.component';
 
 
 
 @NgModule({
-  declarations: [PagesComponent, TeachersComponent, RegisterTeacherComponent],
+  declarations: [PagesComponent, TeachersComponent, RegisterTeacherComponent, MaterialComponent],
   imports: [
     CommonModule,
     RouterModule,

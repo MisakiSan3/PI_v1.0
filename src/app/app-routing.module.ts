@@ -6,7 +6,7 @@ import { PagesModule } from './pages/pages.module';
 
 const routes: Routes = [
   {path:'', redirectTo: 'calendar',pathMatch: 'full'},
-  {path:'teacher', loadChildren:()=> import('./pages/pages.module').then(m => m.PagesModule)}
+  {path:'pages', loadChildren:()=> import('./pages/pages.module').then(m => m.PagesModule)}
 ];
 
 @NgModule({
