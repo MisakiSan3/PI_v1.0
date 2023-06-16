@@ -4,16 +4,17 @@ import { TeachersComponent } from './teachers/teachers.component';
 import { PagesComponent } from './pages.component';
 import { RegisterTeacherComponent } from './register-teacher/register-teacher.component';
 import { EventsComponent } from './events/events.component';
+import { MaterialComponent } from './material/material.component';
 
 const routes: Routes = [
   {path:"pages", component: PagesComponent,
    children:[
-    {path: "", component: TeachersComponent},
-    {path:'register', component: RegisterTeacherComponent},
-    {path:'events', component:EventsComponent}
-   ]},
-];
-
+    {path: "teachers-list", component: TeachersComponent},
+    {path:'teacher-register', component: RegisterTeacherComponent},
+    {path:'events-list', component:EventsComponent},
+    {path:'subjects', component:MaterialComponent}
+      ]}
+]
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
