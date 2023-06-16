@@ -1,7 +1,7 @@
 .slider-container {
   position: relative;
-  width: 75%;
-  height: 370px;
+  width: 400px;
+  height: 300px;
   overflow: hidden;
 }
 
@@ -58,3 +58,10 @@ input[name="slider"]:checked ~ .slides {
 .carousel-controls button {
   font-size: 18px;
 }
+
+.title-container {
+  background-image: url('src\assets\images\fondo.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
