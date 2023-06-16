@@ -8,11 +8,12 @@ import { RegisterTeacherComponent } from './register-teacher/register-teacher.co
 import { PagesRoutingModule } from './pages-routing.module';
 import { MaterialComponent } from './material/material.component';
 import { EventsComponent } from './events/events.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
 @NgModule({
-  declarations: [PagesComponent, TeachersComponent, RegisterTeacherComponent, MaterialComponent, EventsComponent],
+  declarations: [PagesComponent, TeachersComponent, RegisterTeacherComponent, MaterialComponent, EventsComponent,DashboardComponent],
   imports: [
     CommonModule,
     RouterModule,
