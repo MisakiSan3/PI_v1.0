@@ -9,8 +9,8 @@ const routes: Routes = [
   {path:"pages", component: PagesComponent,
    children:[
     {path: "", component: TeachersComponent},
-    {path:'register', component: RegisterTeacherComponent},
-    {path:'materias', component: MaterialComponent},
+    {path:'register-teacher', component: RegisterTeacherComponent},
+    {path:'subjects', component: MaterialComponent},
    ]},
 ];
 
