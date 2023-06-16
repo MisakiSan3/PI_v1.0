@@ -4,6 +4,7 @@ import { CalendarRoutingModule } from './calendar/calendar-routing.module';
 import { PagesRoutingModule } from './pages/pages-routing.module';
 import { PagesModule } from './pages/pages.module';
 import { NoFoundPagesComponent } from './no-found-pages/no-found-pages.component';
+import { AuthRoutingModuleModule } from './auth/auth-routing.module.module';
 
 const routes: Routes = [
   {path:'', redirectTo: 'calendar',pathMatch: 'full'},
@@ -12,7 +13,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes),CalendarRoutingModule,PagesRoutingModule],
+  imports: [RouterModule.forRoot(routes),CalendarRoutingModule,PagesRoutingModule, AuthRoutingModuleModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
