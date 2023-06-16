@@ -1,7 +1,10 @@
-<div class="container">
+<div class="container pt-5">
+  <a class="btn btn-danger mb-3" [routerLink]="[ '/pages']">Regresar</a>
   <div class="card login-box">
-    <div class="card-body">
+    <div class="card-header">
       <h1 class="card-title text-center">Registra un profesor</h1>
+      </div>
+    <div class="card-body">
       <form action="">
         <div class="form-group">
           <label for="nombre">Nombre</label>
@@ -27,7 +30,7 @@
             <option value="historia">Historia</option>
           </select>
         </div>
-        <div class="text-center"> <!-- Agregado: Contenedor centrado -->
+        <div class="text-center mt-2"> <!-- Agregado: Contenedor centrado -->
           <input id="register-button" type="submit" value="Registrar" class="btn btn-primary">
         </div>
       </form>

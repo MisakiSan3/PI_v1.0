@@ -6,6 +6,9 @@ body {
     margin: 0;
     font-family: 'Montserrat';
 }
+.container {
+    min-height: 87vh;
+}
 
 h1,
 h2 {
