@@ -4,7 +4,6 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { allIcons } from 'ngx-bootstrap-icons';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
-import { SliderComponent } from './slider/slider.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +12,7 @@ import { SliderComponent } from './slider/slider.component';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     NgxBootstrapIconsModule.pick(allIcons)
   ],
   exports: [

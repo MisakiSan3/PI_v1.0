@@ -10,14 +10,11 @@ import { AuthRoutingModuleModule } from './auth/auth-routing.module.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarModule } from './calendar/calendar.module';
 import { PagesModule } from './pages/pages.module';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { SliderComponent } from './shared/slider/slider.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
-    SliderComponent
+
   ],
   imports: [
     BrowserModule,
