@@ -11,7 +11,7 @@ const routes: Routes = [
    children:[
     {path: "teachers", component: TeachersComponent},
     {path:'teacher-register', component: RegisterTeacherComponent},
-    {path:'events-list', component:EventsComponent},
+    {path:'events', component:EventsComponent},
     {path:'subjects', component:MaterialComponent}
       ]}
 ]
