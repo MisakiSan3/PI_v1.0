@@ -9,7 +9,7 @@ import { MaterialComponent } from './material/material.component';
 const routes: Routes = [
   {path:"pages", component: PagesComponent,
    children:[
-    {path: "", component: TeachersComponent},
+    {path: "teacher-list", component: TeachersComponent},
     {path:'teacher-register', component: RegisterTeacherComponent},
     {path:'events-list', component:EventsComponent},
     {path:'subjects', component:MaterialComponent}
