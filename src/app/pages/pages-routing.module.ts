@@ -10,7 +10,7 @@ const routes: Routes = [
    children:[
     {path: "", component: TeachersComponent},
     {path:'register', component: RegisterTeacherComponent},
-    {path:'material', component: MaterialComponent},
+    {path:'materias', component: MaterialComponent},
    ]},
 ];
 

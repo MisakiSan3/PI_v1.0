@@ -21,9 +21,9 @@ export class MaterialComponent {
     codigo: ''
   };
 
-  registrarMateria() {
-    this.materias.push(this.nuevaMateria);
-    this.nuevaMateria = { nombre: '', codigo: '' };
-  }
+  // registrarMateria() {
+  //   this.materias.push(this.nuevaMateria);
+  //   this.nuevaMateria = { nombre: '', codigo: '' };
+  // }
 
 }
