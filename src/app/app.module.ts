@@ -10,16 +10,17 @@ import { AuthRoutingModuleModule } from './auth/auth-routing.module.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarModule } from './calendar/calendar.module';
 import { PagesModule } from './pages/pages.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     BrowserModule,
     CalendarModule,
     PagesModule,
+    AuthModule,
     AppRoutingModule,
     AuthRoutingModuleModule
   ],
