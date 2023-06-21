@@ -33,17 +33,17 @@
             <div class="card-body ">
                 <div *ngFor="let maestro of maestros;let i = index" class="accordion accordion-flush" id="accordion">
                     <a class="accordion-button" data-bs-toggle="collapse" href="#{{i}}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        {{maestro.nombre + ' ' + maestro.apellido}}
+                        {{maestro.nombre_p + ' ' + maestro.apellido_p}}
                     </a>
                     <div class="collapse" id="{{i}}">
                         <div class="card bg-brown my-1 card-body">
                             <div class="row">
                                 <div class="col"><h5>Asignatura:</h5></div>
-                                <div class="col">{{maestro.asignatura.nombre}}</div>
+                                <div class="col">{{maestro.asignatura.nombre_a}}</div>
                             </div>
                             <div class="row justify-content-evenly">
                                 <div class="col"><h5>Correo:</h5></div>
-                                <div class="col"><p>{{maestro.correo}}</p></div>
+                                <div class="col"><p>{{maestro.email}}</p></div>
                             </div>
                             <div class="row justify-content-evenly">
                                 <div class="col"><h5>Contacto:</h5></div>

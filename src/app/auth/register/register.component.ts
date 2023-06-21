@@ -32,6 +32,7 @@ export class RegisterComponent implements OnInit {
          this.userService.store(this.user).subscribe(
           response =>{
             console.log(response);
+            this.router.navigateByUrl("/pages");
           }
         )
       } else {

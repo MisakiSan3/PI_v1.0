@@ -9,7 +9,8 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { MaterialComponent } from './material/material.component';
 import { EventsComponent } from './events/events.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CommonModule,
     RouterModule,
     SharedModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    FormsModule,
+    NgSelectModule
   ]
 })
 export class PagesModule { }

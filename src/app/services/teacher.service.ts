@@ -12,7 +12,7 @@ import {
 })
 export class TeacherService {
   
-  readonly API_URL: string = "http://localhost:5000/user";
+  readonly API_URL: string = "http://localhost:5000/teachers";
 
   constructor(private httpClient: HttpClient) { }
 
