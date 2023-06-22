@@ -1,36 +1,44 @@
 <!-- app.component.html -->
-<div class="container">
+<div class="container pt-5">
+  <a class="btn btn-danger mb-3" [routerLink]="[ '/pages']">Regresar</a>
   <div class="row">
     <div class="col-md-6">
-      <h1>Registro de Materias</h1>
-      <form>
-        <div class="form-group">
-          <label for="nombre">Nombre</label>
-          <input type="text" class="form-control" id="nombre"  required>
+      <div class="card">
+        <div class="card-header">
+          <h1>Registro de Materias</h1>
         </div>
-        <div class="form-group">
-          <label for="codigo">Código</label>
-          <input type="text" class="form-control" id="codigo"  required>
+        <div class="card-body">
+          <form>
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input [(ngModel)]="materia.nombre_a" type="text" class="form-control" id="nombre" name="nombre"  required>
+            </div>
+            <button (click)="createSubjects()" type="submit" class="btn btn-success mt-2 me-2">Registrar</button>
+            <button (click)="vaciar()" type="button" class="btn btn-danger mt-2">Vaciar</button>
+          </form>
         </div>
-        <button type="submit" class="btn btn-primary">Registrar</button>
-      </form>
+      </div>
     </div>
     <div class="col-md-6">
-      <h1>Listado de Materias</h1>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Código</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let materia of materias">
-            <td>{{ materia.nombre }}</td>
-            <td>{{ materia.codigo }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="card">
+        <div class="card-header">
+          <h1>Listado de Materias</h1>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let materia of materias">
+                <td>{{ materia.nombre_a }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>

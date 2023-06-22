@@ -7,16 +7,21 @@ import { SharedModule } from '../shared/shared.module';
 import { RegisterTeacherComponent } from './register-teacher/register-teacher.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MaterialComponent } from './material/material.component';
-
+import { EventsComponent } from './events/events.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
-  declarations: [PagesComponent, TeachersComponent, RegisterTeacherComponent, MaterialComponent],
+  declarations: [PagesComponent, TeachersComponent, RegisterTeacherComponent, MaterialComponent, EventsComponent,DashboardComponent],
   imports: [
     CommonModule,
     RouterModule,
     SharedModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    FormsModule,
+    NgSelectModule
   ]
 })
 export class PagesModule { }

@@ -1,0 +1,67 @@
+.slider-container {
+  position: relative;
+  width: 400px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+  width: 300%; /* Ancho total de los slides (100% x número de slides) */
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  flex: 1 0 100%;
+}
+
+.slide img {
+  width: 75%;
+  height: 75%;
+  object-fit: cover;
+}
+
+.slider-navigation {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slider-navigation label {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #aaa;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.slider-navigation label:hover {
+  background-color: #555;
+}
+
+input[name="slider"] {
+  display: none;
+}
+
+input[name="slider"]:checked ~ .slides {
+  transform: translateX(-33.33%); /* Desplazamiento horizontal según el número de slides */
+}
+
+.carousel-controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.carousel-controls button {
+  font-size: 18px;
+}
+
+.title-container {
+  background-image: url('src\assets\images\fondo.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+

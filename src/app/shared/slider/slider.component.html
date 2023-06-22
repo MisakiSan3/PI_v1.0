@@ -1,0 +1,15 @@
+<div class="title-container">
+  <h1 class="text-center" style="font-family: 'Arial', sans-serif; color: rgb(255, 255, 255);">Bienvenidos a Kuya Yana</h1>
+</div>
+
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item" *ngFor="let slide of slides; let i = index" [ngClass]="{ 'active': i === 0 }">
+      <img [src]="slide.imgUrl" [alt]="slide.altText" class="d-block w-100">
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" (click)="goToCalendar()">Ir a tu calendario</button>
+  </div>
+</div>

@@ -7,37 +7,46 @@
                 <div class="first-column-inputs">
 
                     <!--NOMBRE-->
-                    <label for="Nombre">Nombre</label>
-                    <input type="text" placeholder="Ingresa tu nombre">
+                    <label for="nombre">Nombre</label>
+                    <input [(ngModel)]="user.nombre_u" id="nombre" name="nombre" type="text" placeholder="Ingresa tu nombre">
 
                     <!--EMAIL-->
                     <label for="email">Correo electronico</label>
-                    <input type="text" placeholder="Ingresa tu correo electronico">
+                    <input [(ngModel)]="user.email" name="email" id="email" type="email" placeholder="Ingresa tu correo electronico">
+
+                    <!--Teléfono-->
+                    <label for="telf">Teléfono celular</label>
+                    <input [(ngModel)]="user.telf" name="telf" id="telf" type="string" maxlength="9" pattern="[0-9]" placeholder="Ingresa tu número de teléfono">
+
+                    <!--Nickname-->
+                    <label for="nickname">Apodo</label>
+                    <input [(ngModel)]="user.nickname" name="nickname" id="nickname" type="string" placeholder="Ingresa tu NickName">
 
                 </div>
                 <div class="second-input-column">
 
                     <!--APELLIDO-->
-                    <label for="Apellido">Apellido</label>
-                    <input type="text" placeholder="Ingresa tu apellido">
+                    <label for="apellido">Apellido</label>
+                    <input [(ngModel)]="user.apellido_u" name="apellido" id="apellido" type="text" placeholder="Ingresa tu apellido">
 
                     <!--CONTRASEÑA-->
                     <label for="password">Contraseña</label>
-                    <input type="text" placeholder="Ingresa tu contraseña">
+                    <input [(ngModel)]="user.contrasenia" name="password" id="password"  type="text" placeholder="Ingresa tu contraseña">
+                    
 
                     <!--REPITE LA CONTRASEÑA-->
                     <label for="password">Contraseña</label>
-                    <input type="text" placeholder="Repite tu contraseña">
+                    <input [(ngModel)]="passwordVerify" name="password" id="password" type="text" placeholder="Repite tu contraseña">
                 </div>
 
                 <div class="register-buttons">
-                    <input id="register-button" type="submit" value="Ingresar">
+                    <input (click)="createUser()" id="register-button" type="submit" value="Ingresar">
                     <br>
                     <!--<a href="#">¿Perdiste tu contraseña?</a>-->
 
                     <div class="register-links">
                         <a id="dissabled-link" >¿Ya tienes una cuenta?</a>
-                        <button (click)="navigateToLogin()" id="enabled-link" href="#">Inicia Sesión aquí</button>
+                        <button (click)="navigateToLogin()" id="enabled-link" >Inicia Sesión aquí</button>
                     </div>
                 </div>
 
