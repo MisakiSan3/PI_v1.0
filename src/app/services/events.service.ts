@@ -12,7 +12,7 @@ import {
 })
 export class EventService {
   
-  readonly API_URL: string = "http://localhost:5000/user";
+  readonly API_URL: string = "http://localhost:5000/events";
 
   constructor(private httpClient: HttpClient) { }
 

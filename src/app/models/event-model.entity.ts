@@ -1,13 +1,14 @@
+import { CategoryModel } from "./category-model.entity";
 import { TeacherModel } from "./teacher-model.entity";
 
 export interface EventModel {
     id: string;
-    nombre_a: string;
-    fecha_i: Date;
-    fecha_f: Date;
-    descripcion: string;
+    title: string;
+    start: Date;
+    end: Date;
+    description: string;
     maestro: TeacherModel;
-    categoria: string;
+    categoria: CategoryModel;
 
 }
 export interface CreateEventModel extends  Omit<EventModel, 'id' |'categoria'>{
