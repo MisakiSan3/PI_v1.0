@@ -1,53 +1,61 @@
 <div class="container pt-5">
-  <a class="btn btn-danger mb-3" [routerLink]="[ '/pages/teacher-list']">Regresar</a>
   <div class="card login-box">
     <div class="card-header">
       <h1 class="card-title text-center">Registra un profesor</h1>
     </div>
     <div class="card-body">
-      <form id="miFormulario" class="needs-validation" novalidate>
-        <div class="form-group">
-          <label for="nombre">Nombre</label>
-          <input [(ngModel)]="teacher.nombre_p" type="text" class="form-control" id="nombre" placeholder="Ingresa el nombre" name="nombre" data-bv-notempty="true" data-bv-notempty-message="El nombre es obligatorio">
-          <div class="invalid-feedback">El nombre es obligatorio</div>
-        </div>
+      <form #teacherForm="ngForm" id="miFormulario">
+        <div [hidden]="teacherForm.submitted">
+          <div class="cross-validation" [class.cross-validation-error]="teacherForm.touched || teacherForm.dirty">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input minlength="2" #name="ngModel" [(ngModel)]="teacher.nombre_p" type="text"
+                class="form-control" id="nombre" placeholder="Ingresa el nombre" name="nombre" required >
+              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger mt-2">
+                <div *ngIf="name.errors?.['required']">El nombre es obligatorio</div>
+                <div *ngIf="name.errors?.['minlength']">Minimo 2 caracteres para el nombre</div>
+              </div>
+            </div>
 
-        <div class="form-group">
-          <label for="apellido">Apellido</label>
-          <input [(ngModel)]="teacher.apellido_p" type="text" class="form-control" id="apellido" placeholder="Ingresa el apellido" name="apellido" data-bv-notempty="true" data-bv-notempty-message="El apellido es obligatorio">
-          <div class="invalid-feedback">El apellido es obligatorio</div>
-        </div>
+            <div class="form-group">
+              <label for="apellido">Apellido</label>
+              <input [(ngModel)]="teacher.apellido_p" type="text" class="form-control" id="apellido"
+                placeholder="Ingresa el apellido" name="apellido">
+              <div class="invalid-feedback">El apellido es obligatorio</div>
+            </div>
 
-        <div class="form-group">
-          <label for="email">Correo electrónico</label>
-          <input [(ngModel)]="teacher.email" type="email" class="form-control" id="email" placeholder="Ingresa el correo electrónico" name="email" data-bv-notempty="true" data-bv-notempty-message="El correo electrónico es obligatorio" data-bv-emailaddress="true" data-bv-emailaddress-message="Ingresa un correo electrónico válido">
-          <div class="invalid-feedback">Ingresa un correo electrónico válido</div>
-        </div>
-        <div class="form-group">
-          <label for="telf">Teléfono celular</label>
-          <input class="form-control" [(ngModel)]="teacher.telf" name="telf" id="telf" type="tel" maxlength="9" pattern="[0-9]" placeholder="Ingresa tu número de teléfono" data-bv-notempty="true" data-bv-notempty-message= "El teléfono celular es obligatorio" data-bv-phone= "true"data-bv-phone-country= "ES"data-bv-phone-message= "Ingresa un número de teléfono válido">
-          <div class= "invalid-feedback">Ingresa un número de teléfono válido</div>
-        </div>
-        <div class= "form-group">
-          <label for= "materia">Materia</label>
-          <ng-select [items]= "materias"
-           bindLabel= "nombre_a"
-           name= "materia"
-           id= "materia"
-           bindValue= "id"
-           [(ngModel)]= "teacher.asignatura"data-bv-notempty= "true"data-bv-notempty-message= "La materia es obligatoria">
-        </ng-select>
-        </div>
+            <div class="form-group">
+              <label for="email">Correo electrónico</label>
+              <input [(ngModel)]="teacher.email" type="email" class="form-control" id="email"
+                placeholder="Ingresa el correo electrónico" name="email">
+              <div class="invalid-feedback">Ingresa un correo electrónico válido</div>
+            </div>
 
-        <div class= "text-center mt-2"> <!-- Agregado: Contenedor centrado -->
-          <input id= "register-button"(click)= "createTeacher()"type= "submit"value= "Registrar"class= "btn btn-primary">
+            <div class="form-group">
+              <label for="telf">Teléfono celular</label>
+              <input class="form-control" [(ngModel)]="teacher.telf" name="telf" id="telf" type="tel" maxlength="9"
+                pattern="[0-9]" placeholder="Ingresa tu número de teléfono">
+              <div class="invalid-feedback">Ingresa un número de teléfono válido</div>
+            </div>
+
+            <div class="form-group">
+              <label for="materia">Materia</label>
+              <ng-select [items]="materias" bindLabel="nombre_a" name="materia" id="materia" bindValue="id"
+                [(ngModel)]="teacher.asignatura">
+              </ng-select>
+            </div>
+
+            <div class="text-center mt-2 d-flex justify-content-evenly"> <!-- Agregado: Contenedor centrado -->
+              <input id="register-button" (click)="createTeacher()" type="submit" value="Registrar"
+                class="btn btn-primary">
+               <a href=""><div class="btn btn-secondary rounded-circle ">↻</div></a>
+              <a class="btn btn-danger" [routerLink]="[ '/pages/teacher-list']">Regresar</a>
+            </div>
+
+
+          </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-<script>
-  $(document).ready(function() {
-    $('#miFormulario').bootstrapValidator();
-  });
-</script>
