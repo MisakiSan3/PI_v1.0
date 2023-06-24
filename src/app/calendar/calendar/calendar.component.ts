@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class CalendarComponent implements OnInit {
   constructor(private eventsService: EventService,private router: Router){}
   events: EventModel[] = [];
+  eventbd: EventModel[] = [];
   visible: boolean = false;
   event: EventModel = {
     id: '',

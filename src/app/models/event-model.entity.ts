@@ -18,7 +18,9 @@ export interface CreateEventModel extends  Omit<EventModel, 'id' |'categoria' |'
     end: string;
 }
 
-export interface UpdateEventModel extends Partial<EventModel>{
-    id: string;
-    categoriaId?: string;
+export interface UpdateEventModel extends Omit<EventModel, 'categoria' |'maestro' |'start' |'end'>{
+    categoria?: string;
+    maestro?: string;
+    start?: string;
+    end?: string;
 }

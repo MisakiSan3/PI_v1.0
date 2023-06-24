@@ -12,15 +12,15 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group mb-3">
             <label for="eventName">Nombre del evento:</label>
-            <input [(ngModel)]="event.title" type="text" class="form-control" id="eventName" placeholder="Ingrese el nombre del evento">
+            <input [(ngModel)]="event.title" [(ngModel)]="eventUpdate.title" type="text" class="form-control" id="eventName" placeholder="Ingrese el nombre del evento">
           </div>
           <div class="form-group mb-3">
             <label for="start">Fecha de inicio del evento:</label>
-            <input [(ngModel)]="event.start" type="date" class="form-control" name="start" id="start">
+            <input [(ngModel)]="event.start" [(ngModel)]="eventUpdate.start" type="date" class="form-control" name="start" id="start">
           </div>
           <div *ngIf="!esClase" class="form-group mb-3">
             <label for="end">Fecha de finalización del evento:</label>
-            <input [(ngModel)]="event.end" type="date" class="form-control" name="end" id="end">
+            <input [(ngModel)]="event.end" [(ngModel)]="eventUpdate.end" type="date" class="form-control" name="end" id="end">
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -28,6 +28,7 @@
               <label for="eventName">Categoria del evento:</label>
               <ng-select [items]= "categorias"
               [(ngModel)]="event.categoria"
+              [(ngModel)]="eventUpdate.categoria"
              bindLabel= "nombre_c"
              name= "categoria"
              id= "categoria"
@@ -40,6 +41,7 @@
             <label for="eventName">Maestro del evento:</label>
             <ng-select [items]= "maestros"
             [(ngModel)]="event.maestro"
+            [(ngModel)]="eventUpdate.maestro"
             bindLabel= "nombre_p"
             name= "maestro"
             id= "maestro"
@@ -67,10 +69,11 @@
       <div class="row mb-3">
         <div class="col-12">
           <label for="description">Descripción del evento:</label>
-          <textarea [(ngModel)]="event.description" class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+          <textarea [(ngModel)]="event.description" [(ngModel)]="eventUpdate.description" class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
         </div>
       </div>
-      <button (click)="createEvent()" type="submit" class="btn btn-primary">Guardar</button>
+      <button *ngIf="!updating" (click)="createEvent()" type="submit" class="btn btn-primary">Guardar</button>
+      <button *ngIf="updating" (click)="createUpdate()" type="submit" class="btn btn-primary">Actualizar</button>
     </div>
 
   </div>

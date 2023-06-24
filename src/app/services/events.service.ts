@@ -32,7 +32,7 @@ export class EventService {
 
   update(id: EventModel['id'], event: UpdateEventModel):Observable<EventModel> {
     const url = `${this.API_URL}/${id}`;
-    return this.httpClient.put<EventModel>(url, event);//devuelve un observable de tipo EventModel
+    return this.httpClient.patch<EventModel>(url, event);//devuelve un observable de tipo EventModel
   }
   destroy(id: EventModel['id']):Observable<any> {
     const url = `${this.API_URL}/${id}`;
