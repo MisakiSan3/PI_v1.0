@@ -1,47 +1,78 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Formulario de Eventos</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    .form-container {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-6">
-        <h1>Formulario de Eventos</h1>
-        <div class="form-container">
-          <form>
-            <div class="form-group">
-              <label for="eventName">Nombre del evento:</label>
-              <input type="text" class="form-control" id="eventName" placeholder="Ingrese el nombre del evento">
-            </div>
-            <div class="form-group">
-              <label for="eventDate">Fecha del evento:</label>
-              <input type="date" class="form-control" id="eventDate">
-            </div>
-            <div class="form-group">
-              <label for="eventTime">Hora del evento:</label>
-              <input type="time" class="form-control" id="eventTime">
-            </div>
-            <div class="form-group">
-              <label for="eventDescription">Descripción del evento:</label>
-              <textarea class="form-control" id="eventDescription" rows="3" placeholder="Ingrese una descripción"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-          </form>
+
+<div class="container mb-3">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12">
+          <a class="btn btn-danger" [routerLink]="[ '/calendar']">Regresar</a>
+          <h1>Formulario de Eventos</h1>
         </div>
       </div>
+      <div class="row justify-content-evenly">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group mb-3">
+            <label for="eventName">Nombre del evento:</label>
+            <input [(ngModel)]="event.title" type="text" class="form-control" id="eventName" placeholder="Ingrese el nombre del evento">
+          </div>
+          <div class="form-group mb-3">
+            <label for="start">Fecha de inicio del evento:</label>
+            <input [(ngModel)]="event.start" type="date" class="form-control" name="start" id="start">
+          </div>
+          <div *ngIf="!esClase" class="form-group mb-3">
+            <label for="end">Fecha de finalización del evento:</label>
+            <input [(ngModel)]="event.end" type="date" class="form-control" name="end" id="end">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group mb-3">
+              <label for="eventName">Categoria del evento:</label>
+              <ng-select [items]= "categorias"
+              [(ngModel)]="event.categoria"
+             bindLabel= "nombre_c"
+             name= "categoria"
+             id= "categoria"
+             bindValue= "id"
+             (click)="categoryHandler()"
+             >
+            </ng-select>
+          </div>
+          <div class="form-group mb-3">
+            <label for="eventName">Maestro del evento:</label>
+            <ng-select [items]= "maestros"
+            [(ngModel)]="event.maestro"
+            bindLabel= "nombre_p"
+            name= "maestro"
+            id= "maestro"
+            bindValue= "id"
+            >
+           </ng-select>
+        </div>
+        <div class="row">
+          <div class="col-5">
+            <div class="form-group mb-3">
+              <label for="timeStart">Hora del evento:</label>
+              <input [(ngModel)]="timeStart" type="time" class="form-control" name="timeStart" id="timeStart">
+            </div>
+          </div>
+          <div class="col-5">
+            <div class="form-group mb-3">
+              <label for="timeEnd">Hora del evento:</label>
+              <input [(ngModel)]="timeEnd" type="time" class="form-control" name="timeEnd" id="timeEnd">
+            </div>
+          </div>
+        </div>
+        
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12">
+          <label for="description">Descripción del evento:</label>
+          <textarea [(ngModel)]="event.description" class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+        </div>
+      </div>
+      <button (click)="createEvent()" type="submit" class="btn btn-primary">Guardar</button>
     </div>
-  </div>
 
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+  </div>
+</div>
+

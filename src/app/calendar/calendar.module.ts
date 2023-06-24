@@ -7,6 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -21,6 +23,8 @@ import { AppRoutingModule } from '../app-routing.module';
     AppRoutingModule,
     RouterModule,
     FullCalendarModule,
+    NgSelectModule,
+    FormsModule,
     SharedModule
   ],
   exports: [

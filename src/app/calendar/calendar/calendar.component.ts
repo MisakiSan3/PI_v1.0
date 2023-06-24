@@ -45,6 +45,8 @@ export class CalendarComponent implements OnInit {
       nombre_c: ''
     }
   }
+  startDate: string = '';
+  endDate: string = '';
   ngOnInit(): void {
    this.getEvents();
   }
@@ -65,7 +67,8 @@ export class CalendarComponent implements OnInit {
     
   calendarOptions:CalendarOptions = {
       plugins: [dayGridPlugin],
-    initialView: 'dayGridMonth',
+      timeZone: 'local',
+    initialView: 'dayGridWeek',
     eventClick: this.handleDateClick.bind(this),
     initialDate: new Date,
     lazyFetching: false,
@@ -74,6 +77,7 @@ export class CalendarComponent implements OnInit {
   }
   
   handleDateClick(arg: EventClickArg) {
+    
     const eventArg = arg.event._def
     if (this.event.id === eventArg.publicId && this.visible) {
       this.visible = false;
@@ -85,6 +89,15 @@ export class CalendarComponent implements OnInit {
     this.event.description = eventArg.extendedProps['description'];
     this.event.categoria = eventArg.extendedProps['categoria'];
     this.event.maestro = eventArg.extendedProps['maestro'];
+    this.events.forEach(event => {
+      if (event.id == this.event.id) {
+       this.startDate = event.start.toLocaleString().slice(11,16);
+       this.endDate = event.end.toLocaleString().slice(11,16);
+       this.event.start = event.start,
+       this.event.end = event.end   
+      }
+    });
+    
   }
   
   deleteEvent(){
