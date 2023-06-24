@@ -62,10 +62,10 @@
             </div>
 
             <div class="text-center mt-2 d-flex justify-content-evenly"> <!-- Agregado: Contenedor centrado -->
-              <input id="register-button" (click)="createTeacher()" type="submit" value="Registrar"
+              <input [disabled]="teacherForm.invalid" id="register-button" (click)="createTeacher()" type="submit" value="Registrar"
                 class="btn btn-primary">
               <a href="">
-                <div class="btn btn-secondary rounded-circle ">↻</div>
+                <div class="btn btn-secondary rounded-circle" (onClick)="teacherForm.resetForm({})">↻</div>
               </a>
               <a class="btn btn-danger" [routerLink]="[ '/pages/teacher-list']">Regresar</a>
             </div>
