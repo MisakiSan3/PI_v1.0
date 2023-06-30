@@ -10,9 +10,9 @@
     
                 <!--CONTRASEÑA-->
                 <label for="password">Contraseña</label>
-                <input [(ngModel)]="user.password" name="password" id="password" type="password" placeholder="Ingresa tu contraseña">
+                <input [(ngModel)]="user.contrasenia" name="password" id="password" type="password" placeholder="Ingresa tu contraseña">
     
-                <input (click)="logIn()" id="login-button" type="submit" value="Ingresar">
+                <input (click)="onLogin()" id="login-button" type="submit" value="Ingresar">
                 <br>
                 <a href="#">¿Perdiste tu contraseña?</a>
                 <br><br>
