@@ -13,7 +13,7 @@
               <label for="nombre">Nombre</label>
               <input [(ngModel)]="materia.nombre_a" [(ngModel)]="updatedSubject.nombre_a" type="text" class="form-control" id="nombre" name="nombre"  required>
             </div>
-            <button *ngIf="!updating" (click)="createSubjects()" type="submit" class="btn btn-success mt-2 me-2">Registrar</button><button *ngIf="updating" (click)="createSubjects()" type="submit" class="btn btn-success mt-2 me-2">Actualizar</button>
+            <button *ngIf="!updating" (click)="createSubjects()" type="submit" class="btn btn-success mt-2 me-2">Registrar</button><button *ngIf="updating" (click)="update()" type="submit" class="btn btn-success mt-2 me-2">Actualizar</button>
             <button (click)="vaciar()" type="button" class="btn btn-danger mt-2">Vaciar</button>
           </form>
         </div>
@@ -29,16 +29,18 @@
             <thead>
               <tr>
                 <th>Nombre</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let materia of materias">
                 <td>{{ materia.nombre_a }}</td>
                 <td>
-                  <button (click)="selectSubject(materia)">Actualizar</button>
+                  <button class="btn btn-success mt-2 me-2" (click)="selectSubject(materia)">Actualizar</button>
                 </td>
                 <td>
-                  <button>Eliminar</button>
+                  <button class="btn btn-success mt-2 me-2" (click)="deleteSubject(materia.id)">Eliminar</button>
                 </td>
               </tr>
             </tbody>
