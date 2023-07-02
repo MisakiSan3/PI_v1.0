@@ -15,7 +15,7 @@ export class MaterialComponent {
   constructor(private subjectService:SubjectService) {
   }
   materia: CreateSubjectModel = {
-    user: '01d74dff-5e1d-49f4-acec-6d357a2f3cab',
+    user: '53b2f4d4-74cf-434a-990d-3eb18fb4c0ad',
     nombre_a: ''
   }
   ngOnInit(): void {
