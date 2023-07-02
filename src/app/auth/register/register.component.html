@@ -2,7 +2,7 @@
     <div class="login-box">
 
             <img class="ky-logo" src="../../../assets/images/logo_transparent.png" alt="logo Kuya Yana">
-            <h1>Ingresa a tu cuenta</h1>
+            <h1>Registrate</h1>
             <form action="">
                 <div class="first-column-inputs">
 
@@ -55,11 +55,12 @@
                     <span *ngIf="passwordVerify !== user.contrasenia">Las contraseñas no coinciden.</span>
                   </div>
 
-                <div class="register-buttons">
-                    <input (click)="createUser()" id="register-button" type="submit" value="Ingresar" class="btn btn-danger">
-                    <br>
-                    <!--<a href="#">¿Perdiste tu contraseña?</a>-->
+                  <div class="register-buttons">
+                    <button (click)="createUser()" id="register-button" class="btn btn-danger">Registrarse</button>
 
+                  <div class="validation-error-message" *ngIf="showValidationError">{{ validationErrorMessage }}</div>
+
+                    <!--<a href="#">¿Perdiste tu contraseña?</a>-->
                     <div class="register-links">
                         <a id="dissabled-link" >¿Ya tienes una cuenta?</a>
                         <button (click)="navigateToLogin()" id="enabled-link" >Inicia Sesión aquí</button>
