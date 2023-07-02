@@ -38,9 +38,11 @@ export class MaterialComponent {
       response => {
         console.log(response);
         this.materias.push(response);
-        
+
       }
     )
   }
+
+  
 
 }
