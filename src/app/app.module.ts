@@ -11,6 +11,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarModule } from './calendar/calendar.module';
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { AuthModule } from './auth/auth.module';
     AuthRoutingModuleModule,
     
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

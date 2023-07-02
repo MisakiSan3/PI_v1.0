@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { UserAuthModel } from 'src/app/models/auth-model.entity';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
     private authSevice:AuthService,
     private tokenService:TokenService,
     //private toastrService:ToastrService
-    
+    private cookieService: CookieService
     ) { 
     }
     
@@ -29,17 +30,27 @@ export class LoginComponent implements OnInit {
       contrasenia: ''
     }
     ngOnInit(): void {
-      
     }
 
     onLogin(): void {
-      this.user = new UserAuthModel(this.user.email, this.user.contrasenia);
-      this.authSevice.login(this.user).subscribe(
+      try {
+        this.user = new UserAuthModel(this.user.email, this.user.contrasenia);
+        this.authSevice.login(this.user).subscribe(
         data =>{
-          console.log(data.token);
+            if (data['accessToke']) {
+              const dataJson = JSON.stringify(data['accessToke'])
+              this.cookieService.set('User',dataJson);      
+              this.router.navigateByUrl("/pages")  
+            }else {
+              throw new Error('No existe el usuario')
+            }
           //this.tokenService.setToken(data.token);
         }
       )
+      } catch (error) {
+        console.log(error);
+      }
+      
     }
   
   navigateToRegister() {
