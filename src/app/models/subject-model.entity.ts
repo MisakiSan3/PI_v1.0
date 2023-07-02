@@ -11,7 +11,7 @@ export interface CreateSubjectModel extends  Omit<SubjectModel, 'id' |'user'>{
     user: string;
 }
 
-export interface UpdateSubjectModel extends Partial<SubjectModel>{
+export interface UpdateSubjectModel extends Omit<SubjectModel, 'user'>{
     id: string;
-    userId?: string;
+    user: string;
 }

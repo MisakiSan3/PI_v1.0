@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CreateSubjectModel, SubjectModel } from 'src/app/models/subject-model.entity';
+import { CreateSubjectModel, SubjectModel, UpdateSubjectModel } from 'src/app/models/subject-model.entity';
 import { SubjectService } from 'src/app/services/subject.service';
 interface Materia {
   nombre: string;
@@ -31,6 +31,7 @@ export class MaterialComponent {
     )
   }
   vaciar(){
+    this.updatedSubject.nombre_a = '';
     this.materia.nombre_a = '';
   }
   createSubjects(){
@@ -43,6 +44,28 @@ export class MaterialComponent {
     )
   }
 
-  
+  updatedSubject: UpdateSubjectModel = {
+    id: '',
+    nombre_a: '',
+    user: '',
+  };
 
+  update() {
+
+    this.subjectService.update(this.updatedSubject.id, this.updatedSubject)
+      .subscribe(
+        (updatedSubject: SubjectModel) => {
+          console.log('Entidad actualizada correctamente', updatedSubject)
+        },
+      );
+  }
+
+  selectSubject(subject: SubjectModel) {
+    this.updatedSubject.id = subject.id;
+    this.updatedSubject.nombre_a = subject.nombre_a;
+    this.updatedSubject.user = subject.user.id;
+    this.updating = true;
+  }
+
+  updating: boolean = false;
 }
