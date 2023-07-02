@@ -1,31 +1,30 @@
 <div class="container pt-5">
-  <a class="btn btn-danger mb-3" [routerLink]="[ '/pages/teacher-list']">Regresar</a>
   <div class="card login-box">
-    <div class="card-header">
-      <h1 class="card-title text-center">Registra un profesor</h1>
+    <div class="card-header bg-dark text-white">
+      <h1 class="card-title text-center ">Registra un profesor</h1>
     </div>
     <div class="card-body">
       <form id="miFormulario" class="needs-validation" novalidate>
         <div class="form-group">
           <label for="nombre">Nombre</label>
-          <input [(ngModel)]="teacherEdit.nombre_p"[(ngModel)]="teacher.nombre_p" type="text" class="form-control" id="nombre" placeholder="Ingresa el nombre" name="nombre" data-bv-notempty="true" data-bv-notempty-message="El nombre es obligatorio">
+          <input [(ngModel)]="teacher.nombre_p" type="text" class="form-control" id="nombre" placeholder="Ingresa el nombre" name="nombre" data-bv-notempty="true" data-bv-notempty-message="El nombre es obligatorio">
           <div class="invalid-feedback">El nombre es obligatorio</div>
         </div>
 
         <div class="form-group">
           <label for="apellido">Apellido</label>
-          <input [(ngModel)]="teacherEdit.apellido_p" [(ngModel)]="teacher.apellido_p" type="text" class="form-control" id="apellido" placeholder="Ingresa el apellido" name="apellido" data-bv-notempty="true" data-bv-notempty-message="El apellido es obligatorio">
+          <input [(ngModel)]="teacher.apellido_p" type="text" class="form-control" id="apellido" placeholder="Ingresa el apellido" name="apellido" data-bv-notempty="true" data-bv-notempty-message="El apellido es obligatorio">
           <div class="invalid-feedback">El apellido es obligatorio</div>
         </div>
 
         <div class="form-group">
           <label for="email">Correo electrónico</label>
-          <input [(ngModel)]="teacherEdit.email" [(ngModel)]="teacher.email" type="email" class="form-control" id="email" placeholder="Ingresa el correo electrónico" name="email" data-bv-notempty="true" data-bv-notempty-message="El correo electrónico es obligatorio" data-bv-emailaddress="true" data-bv-emailaddress-message="Ingresa un correo electrónico válido">
+          <input [(ngModel)]="teacher.email" type="email" class="form-control" id="email" placeholder="Ingresa el correo electrónico" name="email" data-bv-notempty="true" data-bv-notempty-message="El correo electrónico es obligatorio" data-bv-emailaddress="true" data-bv-emailaddress-message="Ingresa un correo electrónico válido">
           <div class="invalid-feedback">Ingresa un correo electrónico válido</div>
         </div>
         <div class="form-group">
           <label for="telf">Teléfono celular</label>
-          <input class="form-control" [(ngModel)]="teacherEdit.telf" [(ngModel)]="teacher.telf" name="telf" id="telf" type="tel" maxlength="9" pattern="[0-9]" placeholder="Ingresa tu número de teléfono" data-bv-notempty="true" data-bv-notempty-message= "El teléfono celular es obligatorio" data-bv-phone= "true"data-bv-phone-country= "ES"data-bv-phone-message= "Ingresa un número de teléfono válido">
+          <input class="form-control" [(ngModel)]="teacher.telf" name="telf" id="telf" type="tel" maxlength="9" pattern="[0-9]" placeholder="Ingresa tu número de teléfono" data-bv-notempty="true" data-bv-notempty-message= "El teléfono celular es obligatorio" data-bv-phone= "true"data-bv-phone-country= "ES"data-bv-phone-message= "Ingresa un número de teléfono válido">
           <div class= "invalid-feedback">Ingresa un número de teléfono válido</div>
         </div>
         <div class= "form-group">
@@ -35,21 +34,14 @@
            name= "materia"
            id= "materia"
            bindValue= "id"
-           [(ngModel)]="teacherEdit.asignatura"
            [(ngModel)]= "teacher.asignatura"data-bv-notempty= "true"data-bv-notempty-message= "La materia es obligatoria">
         </ng-select>
         </div>
 
         <div class= "text-center mt-2"> <!-- Agregado: Contenedor centrado -->
-          <input *ngIf="!updating" id= "register-button"(click)= "createTeacher()"type= "submit"value= "Registrar"class= "btn btn-primary">
-          <input *ngIf="updating" id= "register-button"(click)= "updateTeacher()"type= "submit"value= "Actualizar"class= "btn btn-primary">
+          <input id= "register-button"(click)= "createTeacher()"type= "submit"value= "Registrar"class= "btn btn-primary">
         </div>
       </form>
     </div>
   </div>
 </div>
-<script>
-  $(document).ready(function() {
-    $('#miFormulario').bootstrapValidator();
-  });
-</script>

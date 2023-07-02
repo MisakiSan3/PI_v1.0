@@ -11,11 +11,16 @@ export interface EventModel {
     categoria: CategoryModel;
 
 }
-export interface CreateEventModel extends  Omit<EventModel, 'id' |'categoria'>{
-    categoriaId: string;
+export interface CreateEventModel extends  Omit<EventModel, 'id' |'categoria' |'maestro' |'start' |'end'>{
+    categoria: string;
+    maestro: string;
+    start: string;
+    end: string;
 }
 
-export interface UpdateEventModel extends Partial<EventModel>{
-    id: string;
-    categoriaId?: string;
+export interface UpdateEventModel extends Omit<EventModel, 'categoria' |'maestro' |'start' |'end'>{
+    categoria?: string;
+    maestro?: string;
+    start?: string;
+    end?: string;
 }

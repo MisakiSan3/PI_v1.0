@@ -22,7 +22,8 @@ import { AuthModule } from './auth/auth.module';
     PagesModule,
     AuthModule,
     AppRoutingModule,
-    AuthRoutingModuleModule
+    AuthRoutingModuleModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
