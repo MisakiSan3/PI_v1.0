@@ -51,11 +51,12 @@
 
                     <!--REPITE LA CONTRASEÑA-->
                     <label for="password">Contraseña</label>
-                    <input [(ngModel)]="passwordVerify" name="password" id="password" placeholder="Repite tu contraseña" type="password" required class="form-control">
+                    <input [(ngModel)]="passwordVerify" name="password" id="password" placeholder="Repite tu contraseña" type="password" required class="form-control" [formControl]="password">
+                    <span *ngIf="passwordVerify !== user.contrasenia">Las contraseñas no coinciden.</span>
                   </div>
 
                 <div class="register-buttons">
-                    <input (click)="createUser()" id="register-button" type="submit" value="Ingresar">
+                    <input (click)="createUser()" id="register-button" type="submit" value="Ingresar" class="btn btn-danger">
                     <br>
                     <!--<a href="#">¿Perdiste tu contraseña?</a>-->
 
@@ -67,5 +68,5 @@
 
             </form>
     </div>
-        <img class="login-image" src="../../../assets/images/students-login.jpg" alt="">
+        <img class="login-image" src="../../../assets/images/liderar-reuniones.jpg" alt="">
 </div>
