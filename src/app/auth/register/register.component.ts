@@ -68,8 +68,7 @@ export class RegisterComponent implements OnInit {
               this.showValidationError = true;
               this.validationErrorMessage = 'Hubo un error al registrar el usuario';
 
-              this.snackBar.open('Hubo un error al registrar el usuario', 'Cerrar', {
-                duration: 3000
+              this.snackBar.open('', '', {
               });
             }
           );
