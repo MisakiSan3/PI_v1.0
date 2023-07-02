@@ -4,79 +4,44 @@
       <h1 class="card-title text-center ">Registra un profesor</h1>
     </div>
     <div class="card-body">
-      <form #teacherForm="ngForm" id="miFormulario">
-        <div [hidden]="teacherForm.submitted">
-          <div class="cross-validation" [class.cross-validation-error]="teacherForm.touched || teacherForm.dirty">
-            <div class="form-group">
-              <label for="nombre">Nombre</label>
-              <input minlength="2" #name="ngModel" [(ngModel)]="teacher.nombre_p" type="text" class="form-control"
-                id="nombre" placeholder="Ingresa el nombre" name="nombre" required>
-              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger mt-2">
-                <div *ngIf="name.errors?.['required']">El nombre es obligatorio</div>
-                <div *ngIf="name.errors?.['minlength']">Minimo 2 caracteres para el nombre</div>
-              </div>
-            </div>
+<<<<<<< HEAD
+      <form id="miFormulario" class="needs-validation" novalidate>
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input [(ngModel)]="teacherEdit.nombre_p"[(ngModel)]="teacher.nombre_p" type="text" class="form-control" id="nombre" placeholder="Ingresa el nombre" name="nombre" data-bv-notempty="true" data-bv-notempty-message="El nombre es obligatorio">
+          <div class="invalid-feedback">El nombre es obligatorio</div>
+        </div>
 
-            <div class="form-group">
-              <label for="apellido">Apellido</label>
-              <input required #lastName="ngModel" minlength="2" [(ngModel)]="teacher.apellido_p" type="text"
-                class="form-control" id="apellido" placeholder="Ingresa el apellido" name="apellido">
-              <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger mt-2">
-                <div *ngIf="lastName.errors?.['required']">El apellido es obligatorio</div>
-                <div *ngIf="lastName.errors?.['minlength']">Minimo 2 caracteres para el apellido</div>
-              </div>
-            </div>
+        <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input [(ngModel)]="teacherEdit.apellido_p" [(ngModel)]="teacher.apellido_p" type="text" class="form-control" id="apellido" placeholder="Ingresa el apellido" name="apellido" data-bv-notempty="true" data-bv-notempty-message="El apellido es obligatorio">
+          <div class="invalid-feedback">El apellido es obligatorio</div>
+        </div>
 
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input required #email="ngModel" email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                [(ngModel)]="teacher.email" type="email" class="form-control" id="email" placeholder="Ingresa el email"
-                name="email">
-              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger mt-2">
-                <div *ngIf="email.errors?.['required']">El email es obligatorio</div>
-                <div *ngIf="email.errors?.['email'] || email.errors?.['pattern']">El email es inválido</div>
-              </div>
-            </div>
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input [(ngModel)]="teacherEdit.email" [(ngModel)]="teacher.email" type="email" class="form-control" id="email" placeholder="Ingresa el correo electrónico" name="email" data-bv-notempty="true" data-bv-notempty-message="El correo electrónico es obligatorio" data-bv-emailaddress="true" data-bv-emailaddress-message="Ingresa un correo electrónico válido">
+          <div class="invalid-feedback">Ingresa un correo electrónico válido</div>
+        </div>
+        <div class="form-group">
+          <label for="telf">Teléfono celular</label>
+          <input class="form-control" [(ngModel)]="teacherEdit.telf" [(ngModel)]="teacher.telf" name="telf" id="telf" type="tel" maxlength="9" pattern="[0-9]" placeholder="Ingresa tu número de teléfono" data-bv-notempty="true" data-bv-notempty-message= "El teléfono celular es obligatorio" data-bv-phone= "true"data-bv-phone-country= "ES"data-bv-phone-message= "Ingresa un número de teléfono válido">
+          <div class= "invalid-feedback">Ingresa un número de teléfono válido</div>
+        </div>
+        <div class= "form-group">
+          <label for= "materia">Materia</label>
+          <ng-select [items]= "materias"
+           bindLabel= "nombre_a"
+           name= "materia"
+           id= "materia"
+           bindValue= "id"
+           [(ngModel)]="teacherEdit.asignatura"
+           [(ngModel)]= "teacher.asignatura"data-bv-notempty= "true"data-bv-notempty-message= "La materia es obligatoria">
+        </ng-select>
+        </div>
 
-
-            <div class="form-group">
-              <label for="telf">Teléfono celular</label>
-              <input #cellPhoneNumber="ngModel" required class="form-control" [(ngModel)]="teacher.telf" name="telf" id="telf" type="tel" maxlength="9" pattern="[0-9]{9}" placeholder="Ingresa tu número de teléfono">
-              <div *ngIf="cellPhoneNumber.invalid && (cellPhoneNumber.dirty || cellPhoneNumber.touched)" class="alert alert-danger mt-2">
-                <div *ngIf="cellPhoneNumber.errors?.['required']">El número de teléfono es obligatorio</div>
-                <div *ngIf="cellPhoneNumber.errors?.['pattern']">El número de teléfono no tiene el formato correcto</div>
-              </div>
-            </div>
-
-
-            <div class="form-group">
-              <label for="materia">Materia</label>
-              <!-- Agregamos el atributo required y la referencia local #materiaSelect -->
-              <ng-select #materiaSelect="ngModel" required [items]="materias" bindLabel="nombre_a" name="materia" id="materia" bindValue="id"
-                [(ngModel)]="teacher.asignatura">
-              </ng-select>
-              <!-- Usamos la directiva *ngIf para mostrar los mensajes de error -->
-              <div *ngIf="materiaSelect.invalid && (materiaSelect.dirty || materiaSelect.touched)" class="alert alert-danger mt-2">
-                <div *ngIf="materiaSelect.errors?.['required']">La materia es obligatoria</div>
-              </div>
-            </div>
-
-            <div class="text-center mt-2 d-flex justify-content-evenly"> <!-- Agregado: Contenedor centrado -->
-              <input [disabled]="teacherForm.invalid" id="register-button" (click)="createTeacher()" type="submit" value="Registrar"
-                class="btn btn-primary">
-              <a href="">
-                <div class="btn btn-secondary rounded-circle" (onClick)="teacherForm.resetForm({})">↻</div>
-              </a>
-              <a class="btn btn-danger" [routerLink]="[ '/pages/teacher-list']">Regresar</a>
-            </div>
-
-            <div class="submitted-message" *ngIf="teacherForm.submitted">
-              <p>You've submitted your hero, {{ teacherForm.value.name }}!</p>
-              <button type="button" (click)="teacherForm.resetForm({})">Aniadir nuevo maestro?</button>
-            </div>
-
-
-          </div>
+        <div class= "text-center mt-2"> <!-- Agregado: Contenedor centrado -->
+          <input id= "register-button"(click)= "createTeacher()"type= "submit"value= "Registrar"class= "btn btn-primary">
         </div>
       </form>
     </div>
