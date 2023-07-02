@@ -15,7 +15,7 @@ export class MaterialComponent {
   constructor(private subjectService:SubjectService) {
   }
   materia: CreateSubjectModel = {
-    user: '01d74dff-5e1d-49f4-acec-6d357a2f3cab',
+    user: '3b8b4161-ed9c-4c2e-a6ff-5709e3f7905d',
     nombre_a: ''
   }
   ngOnInit(): void {
@@ -51,11 +51,18 @@ export class MaterialComponent {
   };
 
   update() {
-
     this.subjectService.update(this.updatedSubject.id, this.updatedSubject)
       .subscribe(
         (updatedSubject: SubjectModel) => {
-          console.log('Entidad actualizada correctamente', updatedSubject)
+          this.getSubjects()
+        },
+      );
+  }
+  deleteSubject(id: string) {
+    this.subjectService.destroy(id)
+      .subscribe(
+        (updatedSubject: SubjectModel) => {
+          this.getSubjects()
         },
       );
   }

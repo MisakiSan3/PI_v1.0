@@ -32,7 +32,7 @@ export class SubjectService {
 
   update(id: SubjectModel['id'], subject: UpdateSubjectModel):Observable<SubjectModel> {
     const url = `${this.API_URL}/${id}`;
-    return this.httpClient.put<SubjectModel>(url, subject);//devuelve un observable de tipo SubjectModel
+    return this.httpClient.patch<SubjectModel>(url, subject);//devuelve un observable de tipo SubjectModel
   }
   destroy(id: SubjectModel['id']):Observable<any> {
     const url = `${this.API_URL}/${id}`;
