@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RegisterComponent implements OnInit {
   emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  phoneRegex = /^\d+$/; // Expresión regular para permitir solo números
   constructor(private router: Router,private userService:UserService, private snackBar:MatSnackBar) {}
   ngOnInit(): void {
   }
@@ -27,6 +28,7 @@ export class RegisterComponent implements OnInit {
 
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
   email = new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]);
+  telf = new FormControl('', [Validators.required, Validators.pattern(this.phoneRegex)]);
 
   navigateToLogin() {
     this.router.navigateByUrl("/login");
@@ -47,10 +49,14 @@ export class RegisterComponent implements OnInit {
             }
           );
         } else {
-          throw new Error("El correo electrónico no es válido");
+          this.snackBar.open('El correo electrónico no es válido', 'Cerrar', {
+            duration: 3000
+          });
         }
       } else {
-        throw new Error("Las contraseñas no son iguales");
+        this.snackBar.open('Las contraseñas no son iguales', 'Cerrar', {
+          duration: 3000
+        });
       }
     } catch (error) {
       console.log(error);
@@ -58,6 +64,3 @@ export class RegisterComponent implements OnInit {
   }
 
 }
-
-
-

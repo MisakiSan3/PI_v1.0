@@ -12,16 +12,20 @@
 
                     <!--EMAIL-->
                     <label for="email">Correo electronico</label>
-                    <input #emailInput="ngModel" [(ngModel)]="user.email" name="email" id="email" type="email" required placeholder="Ejemplo: pepe@gmail.com" class="form-control">
-                    <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
-                      <div *ngIf="emailInput.control.hasError('required')">
-                        El email es requerido.
-                      </div>
-                  </div>
+                    <input [(ngModel)]="user.email" name="email" id="email" type="email" required placeholder="Ejemplo: pepe@gmail.com" class="form-control" [formControl]="email">
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                      <span *ngIf="email.errors?.['required']">El correo electrónico es requerido.</span>
+                      <span *ngIf="email.errors?.['pattern']">El correo electrónico no es válido.</span>
+                    </div>
+
 
                     <!--Teléfono-->
                     <label for="telf">Teléfono celular</label>
-                    <input [(ngModel)]="user.telf" name="telf" id="telf" type="string" maxlength="10" pattern="[0-10]" placeholder="Ingresa tu número de teléfono">
+                    <input [(ngModel)]="user.telf" name="telf" id="telf" type="string" maxlength="10" pattern="[0-10]" placeholder="Ingresa tu número de teléfono" [formControl]="telf">
+                    <div *ngIf="telf.invalid && (telf.dirty || telf.touched)">
+                      <span *ngIf="telf.errors?.['required']">El teléfono es requerido.</span>
+                      <span *ngIf="telf.errors?.['pattern']">El teléfono debe contener solo números.</span>
+                    </div>
 
                     <!--Nickname-->
                     <label for="nickname">Apodo</label>
