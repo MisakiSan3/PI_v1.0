@@ -21,7 +21,7 @@
 
                     <!--Teléfono-->
                     <label for="telf">Teléfono celular</label>
-                    <input [(ngModel)]="user.telf" name="telf" id="telf" type="string" maxlength="10" pattern="[0-10]" placeholder="Ingresa tu número de teléfono" [formControl]="telf">
+                    <input [(ngModel)]="user.telf" name="telf" id="telf" type="string" maxlength="10"  placeholder="Ingresa tu número de teléfono" [formControl]="telf">
                     <div *ngIf="telf.invalid && (telf.dirty || telf.touched)">
                       <span *ngIf="telf.errors?.['required']">El teléfono es requerido.</span>
                       <span *ngIf="telf.errors?.['pattern']">El teléfono debe contener solo números.</span>
