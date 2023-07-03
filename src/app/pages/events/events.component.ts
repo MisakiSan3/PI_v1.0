@@ -29,8 +29,8 @@ export class EventsComponent implements OnInit {
             if (element.categoria.nombre_c != 'Clase') {
               this.events.push(element)
             }
-          });    
-          this.prepareEvents()     
+          });
+          this.prepareEvents()
       }
     )
   }
