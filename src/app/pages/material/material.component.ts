@@ -26,26 +26,23 @@ export class MaterialComponent {
 
   ngOnInit(): void {
     this.getSubjects();
-    
     // Obtener el ID del usuario desde el token
-    const userId: string | null = this.tokenService.getUserIdFromToken() ?? '';
-  this.subjectService.getSubjectsByUserId(userId).subscribe(
-    (materias:SubjectModel[]) => {
-      this.materias = materias;
-    },
-    (error) => {
-      console.error('Error al obtener las asignaturas:', error);
-    }
-  );
+    
+  
    
   }
+  
   materias: SubjectModel[] = []
   getSubjects(){
-    this.subjectService.getAll().subscribe(
-      response =>{
-        this.materias = response;
-      }
-    )
+    const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
+      this.subjectService.getSubjectsByUserId(userId).subscribe(
+        (materias:SubjectModel[]) => {
+          this.materias = materias;
+        },
+        (error) => {
+          console.error('Error al obtener las asignaturas:', error);
+        }
+      );
   }
   vaciar(){
     this.updatedSubject.nombre_a = '';
@@ -54,7 +51,6 @@ export class MaterialComponent {
   createSubjects(){
     this.subjectService.store(this.materia).subscribe(
       response => {
-        console.log(response);
         this.materias.push(response);
 
       }
@@ -85,6 +81,8 @@ export class MaterialComponent {
   }
 
   selectSubject(subject: SubjectModel) {
+    console.log(subject);
+    
     this.updatedSubject.id = subject.id;
     this.updatedSubject.nombre_a = subject.nombre_a;
     this.updatedSubject.user = subject.user.id;

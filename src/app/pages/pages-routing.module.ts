@@ -9,7 +9,7 @@ import { EventsComponent } from './events/events.component';
 import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
-  {path:"pages", component: PagesComponent,
+  {path:"pages",canActivateChild:[AuthGuard], component: PagesComponent,
    children:[
     {path: "", component: DashboardComponent},
     {path: "teacher-list", component: TeachersComponent},

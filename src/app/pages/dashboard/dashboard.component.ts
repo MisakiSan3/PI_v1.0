@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   //nombreUsuario: string;
   nombreUsuario: string | null = null ;
   idUsuario: string | null = null ;
+  events: EventModel[] = [];
   constructor(
     private eventsService: EventService,
     private tokenService: TokenService
@@ -23,7 +24,7 @@ export class DashboardComponent implements OnInit {
   
   //events: EventModel[] = [];
   ngOnInit(): void {
-  //this.getEvents();
+  this.getEvents();
   this.tokenService.getUserNameFromToken();
   this.tokenService.getUserIdFromToken();
   }
@@ -34,8 +35,9 @@ export class DashboardComponent implements OnInit {
   getUserIdFromToken() {
     this.idUsuario = this.tokenService.getUserIdFromToken();
   }
- /* getEvents(){
-    this.eventsService.getAll().subscribe(
+  getEvents(){
+    const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
+    this.eventsService.getEventsByUserId(userId).subscribe(
        response =>{
          this.events = response;
          var counter = 0;
@@ -48,5 +50,5 @@ export class DashboardComponent implements OnInit {
          });
       }
     )
-  }*/
+  }
 }

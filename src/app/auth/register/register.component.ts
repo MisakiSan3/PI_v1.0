@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
           this.userService.store(this.user).subscribe(
             (response) => {
               console.log(response);
-              this.router.navigateByUrl('/pages');
+              this.router.navigateByUrl('/login');
 
               this.snackBar.open('Te has registrado con éxito', 'Cerrar', {
                 duration: 3000

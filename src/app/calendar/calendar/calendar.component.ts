@@ -64,6 +64,7 @@ export class CalendarComponent implements OnInit {
         console.log('no hay');
       }
      }
+     
   }
     
   calendarOptions:CalendarOptions = {

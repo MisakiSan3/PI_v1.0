@@ -4,6 +4,9 @@ import { CreateTeacherModel, TeacherModel } from 'src/app/models/teacher-model.e
 import { SubjectService } from 'src/app/services/subject.service';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { UpdateTeacherModel } from '../../models/teacher-model.entity';
+import { TokenService } from 'src/app/services/token.service';
+import { router } from 'ngx-bootstrap-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-teacher',
@@ -11,7 +14,7 @@ import { UpdateTeacherModel } from '../../models/teacher-model.entity';
   styleUrls: ['./register-teacher.component.css']
 })
 export class RegisterTeacherComponent implements OnInit {
-  constructor(private subjectService:SubjectService,private teacherService:TeacherService) {
+  constructor(private subjectService:SubjectService,private teacherService:TeacherService, private tokenService: TokenService,private router: Router) {
   }
   teacher: CreateTeacherModel = {
     asignatura: '',
@@ -22,19 +25,20 @@ export class RegisterTeacherComponent implements OnInit {
   }
   materias: SubjectModel[] = []
   updating= false
+  update: boolean = false
+  teachers: TeacherModel[] = []
+  TeachersModel: any;
   ngOnInit(): void {
     this.getSubjects();
     if (history.state.id) {
-        delete history.state.navigationId
-        this.TeachersModel = history.state
         this.updating = true
-
+        
         this.teacherEdit.id = history.state.id
         this.teacherEdit.nombre_p = history.state.nombre_p
         this.teacherEdit.apellido_p = history.state.apellido_p
         this.teacherEdit.telf = history.state.telf
         this.teacherEdit.email = history.state.email
-        this.teacherEdit.asignatura = history.state.asignatura
+        this.teacherEdit.asignatura = history.state.asignatura.id
 
         console.log(this.teacherEdit)
       }
@@ -60,16 +64,17 @@ export class RegisterTeacherComponent implements OnInit {
       }
     }
   }
-  update: boolean = false
-  teachers: TeacherModel[] = []
-  TeachersModel: any;
-
+  
   getSubjects(){
-    this.subjectService.getAll().subscribe(
-      response =>{
-        this.materias = response;
-      }
-    )
+    const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
+      this.subjectService.getSubjectsByUserId(userId).subscribe(
+        (materias:SubjectModel[]) => {
+          this.materias = materias;
+        },
+        (error) => {
+          console.error('Error al obtener las asignaturas:', error);
+        }
+      );
   }
 
   createTeacher(){
@@ -77,7 +82,9 @@ export class RegisterTeacherComponent implements OnInit {
     try {
          this.teacherService.store(this.teacher).subscribe(
           response =>{
-            console.log(response);
+            if (response) {
+              this.router.navigateByUrl('pages/teacher-list')
+            }
           }
         )
     } catch (error) {
@@ -92,7 +99,9 @@ export class RegisterTeacherComponent implements OnInit {
     const response = this.teacherService.
     update(this.teacherEdit.id, this.teacherEdit)
       .subscribe((response)=>{
-        console.log(response)
+        if (response) {
+          this.router.navigateByUrl('pages/teacher-list')
+        }
       });
   }
 

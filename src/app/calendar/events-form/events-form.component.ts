@@ -7,6 +7,7 @@ import { TeacherModel } from 'src/app/models/teacher-model.entity';
 import { CategoryService } from 'src/app/services/category.service';
 import { EventService } from 'src/app/services/events.service';
 import { TeacherService } from 'src/app/services/teacher.service';
+import { TokenService } from 'src/app/services/token.service';
 
 
 @Component({
@@ -15,7 +16,12 @@ import { TeacherService } from 'src/app/services/teacher.service';
   styleUrls: ['./events-form.component.css']
 })
 export class EventsFormComponent implements OnInit {
-  constructor(private categoryService:CategoryService,private teacherService:TeacherService,private eventService:EventService, private router: Router) {
+  constructor(private categoryService:CategoryService,
+    private teacherService:TeacherService,
+    private eventService:EventService,
+    private router: Router,
+    private tokenService: TokenService
+    ) {
   }
   ngOnInit(): void {
     this.updatingVerification()
@@ -57,25 +63,36 @@ export class EventsFormComponent implements OnInit {
     this.categoryService.getAll().subscribe(
       response =>{
         this.categorias = response;
+        console.log(this.categorias);
+        
       }
     )
   }
   getTeachers(){
-    this.teacherService.getAll().subscribe(
+    const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
+    this.teacherService.getTeachersByUserId(userId).subscribe(
       response =>{
         this.maestros = response;
+
       }
     )
   }
   categoryHandler(){
+    let auxClase = false
     this.categorias.forEach(categoria => {
       if (this.event.categoria === categoria.id) {
-        this.esClase = true;
+        if (categoria.nombre_c === 'Clase') {
+          auxClase = true;
+        }
       }else {
         this.esClase = false
       }
+      if (auxClase) {
+        this.esClase = true
+      }
     });
   }
+  
   createEvent(){
     if (this.esClase) {
       this.event.end = this.event.start + 'T' + this.timeEnd + '-05:00';
@@ -91,14 +108,9 @@ export class EventsFormComponent implements OnInit {
     try {
       this.eventService.store(this.event).subscribe(
         responseStore => {
-          this.eventService.getOne(responseStore.id).subscribe(
-            responseGetOne => {
-              const responseJson = JSON.stringify(responseGetOne);
-              const length = sessionStorage.length 
-              sessionStorage.setItem(length.toString(),responseJson) 
-              this.router.navigate(['/calendar']);
-            }
-          )
+          this.deleteEvents()
+              this.getEvents()
+              window.location.href = '/calendar'
         }
       )
     } catch (error) {

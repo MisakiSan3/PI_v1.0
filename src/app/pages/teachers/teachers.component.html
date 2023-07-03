@@ -54,7 +54,7 @@
                                     <a class="btn btn-dark"[routerLink]="[ '../teacher-register' ] " [state]="maestro">Editar</a>
                                 </div>
                                 <div class="col-lg-1 col-md-1 col-sm-12">
-                                    <a class="btn btn-danger"[routerLink]="[ '/#' ]">Eliminar</a>
+                                    <a class="btn btn-danger" (click)="deleteTeachers(maestro.id)">Eliminar</a>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
             <div class="card card-footer">
                 <div class="row">
                     <div class="col-1">
-                        <a class="btn btn-success"[routerLink]="[ 'pages/teacher-register', ]">Añadir</a>
+                        <a class="btn btn-success"[routerLink]="[ '../teacher-register', ]">Añadir</a>
                     </div>
                 </div>
             </div>

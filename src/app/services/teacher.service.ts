@@ -21,6 +21,10 @@ export class TeacherService {
     return this.httpClient.get<TeacherModel[]>(url);
     //obejeto.metodo
   }
+  getTeachersByUserId(userId: string): Observable<TeacherModel[]> {
+    const url = `${this.API_URL}/teacher/${userId}`;
+    return this.httpClient.get<TeacherModel[]>(url);
+  }
   getOne(id: TeacherModel['id']):Observable<TeacherModel> {//solo devuelve un objeto
     const url = `${this.API_URL}/${id}`;
     return this.httpClient.get<TeacherModel>(url);

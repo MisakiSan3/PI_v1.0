@@ -42,4 +42,8 @@ export class EventService {
       })
       );
   }
+  getEventsByUserId(userId: string): Observable<EventModel[]> {
+    const url = `${this.API_URL}/event/${userId}`;
+    return this.httpClient.get<EventModel[]>(url);
+  }
 }
