@@ -11,10 +11,11 @@ import { EventsComponent } from './events/events.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { EventAsignaturaPipe, EventPipePipe } from '../pipes/event-pipe.pipe';
 
 
 @NgModule({
-  declarations: [PagesComponent, TeachersComponent, RegisterTeacherComponent, MaterialComponent, EventsComponent,DashboardComponent],
+  declarations: [PagesComponent, TeachersComponent, RegisterTeacherComponent, MaterialComponent, EventsComponent,DashboardComponent,EventAsignaturaPipe,EventPipePipe],
   imports: [
     CommonModule,
     RouterModule,
@@ -23,6 +24,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     NgSelectModule,
     ReactiveFormsModule
-  ]
+  ],
 })
 export class PagesModule { }

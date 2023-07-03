@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventModel } from 'src/app/models/event-model.entity';
+import { SubjectModel } from 'src/app/models/subject-model.entity';
 import { EventService } from 'src/app/services/events.service';
+import { SubjectService } from 'src/app/services/subject.service';
 import { TokenService } from 'src/app/services/token.service';
 
 
@@ -11,12 +13,16 @@ import { TokenService } from 'src/app/services/token.service';
   styleUrls: ['./events.component.css']
 })
 export class EventsComponent implements OnInit {
-  constructor(private eventsService: EventService, private router: Router, private tokenService: TokenService){}
+  constructor(private eventsService: EventService, private router: Router, private tokenService: TokenService,private subjectService: SubjectService){}
 
   ngOnInit(): void {
-    this.getEvents()
+    this.getEvents();
+    this.getSubjects()
   }
+  filterName: string = '';
+  filterAsignatura: string = '';
   startDate: string[]= []
+  materias: SubjectModel[]= []
   endDate: string[]= []
   timeStart: string[] = []
   timeEnd: string[] = []
@@ -48,5 +54,16 @@ export class EventsComponent implements OnInit {
       response =>{
       }
     )
+  }
+  getSubjects(){
+    const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
+      this.subjectService.getSubjectsByUserId(userId).subscribe(
+        response => {
+          this.materias = response;
+        },
+        (error) => {
+          console.error('Error al obtener las asignaturas:', error);
+        }
+      );
   }
 }

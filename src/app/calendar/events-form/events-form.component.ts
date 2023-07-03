@@ -94,11 +94,14 @@ export class EventsFormComponent implements OnInit {
   }
   
   createEvent(){
+    
+    
     if (this.esClase) {
       this.event.end = this.event.start + 'T' + this.timeEnd + '-05:00';
       this.event.start = this.event.start + 'T' + this.timeStart + '-05:00';
     } else {
       this.event.end = this.event.end + 'T' + this.timeEnd + '-05:00';
+      this.event.start = this.event.start + 'T' + this.timeStart + '-05:00';
     }
     this.postEvent()
   }
@@ -127,7 +130,6 @@ export class EventsFormComponent implements OnInit {
     this.updateEvent()
   }
   updateEvent(){
-    console.log(this.eventUpdate);
     try {
       this.eventService.update(this.eventUpdate.id,this.eventUpdate).subscribe(
         responseUpdate => {
