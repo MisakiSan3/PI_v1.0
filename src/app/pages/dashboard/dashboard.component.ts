@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { EventModel } from 'src/app/models/event-model.entity';
 import { EventService } from 'src/app/services/events.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,12 +9,32 @@ import { EventService } from 'src/app/services/events.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private eventsService: EventService){}
-  events: EventModel[] = [];
+  //nombreUsuario: string;
+  nombreUsuario: string | null = null ;
+  idUsuario: string | null = null ;
+  constructor(
+    private eventsService: EventService,
+    private tokenService: TokenService
+    ){
+      this.nombreUsuario = this.tokenService.getUserNameFromToken();
+    }
+
+  
+  
+  //events: EventModel[] = [];
   ngOnInit(): void {
-  this.getEvents();
+  //this.getEvents();
+  this.tokenService.getUserNameFromToken();
+  this.tokenService.getUserIdFromToken();
   }
-  getEvents(){
+
+  getUserNameFromToken() {
+    this.nombreUsuario = this.tokenService.getUserNameFromToken();
+  }
+  getUserIdFromToken() {
+    this.idUsuario = this.tokenService.getUserIdFromToken();
+  }
+ /* getEvents(){
     this.eventsService.getAll().subscribe(
        response =>{
          this.events = response;
@@ -27,5 +48,5 @@ export class DashboardComponent implements OnInit {
          });
       }
     )
-  }
+  }*/
 }

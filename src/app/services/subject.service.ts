@@ -6,6 +6,7 @@ import {
   CreateSubjectModel,
   UpdateSubjectModel
 } from '../models/subject-model.entity';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,20 +15,37 @@ export class SubjectService {
   
   readonly API_URL: string = "http://localhost:5000/subjects";
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private tokenService: TokenService
+
+    
+    ) { }
 
   getAll():Observable<SubjectModel[]> {
     const url = `${this.API_URL}`; 
     return this.httpClient.get<SubjectModel[]>(url);
     //obejeto.metodo
   }
+
+
   getOne(id: SubjectModel['id']):Observable<SubjectModel> {//solo devuelve un objeto
     const url = `${this.API_URL}/${id}`;
     return this.httpClient.get<SubjectModel>(url);
   }
-  store(subject: CreateSubjectModel):Observable<SubjectModel> {//no se usaran todos o campos(id, category)
-    const url = `${this.API_URL}`; 
-    return this.httpClient.post<SubjectModel>(url, subject)
+
+  //-------------------------------------------------
+
+  store(subject: CreateSubjectModel):Observable<SubjectModel> {
+   
+    const userId = this.tokenService.getUserIdFromToken();
+    if (userId) {
+      subject.user = userId;
+      
+      const url = `${this.API_URL}`; 
+      return this.httpClient.post<SubjectModel>(url, subject)
+    }
+    throw new Error('No se pudo obtener el ID de usuario del token.');
   }
 
   update(id: SubjectModel['id'], subject: UpdateSubjectModel):Observable<SubjectModel> {
@@ -41,5 +59,11 @@ export class SubjectService {
       return response.rta;
       })
       );
+  }
+
+  //Traer materias segun el ID de Usuario
+  getSubjectsByUserId(userId: string): Observable<SubjectModel[]> {
+    const url = `${this.API_URL}/user/${userId}`;
+    return this.httpClient.get<SubjectModel[]>(url);
   }
 }

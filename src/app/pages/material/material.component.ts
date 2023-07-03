@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CreateSubjectModel, SubjectModel, UpdateSubjectModel } from 'src/app/models/subject-model.entity';
 import { SubjectService } from 'src/app/services/subject.service';
+import { TokenService } from 'src/app/services/token.service';
 interface Materia {
   nombre: string;
   codigo: string;
@@ -12,17 +13,33 @@ interface Materia {
   styleUrls: ['./material.component.css']
 })
 export class MaterialComponent {
-  constructor(private subjectService:SubjectService) {
+
+  id:string | null = null;
+  constructor(private subjectService:SubjectService, private tokenService:TokenService) {
+    
   }
+  
   materia: CreateSubjectModel = {
-    user: '01d74dff-5e1d-49f4-acec-6d357a2f3cab',
+    user: '',
     nombre_a: ''
   }
+
   ngOnInit(): void {
     this.getSubjects();
+    
+    // Obtener el ID del usuario desde el token
+    const userId: string | null = this.tokenService.getUserIdFromToken() ?? '';
+  this.subjectService.getSubjectsByUserId(userId).subscribe(
+    (materias:SubjectModel[]) => {
+      this.materias = materias;
+    },
+    (error) => {
+      console.error('Error al obtener las asignaturas:', error);
+    }
+  );
+   
   }
-  materias: SubjectModel[] = [
-  ]
+  materias: SubjectModel[] = []
   getSubjects(){
     this.subjectService.getAll().subscribe(
       response =>{
@@ -73,6 +90,11 @@ export class MaterialComponent {
     this.updatedSubject.user = subject.user.id;
     this.updating = true;
   }
+
+  
+
+  
+  
 
   updating: boolean = false;
 }
