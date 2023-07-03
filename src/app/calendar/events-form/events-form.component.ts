@@ -63,8 +63,7 @@ export class EventsFormComponent implements OnInit {
     this.categoryService.getAll().subscribe(
       response =>{
         this.categorias = response;
-        console.log(this.categorias);
-        
+        this.categoryHandler()
       }
     )
   }
@@ -87,10 +86,11 @@ export class EventsFormComponent implements OnInit {
       }else {
         this.esClase = false
       }
-      if (auxClase) {
-        this.esClase = true
-      }
     });
+    if (auxClase) {
+      this.esClase = true 
+    }
+    
   }
   
   createEvent(){
@@ -100,7 +100,6 @@ export class EventsFormComponent implements OnInit {
     } else {
       this.event.end = this.event.end + 'T' + this.timeEnd + '-05:00';
     }
-    console.log(this.event);
     this.postEvent()
   }
 
@@ -132,9 +131,13 @@ export class EventsFormComponent implements OnInit {
     try {
       this.eventService.update(this.eventUpdate.id,this.eventUpdate).subscribe(
         responseUpdate => {
-          this.deleteEvents()
-          this.getEvents()
-          window.location.href = '/calendar'
+          if (!this.esClase) {
+            this.router.navigate(['../pages/event-list'])
+          }else{
+            this.deleteEvents()
+            this.getEvents()
+            window.location.href = '/calendar'
+          }
         }
       )
     } catch (error) {
@@ -162,6 +165,7 @@ export class EventsFormComponent implements OnInit {
     this.timeEnd = hist.end.slice(11,16)
     this.eventUpdate.maestro = hist.maestro.id
     this.eventUpdate.categoria = hist.categoria.id
+    this.event.categoria = hist.categoria.id
     this.eventUpdate.title = hist.title
     this.eventUpdate.description = hist.description
     this.eventUpdate.id = hist.id
@@ -174,9 +178,13 @@ export class EventsFormComponent implements OnInit {
          this.events = response;
          var counter = 0;
          this.events.forEach(element => {
-          if(!sessionStorage.getItem(counter.toString())){
-            const json = JSON.stringify(element)
-            sessionStorage.setItem(counter.toString(),json)
+          if (element.categoria.nombre_c === "Clase") {
+            if(!sessionStorage.getItem(counter.toString())){
+              const json = JSON.stringify(element)
+              sessionStorage.setItem(counter.toString(),json)
+              counter++
+            }
+            
           }
           counter++
          });

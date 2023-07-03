@@ -36,17 +36,22 @@ export class DashboardComponent implements OnInit {
     this.idUsuario = this.tokenService.getUserIdFromToken();
   }
   getEvents(){
+    sessionStorage.clear()
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
     this.eventsService.getEventsByUserId(userId).subscribe(
        response =>{
          this.events = response;
          var counter = 0;
          this.events.forEach(element => {
-          if(!sessionStorage.getItem(counter.toString())){
-            const json = JSON.stringify(element)
-            sessionStorage.setItem(counter.toString(),json)
+          if (element.categoria.nombre_c === "Clase") {
+            if(!sessionStorage.getItem(counter.toString())){
+              const json = JSON.stringify(element)
+              sessionStorage.setItem(counter.toString(),json)
+              counter++
+            }
+            
           }
-          counter++
+          
          });
       }
     )

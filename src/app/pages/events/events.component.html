@@ -1,33 +1,83 @@
 <div class="container">
-  <div class="body">
-    <h1 class="title">Eventos</h1>
-    <h2 class="subtitle">Revisa tus eventos próximos en el calendario </h2>
-    
+  <div class="row">
+      <div class="col-12 px-5">
+          <div class="card">
+              <div class="card card-header">
+                  Buscar:
+              </div>
+              <div class="card-body">
+                  <div class="row justify-content-evenly">
+                      <div class="col">
+                          <label class="label" for="teacherName">Nombre:</label>
+                          <input class="form-control" type="text" name="teacherName"  id="teacherName">
+                      </div>
+                      <div class="col">
+                          <label class="label" for="teacherSubject">Asignatura:</label>
+                          <select class="form-control" name="teacherSubject" id="teacherSubject">
+                              <option value="Matemática discreta">Matemática discreta</option>
+                              <option value="Base de datos">Base de datos</option>
+                              <option value="Fundamentos de administración">Fundamentos de administración</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12 p-5">
+          <div class="card">
+          <div class="card-header">
+              <h3>Eventos</h3>
+          </div>
+          <div class="card-body ">
+              <div *ngFor="let evento of events;let i = index" class="accordion accordion-flush" id="accordion">
+                  <a class="accordion-button" data-bs-toggle="collapse" href="#{{i}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      {{evento.title}}
+                  </a>
+                  <div class="collapse" id="{{i}}">
+                      <div class="card bg-brown my-1 card-body">
+                          <div class="row">
+                              <div class="col"><h5>Inicio:</h5></div>
+                              <div class="col">{{startDate[i]}} {{timeStart[i]}}</div>
+                          </div>
+                          <div class="row">
+                            <div class="col"><h5>Fin:</h5></div>
+                            <div class="col">{{endDate[i]}} {{timeEnd[i]}}</div>
+                          </div>
+                          <div class="row">
+                              <div class="col"><h5>Asignatura:</h5></div>
+                              <div class="col">{{evento.maestro.asignatura.nombre_a}}</div>
+                          </div>
+                          <div class="row justify-content-evenly">
+                              <div class="col"><h5>Maestro:</h5></div>
+                              <div class="col"><p>{{evento.maestro.nombre_p }} {{evento.maestro.apellido_p}}</p></div>
+                          </div>
+                          <div class="row justify-content-evenly">
+                              <div class="col"><h5>Descripción:</h5></div>
+                              <div class="col"><p>{{evento.description}}</p></div>
+                          </div>
+                          <div class="row">
+                              <div class="col-lg-1 col-md-1 col-sm-12">
+                                  <a class="btn btn-dark"[routerLink]="[ '../../calendar/register-event' ] " [state]="evento">Editar</a>
+                              </div>
+                              <div class="col-lg-1 col-md-1 col-sm-12">
+                                  <a class="btn btn-danger" (click)="deleteEvent(evento.id)" >Eliminar</a>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+              </div>
+          </div>
+          <div class="card card-footer">
+              <div class="row">
+                  <div class="col-1">
+                      <a class="btn btn-success"[routerLink]="[ '../teacher-register', ]">Añadir</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+  </div>
 </div>
-<div class="table-container">
-  <a class="btn btn-danger mb-3" [routerLink]="[ '/calendar']">Regresar</a>
-    <table>
-        <tr>
-          <th>Próximo</th>
-          <th>Hora</th>
-          <th>Descripción</th>
-        </tr>
-        <tr>
-          <td>Viernes 13</td>
-          <td>8:00 - 9:00 AM</td>
-          <td>Descripción del evento 1</td>
-        </tr>
-        <tr>
-          <td>Lunes 16</td>
-          <td>8:00 - 9:00 AM</td>
-          <td>Descripción del evento 2</td>
-        </tr>
-        <tr>
-          <td>Martes 17</td>
-          <td>8:00 - 9:00 AM</td>
-          <td>Descripción del evento 3</td>
-        </tr>
-      </table>
 
-</div>
-</div>
