@@ -1,5 +1,5 @@
 <div class="title-container">
-  <h1 class="text-center" style="font-family: 'Arial', sans-serif; color: rgb(255, 255, 255);">Bienvenidos a Kuya Yana</h1>
+  <h1 class="text-center" style="font-family: 'Arial', sans-serif; color: rgb(255, 255, 255);">Bienvenido {{nombreUsuario}} </h1>
 </div>
 
 <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -8,8 +8,8 @@
       <img [src]="slide.imgUrl" [alt]="slide.altText" class="d-block w-100">
     </div>
   </div>
-
-  <div class="controls">
-    <button class="btn" (click)="goToCalendar()">Ir a tu calendario</button>
+  <div class="controls m-5 ">
+    <button class="btn btn-sm btn-outline-success p-2 " (click)="goToCalendar()">Ir a tu calendario</button>
   </div>
+
 </div>

@@ -11,6 +11,7 @@ import { TokenService } from 'src/app/services/token.service';
 export class DashboardComponent implements OnInit {
   //nombreUsuario: string;
   nombreUsuario: string | null = null ;
+  
   idUsuario: string | null = null ;
   events: EventModel[] = [];
   constructor(
