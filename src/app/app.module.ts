@@ -24,7 +24,7 @@ import { CookieService } from 'ngx-cookie-service';
     AuthModule,
     AppRoutingModule,
     AuthRoutingModuleModule,
-    
+
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
