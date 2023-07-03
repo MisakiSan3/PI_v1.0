@@ -22,7 +22,7 @@ export class EventPipePipe implements PipeTransform {
 export class EventAsignaturaPipe implements PipeTransform {
   events: EventModel[]= []
   transform(value: EventModel[], query: string): EventModel[] {
-    if(query === '' || query === undefined) {
+    if(query === '' || query === undefined || !query) {
       return value;
     }
     value = value.filter(event => event.maestro.asignatura.nombre_a.toLowerCase().indexOf(query.toLowerCase()) != -1)
