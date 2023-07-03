@@ -9,7 +9,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { MaterialComponent } from './material/material.component';
 import { EventsComponent } from './events/events.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 
@@ -21,7 +21,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SharedModule,
     PagesRoutingModule,
     FormsModule,
-    NgSelectModule
+    NgSelectModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }

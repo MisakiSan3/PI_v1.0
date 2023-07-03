@@ -17,7 +17,7 @@
                 <input [(ngModel)]="user.contrasenia" name="password" id="password" type="password" placeholder="Ingresa tu contraseña">
     
                 <input (click)="onLogins()" id="login-button" type="submit" value="Ingresar">
-                <input [(ngModel)]="user.contrasenia" name="password" id="password" type="password" placeholder="Ingresa tu contraseña" [formControl]="password">
+                <input [(ngModel)]="user.contrasenia" name="password" id="password" type="password" placeholder="Ingresa tu contraseña" [formControl]="contrasenia">
                 <div class="error-message" *ngIf="password.invalid && password.touched">
                   <p *ngIf="password.errors?.['required']">La contraseña es obligatoria.</p>
                   <p *ngIf="password.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</p>
@@ -26,7 +26,7 @@
 
                 
 
-                <input (click)="onLogin()" id="login-button" type="submit" value="Ingresar">
+                <input (click)="onLogins()" id="login-button" type="submit" value="Ingresar">
                 <br>
                 <a href="#">¿Perdiste tu contraseña?</a>
                 <br><br>
