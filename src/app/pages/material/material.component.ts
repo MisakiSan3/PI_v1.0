@@ -16,9 +16,9 @@ export class MaterialComponent {
 
   id:string | null = null;
   constructor(private subjectService:SubjectService, private tokenService:TokenService) {
-    
+
   }
-  
+
   materia: CreateSubjectModel = {
     user: '',
     nombre_a: ''
@@ -27,11 +27,11 @@ export class MaterialComponent {
   ngOnInit(): void {
     this.getSubjects();
     // Obtener el ID del usuario desde el token
-    
-  
-   
+
+
+
   }
-  
+
   materias: SubjectModel[] = []
   getSubjects(){
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
@@ -66,10 +66,10 @@ export class MaterialComponent {
   update() {
     this.subjectService.update(this.updatedSubject.id, this.updatedSubject)
       .subscribe(
-        (updatedSubject: SubjectModel) => {
+        response => {
           this.getSubjects()
-        },
-      );
+
+        });
   }
   deleteSubject(id: string) {
     this.subjectService.destroy(id)
@@ -82,17 +82,17 @@ export class MaterialComponent {
 
   selectSubject(subject: SubjectModel) {
     console.log(subject);
-    
+
     this.updatedSubject.id = subject.id;
     this.updatedSubject.nombre_a = subject.nombre_a;
     this.updatedSubject.user = subject.user.id;
     this.updating = true;
   }
 
-  
 
-  
-  
+
+
+
 
   updating: boolean = false;
 }
