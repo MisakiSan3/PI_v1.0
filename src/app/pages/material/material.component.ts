@@ -50,6 +50,8 @@ export class MaterialComponent implements OnInit {
 
   nombreInvalido(): boolean {
     const nombreField = this.materiaForm.get('nombre');
+    console.log(nombreField?.invalid);
+    
     return nombreField?.invalid ?? false;
   }
 
@@ -115,6 +117,7 @@ export class MaterialComponent implements OnInit {
     this.updatedSubject.id = subject.id;
     this.updatedSubject.nombre_a = subject.nombre_a;
     this.updatedSubject.user = subject.user.id;
+    this.nombreInvalido()
     this.updating = true;
   }
 }
