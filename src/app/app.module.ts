@@ -15,9 +15,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { EventPipePipe } from './pipes/event-pipe.pipe';
 import { TeacherPipe } from './pipes/teacher.pipe';
 
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
