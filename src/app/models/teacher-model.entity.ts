@@ -13,7 +13,7 @@ export interface CreateTeacherModel extends  Omit<TeacherModel, 'id' |'asignatur
     asignatura: string;
 }
 
-export interface UpdateTeacherModel extends Partial<TeacherModel>{
+export interface UpdateTeacherModel extends Omit<TeacherModel, 'asignatura'>{
     id: string;
-    asignaturaId?: string;
+    asignatura: string;
 }

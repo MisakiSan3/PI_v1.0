@@ -23,25 +23,13 @@ export class RegisterTeacherComponent implements OnInit {
   };
   materias: SubjectModel[] = [];
   updating = false;
-  teacherEdit: TeacherModel = {
+  teacherEdit: UpdateTeacherModel = {
     id: '',
     nombre_p: '',
     apellido_p: '',
     telf: '',
     email: '',
-    asignatura: {
-      id: '',
-      nombre_a: '',
-      user: {
-        id: '',
-        nombre_u: '',
-        apellido_u: '',
-        telf: '',
-        email: '',
-        contrasenia: '',
-        nickname: ''
-      }
-    }
+    asignatura: ''
   };
 
   constructor(
@@ -62,9 +50,7 @@ export class RegisterTeacherComponent implements OnInit {
       this.teacherEdit.apellido_p = history.state.apellido_p;
       this.teacherEdit.telf = history.state.telf;
       this.teacherEdit.email = history.state.email;
-      this.teacherEdit.asignatura.id = history.state.asignatura.id;
-      this.teacherEdit.asignatura.nombre_a = history.state.asignatura.nombre_a;
-      this.teacherEdit.asignatura.user = history.state.asignatura.user;
+      this.teacherEdit.asignatura = history.state.asignatura.id;
       console.log(this.teacherEdit);
     }
   }
@@ -96,13 +82,6 @@ export class RegisterTeacherComponent implements OnInit {
       this.teacherForm.markAllAsTouched();
       return;
     }
-    this.teacher = {
-      asignatura: this.teacherForm.get('asignatura')?.value,
-      nombre_p: this.teacherForm.get('nombre_p')?.value,
-      apellido_p: this.teacherForm.get('apellido_p')?.value,
-      telf: this.teacherForm.get('telf')?.value,
-      email: this.teacherForm.get('email')?.value
-    };
     this.teacherService.store(this.teacher).subscribe(
       (response) => {
         if (response) {
@@ -121,19 +100,7 @@ export class RegisterTeacherComponent implements OnInit {
       return;
     }
     const teacherId = this.teacherEdit.id;
-    const updateData: UpdateTeacherModel = {
-      id: teacherId,
-      asignatura: {
-        id: this.teacherEdit.asignatura.id,
-        nombre_a: this.teacherEdit.asignatura.nombre_a,
-        user: this.teacherEdit.asignatura.user
-      },
-      nombre_p: this.teacherForm.get('nombre_p')?.value,
-      apellido_p: this.teacherForm.get('apellido_p')?.value,
-      telf: this.teacherForm.get('telf')?.value,
-      email: this.teacherForm.get('email')?.value
-    };
-    this.teacherService.update(teacherId, updateData as TeacherModel).subscribe(
+    this.teacherService.update(teacherId, this.teacherEdit).subscribe(
       (response) => {
         if (response) {
           this.router.navigateByUrl('pages/teacher-list');
