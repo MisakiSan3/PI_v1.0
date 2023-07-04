@@ -34,7 +34,7 @@ export class TeacherService {
     return this.httpClient.post<TeacherModel>(url, teacher)
   }
 
-  update(id: TeacherModel['id'], teacher: TeacherModel):Observable<TeacherModel> {
+  update(id: TeacherModel['id'], teacher: UpdateTeacherModel):Observable<TeacherModel> {
     const url = `${this.API_URL}/${id}`;
     return this.httpClient.patch<TeacherModel>(url, teacher);//devuelve un observable de tipo TeacherModel
   }
