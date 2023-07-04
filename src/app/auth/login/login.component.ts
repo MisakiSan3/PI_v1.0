@@ -33,11 +33,11 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onLogins(): void {
-    this.formSubmitted = true; // Set formSubmitted to true when the form is submitted
+    this.formSubmitted = true; // lo transforma en true si es valido el form
 
-    if (this.email.invalid || this.password.invalid) {
-      // Check if the form is invalid
-      this.formInvalid = true; // Set formInvalid to true if the form is invalid
+    if (this.email.invalid && this.password.invalid) {
+      // valida si el formulario es invalido
+      this.formInvalid = true; // Setea en formInvalid en true si el form es invalido
       return;
     }
 
