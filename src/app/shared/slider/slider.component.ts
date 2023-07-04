@@ -40,7 +40,7 @@ export class SliderComponent implements OnInit, OnDestroy {
       const nextIndex = (activeIndex + 1) % this.slides.length;
       this.slides.forEach(slide => slide.active = false);
       this.slides[nextIndex].active = true;
-    }, 2000); // Cambia el valor del intervalo en milisegundos (2 segundos en este ejemplo)
+    }, 1000); // Cambia el valor del intervalo en milisegundos (2 segundos en este ejemplo)
   }
 
   ngOnDestroy() {
