@@ -5,8 +5,6 @@ import { UserAuthModel } from 'src/app/models/auth-model.entity';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ToastrService } from 'ngx-toastr';
-
 
 @Component({
   selector: 'app-login',
@@ -17,49 +15,62 @@ export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
+  formSubmitted = false; // Track if the form has been submitted
+  formInvalid = false; // Track if the form is invalid
+
   constructor(
     private router: Router,
-    private authSevice: AuthService,
+    private authService: AuthService,
     private tokenService: TokenService,
-  
-    
+    private snackBar: MatSnackBar
   ) {}
 
- 
   user: UserAuthModel = {
     email: '',
     contrasenia: ''
-  }
+  };
+
   ngOnInit(): void {}
 
-
   onLogins(): void {
+    this.formSubmitted = true; // Set formSubmitted to true when the form is submitted
 
-    this.user = new UserAuthModel(this.user.email, this.user.contrasenia);
-    this.authSevice.login(this.user).subscribe(
-      data => {
-        
-         if (!data.accessToke) {
-          throw new Error('No existe el usuario')  
-         }else {
-          
-           this.tokenService.setToken(data.accessToke);
-           const aut = this.tokenService.getIsAuthenticated();
-           
-           this.router.navigate(['/pages']);
-          console.log(aut)
-         }
-        console.log(data.accessToke);
-        this.tokenService.setToken(data.accessToke);
-      }
-    )
+    if (this.email.invalid || this.password.invalid) {
+      // Check if the form is invalid
+      this.formInvalid = true; // Set formInvalid to true if the form is invalid
+      return;
+    }
 
+    const emailValue = this.email.value;
+    const passwordValue = this.password.value;
 
+    if (emailValue && passwordValue) {
+      this.user.email = emailValue;
+      this.user.contrasenia = passwordValue;
+
+      this.authService.login(this.user).subscribe(
+        (data) => {
+          if (!data.accessToken) {
+            throw new Error('No existe el usuario');
+          } else {
+            this.tokenService.setToken(data.accessToken);
+            const isAuthenticated = this.tokenService.getIsAuthenticated();
+            this.router.navigate(['/pages']);
+            console.log(isAuthenticated);
+          }
+          console.log(data.accessToken);
+          this.tokenService.setToken(data.accessToken);
+        },
+        (error) => {
+          this.snackBar.open('Error en el inicio de sesión', 'Cerrar', {
+            duration: 5000
+          });
+        }
+      );
+    }
   }
-
 
   navigateToRegister() {
-    this.router.navigateByUrl("/register");
+    this.router.navigateByUrl('/register');
   }
-
 }
