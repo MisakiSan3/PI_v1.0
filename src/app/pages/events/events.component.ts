@@ -29,8 +29,10 @@ export class EventsComponent implements OnInit {
   events: EventModel[]= [];
   getEvents(){
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
+    this.events = []
     this.eventsService.getEventsByUserId(userId).subscribe(
        response =>{
+        
           response.forEach(element => {
             if (element.categoria.nombre_c != 'Clase') {
               this.events.push(element)
@@ -50,8 +52,10 @@ export class EventsComponent implements OnInit {
     }
   }
   deleteEvent(id: string){
+    
     this.eventsService.destroy(id).subscribe(
       response =>{
+        this.getEvents()
       }
     )
   }

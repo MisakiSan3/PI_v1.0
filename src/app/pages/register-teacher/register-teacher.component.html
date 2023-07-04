@@ -1,55 +1,81 @@
-<h2>{{ updating ? 'Actualizar' : 'Registrar' }} Profesor</h2>
+
 
 <form [formGroup]="teacherForm" (ngSubmit)="updating ? updateTeacher() : createTeacher()">
-  <div class="form-group">
-    <label for="nombre_p">Nombre</label>
-    <input type="text" id="nombre_p" class="form-control" formControlName="nombre_p" required>
-    <div *ngIf="teacherForm.get('nombre_p')?.invalid && teacherForm.get('nombre_p')?.touched" class="error-message">
-      Nombre es requerido.
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10 col-sm-12">
+        <button type="submit"[routerLink]="[ '../teacher-list']" class="btn btn-primary mb-3">
+          Regresar
+        </button>
+        <div class="card">
+          <div class="card-header"><h2>{{ updating ? 'Actualizar' : 'Registrar' }} Profesor</h2></div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="nombre_p">Nombre</label>
+              <input [(ngModel)]="teacher.nombre_p" [(ngModel)]="teacherEdit.nombre_p" type="text" id="nombre_p" class="form-control" formControlName="nombre_p" required>
+              <div *ngIf="teacherForm.get('nombre_p')?.invalid && teacherForm.get('nombre_p')?.touched" class="error-message">
+                Nombre es requerido.
+              </div>
+            </div>
+          
+            <div class="form-group">
+              <label for="apellido_p">Apellido</label>
+              <input [(ngModel)]="teacher.apellido_p" [(ngModel)]="teacherEdit.apellido_p" type="text" id="apellido_p" class="form-control" formControlName="apellido_p" required>
+              <div *ngIf="teacherForm.get('apellido_p')?.invalid && teacherForm.get('apellido_p')?.touched" class="error-message">
+                Apellido es requerido.
+              </div>
+            </div>
+          
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input [(ngModel)]="teacher.email" [(ngModel)]="teacherEdit.email" type="email" id="email" class="form-control" formControlName="email" required>
+              <div *ngIf="teacherForm.get('email')?.invalid && teacherForm.get('email')?.touched" class="error-message">
+                <div *ngIf="teacherForm.get('email')?.errors?.['required']">Email es requerido.</div>
+                <div *ngIf="teacherForm.get('email')?.errors?.['pattern']">Email no es válido.</div>
+              </div>
+            </div>
+          
+            <div class="form-group">
+              <label for="telf">Teléfono</label>
+              <input [(ngModel)]="teacher.telf" [(ngModel)]="teacherEdit.telf" type="text" id="telf" class="form-control" formControlName="telf" required>
+              <div *ngIf="teacherForm.get('telf')?.invalid && teacherForm.get('telf')?.touched" class="error-message">
+                <div *ngIf="teacherForm.get('telf')?.errors?.['required']">Teléfono es requerido.</div>
+                <div *ngIf="teacherForm.get('telf')?.errors?.['pattern']">Teléfono no es válido.</div>
+              </div>
+            </div>
+          
+            <div class="form-group">
+              <label for="asignatura">Asignatura</label>
+              <ng-select [items]= "materias"
+                            bindLabel= "nombre_a"
+                            name= "asignatura"
+                            id= "asignatura"
+                            formControlName="asignatura" required
+                            bindValue= "id"
+                            [(ngModel)]="teacher.asignatura" 
+                            [(ngModel)]="teacherEdit.asignatura"
+                            >
+                         </ng-select>
+              <div *ngIf="teacherForm.get('asignatura')?.invalid && teacherForm.get('asignatura')?.touched" class="error-message">
+                Asignatura es requerida.
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-success">
+              {{ updating ? 'Actualizar' : 'Registrar' }}
+            </button>
+          
+            <div *ngIf="teacherForm.invalid && teacherForm.touched && teacherForm.dirty" class="error-message">
+              Por favor, complete todos los campos.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  
+  
 
-  <div class="form-group">
-    <label for="apellido_p">Apellido</label>
-    <input type="text" id="apellido_p" class="form-control" formControlName="apellido_p" required>
-    <div *ngIf="teacherForm.get('apellido_p')?.invalid && teacherForm.get('apellido_p')?.touched" class="error-message">
-      Apellido es requerido.
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" id="email" class="form-control" formControlName="email" required>
-    <div *ngIf="teacherForm.get('email')?.invalid && teacherForm.get('email')?.touched" class="error-message">
-      <div *ngIf="teacherForm.get('email')?.errors?.['required']">Email es requerido.</div>
-      <div *ngIf="teacherForm.get('email')?.errors?.['pattern']">Email no es válido.</div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="telf">Teléfono</label>
-    <input type="text" id="telf" class="form-control" formControlName="telf" required>
-    <div *ngIf="teacherForm.get('telf')?.invalid && teacherForm.get('telf')?.touched" class="error-message">
-      <div *ngIf="teacherForm.get('telf')?.errors?.['required']">Teléfono es requerido.</div>
-      <div *ngIf="teacherForm.get('telf')?.errors?.['pattern']">Teléfono no es válido.</div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="asignatura">Asignatura</label>
-    <select id="asignatura" class="form-control" formControlName="asignatura" required>
-      <option *ngFor="let materia of materias" [value]="materia.id">{{ materia.nombre_a }}</option>
-    </select>
-    <div *ngIf="teacherForm.get('asignatura')?.invalid && teacherForm.get('asignatura')?.touched" class="error-message">
-      Asignatura es requerida.
-    </div>
-  </div>
-
-  <button type="submit" class="btn btn-primary">
-    {{ updating ? 'Actualizar' : 'Registrar' }}
-  </button>
-
-  <div *ngIf="teacherForm.invalid && teacherForm.touched && teacherForm.dirty" class="error-message">
-    Por favor, complete todos los campos.
-  </div>
+ 
 </form>
