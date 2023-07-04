@@ -65,4 +65,41 @@ input[name="slider"]:checked ~ .slides {
   background-repeat: no-repeat;
 }
 
+.carousel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.433);
+  color: white;
+  padding: 20px;
+}
 
+.carousel-overlay h2 {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.carousel-overlay button {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  background-color: green;
+  color: white;
+  border: none;
+}
+
+.carousel-overlay button:hover {
+  background-color: darkgreen;
+}
+
+@media screen and (max-width: 768px) {
+  .carousel-overlay {
+    position: relative;
+    animation: none;
+  }
+}
