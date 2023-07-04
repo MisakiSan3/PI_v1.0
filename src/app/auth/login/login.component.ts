@@ -18,6 +18,11 @@ export class LoginComponent implements OnInit {
   formSubmitted = false; // Track if the form has been submitted
   formInvalid = false; // Track if the form is invalid
 
+  user: UserAuthModel = {
+    email: '',
+    contrasenia: ''
+  };
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -25,24 +30,20 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  user: UserAuthModel = {
-    email: '',
-    contrasenia: ''
-  };
-
   ngOnInit(): void {}
 
   onLogins(): void {
-    this.formSubmitted = true; // lo transforma en true si es valido el form
+    this.formSubmitted = true; // Set formSubmitted to true when the form is submitted
 
-    if (this.email.invalid && this.password.invalid) {
-      // valida si el formulario es invalido
-      this.formInvalid = true; // Setea en formInvalid en true si el form es invalido
+    if (this.email.invalid || this.password.invalid) {
+      // Check if the form is invalid
+      this.formInvalid = true; // Set formInvalid to true if the form is invalid
       return;
     }
 
     const emailValue = this.email.value;
     const passwordValue = this.password.value;
+    console.log()
 
     if (emailValue && passwordValue) {
       this.user.email = emailValue;
@@ -50,16 +51,17 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(this.user).subscribe(
         (data) => {
-          if (!data.accessToken) {
+          console.log(data);
+          if (!data.accessToke) {
             throw new Error('No existe el usuario');
           } else {
-            this.tokenService.setToken(data.accessToken);
+            this.tokenService.setToken(data.accessToke);
             const isAuthenticated = this.tokenService.getIsAuthenticated();
             this.router.navigate(['/pages']);
             console.log(isAuthenticated);
           }
           console.log(data.accessToken);
-          this.tokenService.setToken(data.accessToken);
+          this.tokenService.setToken(data.accessToke);
         },
         (error) => {
           this.snackBar.open('Error en el inicio de sesión', 'Cerrar', {
