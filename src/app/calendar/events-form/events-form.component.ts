@@ -102,7 +102,7 @@ export class EventsFormComponent implements OnInit {
       const errorDiv = document.getElementById('errorDiv') as HTMLElement
       errorDiv.innerHTML = ''
       this.dateError = false
-    }
+    } 
   }
   timeHandler(){
     if (this.timeStart >= this.timeEnd) {
