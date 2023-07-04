@@ -1,23 +1,23 @@
-import { Injectable,inject } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { TokenService } from '../services/token.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard  {
-  private cookieService = inject(CookieService)
-  private router = inject(Router)
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    const Jsonusuario =  this.cookieService.get('User')
-      if (Jsonusuario) {
-        return true
-      }else {
-        this.router.navigateByUrl("login")
-        return false
-      }
+export class AuthGuard implements CanActivate  {
+  constructor(
+    private tokenService: TokenService,
+    private router: Router
+  ) {}
+
+   
+  canActivate(): boolean {
+    if (this.tokenService.getIsAuthenticated()) {
+      return true;
+    }else {
+      this.router.navigateByUrl('/login');
+      return false;
+    }
   }
-  
-  
 }

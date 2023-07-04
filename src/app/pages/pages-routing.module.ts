@@ -9,18 +9,19 @@ import { EventsComponent } from './events/events.component';
 import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
-  {path:"pages", component: PagesComponent,
+  {path:"pages",canActivate:[AuthGuard], component: PagesComponent,
    children:[
     {path: "", component: DashboardComponent},
-    {path: "teacher-list", component: TeachersComponent},
-    {path: "teacher-register", component: RegisterTeacherComponent},
-    {path: "subjects", component: MaterialComponent},
-    {path: "event-list", component: EventsComponent}
+    {path: "teacher-list",canActivate:[AuthGuard], component: TeachersComponent},
+    {path: "teacher-register",canActivate:[AuthGuard], component: RegisterTeacherComponent},
+    {path: "subjects",canActivate:[AuthGuard], component: MaterialComponent},
+    {path: "event-list",canActivate:[AuthGuard], component: EventsComponent}
    ]},
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
+  providers: [AuthGuard],
   exports: [RouterModule]
 })
 export class PagesRoutingModule { }

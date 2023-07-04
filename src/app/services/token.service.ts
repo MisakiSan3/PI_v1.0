@@ -5,8 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
 
+  public isAuthenticated: boolean = false;
+
   constructor() { }
 
+  //Verifica si hay un token almacenado
   isLogged(): boolean {
     if (this.getToken()) {
       return true;
@@ -14,26 +17,30 @@ export class TokenService {
     return false;
   }
 
+  //Verifica si el usuario esta autenticado
+  getIsAuthenticated(): boolean {
+    if(!this.isLogged()){
+      return false
+     }else {
+      this.isAuthenticated = true;
+     }
+    return this.isAuthenticated;
+  }
 
+
+//Almacena el Token en el localStorage del navegador
   setToken(accessToke: string): void {
     localStorage.setItem('accessToke', accessToke);
     console.log('accessToke', accessToke);
   }
 
-
+//Obtiene el token del navegador
   getToken(): string {
     return localStorage.getItem('accessToke')!;
   }
 
-  /*getUserIdFromToken(): string | null {
-    const accessToke = this.getToken();
-    if (accessToke) {
-      const decodedToken: any = jwt_decode(accessToke);
-      return decodedToken.sub;
-    }
-    return null;
-  }*/
-
+  
+//Extrae el nombre del token
   getUserNameFromToken(): string | null{
     const nombreToke = this.getToken();
    
@@ -47,7 +54,8 @@ export class TokenService {
     const name =  valuesJson.name;
     return name;
   }
-
+ 
+  //Extrae el id del token
   getUserIdFromToken(): string | null{
     const idToke = this.getToken();
    
@@ -62,15 +70,6 @@ export class TokenService {
     console.log('id:', userId);
     return userId;
   }
-
-  logOuts(): void {
-    localStorage.clear();
-  }
-
 }
-function jwt_decode(accessToke: string): any {
-  throw new Error('Function not implemented.');
 
-  
-}
 

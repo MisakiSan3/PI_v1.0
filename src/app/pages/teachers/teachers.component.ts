@@ -15,9 +15,12 @@ export class TeachersComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getTeachers();
+    this.getSubjects()
   }
   maestros: TeacherModel[] = []
   materias: SubjectModel[] = []
+  filterName: string = '';
+  filterAsignatura: string = '';
   getTeachers(){
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
     this.teachersService.getTeachersByUserId(userId).subscribe(

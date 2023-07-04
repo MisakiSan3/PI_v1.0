@@ -9,15 +9,19 @@
                     <div class="row justify-content-evenly">
                         <div class="col">
                             <label class="label" for="teacherName">Nombre:</label>
-                            <input class="form-control" type="text" name="teacherName"  id="teacherName">
+                            <input [(ngModel)]="filterName" class="form-control" type="text" name="filterName"  id="filterName">
                         </div>
                         <div class="col">
                             <label class="label" for="teacherSubject">Asignatura:</label>
-                            <select class="form-control" name="teacherSubject" id="teacherSubject">
-                                <option value="Matemática discreta">Matemática discreta</option>
-                                <option value="Base de datos">Base de datos</option>
-                                <option value="Fundamentos de administración">Fundamentos de administración</option>
-                            </select>
+                            <ng-select [items]= "materias"
+                            bindLabel= "nombre_a"
+                            name= "filterAsignatura"
+                            id= "filterAsignatura"
+                            [clearable]="true" 
+                            bindValue= "nombre_a"
+                            [(ngModel)]="filterAsignatura"
+                            >
+                         </ng-select>
                         </div>
                     </div>
                 </div>
@@ -31,7 +35,7 @@
                 <h3>Maestros</h3>
             </div>
             <div class="card-body ">
-                <div *ngFor="let maestro of maestros;let i = index" class="accordion accordion-flush" id="accordion">
+                <div *ngFor="let maestro of maestros |teacher:filterName | teacherAsignaturaPipe: filterAsignatura let i = index" class="accordion accordion-flush" id="accordion">
                     <a class="accordion-button" data-bs-toggle="collapse" href="#{{i}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                         {{maestro.nombre_p + ' ' + maestro.apellido_p}}
                     </a>

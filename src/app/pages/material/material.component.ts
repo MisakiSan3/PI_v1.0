@@ -47,6 +47,7 @@ export class MaterialComponent {
   vaciar(){
     this.updatedSubject.nombre_a = '';
     this.materia.nombre_a = '';
+    this.updating = false
   }
   createSubjects(){
     this.subjectService.store(this.materia).subscribe(

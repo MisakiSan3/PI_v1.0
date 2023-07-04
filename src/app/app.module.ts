@@ -13,6 +13,7 @@ import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 import { CookieService } from 'ngx-cookie-service';
 import { EventPipePipe } from './pipes/event-pipe.pipe';
+import { TeacherPipe } from './pipes/teacher.pipe';
 
 @NgModule({
   declarations: [
