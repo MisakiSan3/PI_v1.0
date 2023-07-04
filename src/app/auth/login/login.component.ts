@@ -40,7 +40,9 @@ export class LoginComponent implements OnInit {
           throw new Error('No existe el usuario')
          }else {
           this.tokenService.setToken(data.accessToke);
+          const aut = this.tokenService.getIsAuthenticated();
           this.router.navigate(['/pages']);
+          console.log(aut)
          }
         console.log(data.accessToke);
         this.tokenService.setToken(data.accessToke);
@@ -50,7 +52,6 @@ export class LoginComponent implements OnInit {
 
   }
 
- 
 
   navigateToRegister() {
     this.router.navigateByUrl("/register");

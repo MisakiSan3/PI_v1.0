@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponentComponent } from './calendar-component.component';
 import { EventsFormComponent } from './events-form/events-form.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
-  {path:"calendar", component: CalendarComponentComponent,
+  {path:"calendar",canActivate:[AuthGuard], component: CalendarComponentComponent,
    children:[
     {path: "",component: CalendarComponent},
-    {path: 'register-event', component: EventsFormComponent}
+    {path: 'register-event',canActivate:[AuthGuard], component: EventsFormComponent}
    ]},
 ];
 

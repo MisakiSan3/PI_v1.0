@@ -14,12 +14,11 @@ export class HeaderComponent {
     private router: Router,
     private tokenService:TokenService
     ){}
-  /*logOut(){
-    this.cookieService.delete('User');
-    this.router.navigate(['/login'])
-  }*/
+    
+  //Cierra sesion limpiando el token almacenado en el localStorage del navegador
   logOut(): void {
     localStorage.clear();
     this.router.navigate(['/login']);
+    this.tokenService.isAuthenticated = false;
   }
 }
