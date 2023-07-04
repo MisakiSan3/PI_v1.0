@@ -12,15 +12,29 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group mb-3">
             <label for="eventName">Nombre del evento:</label>
-            <input [(ngModel)]="event.title" [(ngModel)]="eventUpdate.title" type="text" class="form-control" id="eventName" placeholder="Ingrese el nombre del evento">
+            <input [(ngModel)]="event.title" [(ngModel)]="eventUpdate.title" maxlength="30" type="text" class="form-control" id="eventName" placeholder="Ingrese el nombre del evento" [formControl]="nombre">
+            <div class="error-message" *ngIf="nombre.invalid && nombre.touched">
+              <p *ngIf="nombre.errors?.['required']">El título es obligatorio.</p>
+              <p *ngIf="nombre.errors?.['maxLength']">El título debe tener máximo 30 dígitos</p>
+              <p *ngIf="nombre.errors?.['pattern']">El título no debe tener números.</p>
+            </div>
           </div>
           <div class="form-group mb-3">
             <label for="start">Fecha de inicio del evento:</label>
-            <input [(ngModel)]="event.start" [(ngModel)]="eventUpdate.start" type="date" class="form-control" name="start" id="start">
+            <input [(ngModel)]="event.start" [(ngModel)]="eventUpdate.start" type="date" class="form-control" name="start" id="start" [formControl]="dateInit">
+            <div class="error-message" *ngIf="dateInit.invalid && dateInit.touched">
+              <p *ngIf="dateInit.errors?.['required']">La fecha de inicio es obligatoria.</p>
+            </div>
           </div>
           <div *ngIf="!esClase" class="form-group mb-3">
             <label for="end">Fecha de finalización del evento:</label>
-            <input [(ngModel)]="event.end" [(ngModel)]="eventUpdate.end" type="date" class="form-control" name="end" id="end">
+            <input [(ngModel)]="event.end" [(ngModel)]="eventUpdate.end" type="date" class="form-control" name="end" id="end"  (change)="dateHandler()" [formControl]="dateEn">
+            <div class="error-message" *ngIf="dateEn.invalid && dateEn.touched">
+              <p *ngIf="dateEn.errors?.['required']">La fecha de fin es obligatoria.</p>
+            </div>
+            <div class="error-message" *ngIf="dateError">
+              <p>La fecha de fin debe ser igual o mayor a la de inicio</p>
+            </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -34,8 +48,12 @@
              id= "categoria"
              bindValue= "id"
              (change)="categoryHandler()"
+             [formControl]="categoria"
              >
             </ng-select>
+            <div class="error-message" *ngIf="categoria.invalid && categoria.touched">
+              <p *ngIf="categoria.errors?.['required']">La categoria es obligatoria.</p>
+            </div>
           </div>
           <div class="form-group mb-3">
             <label for="eventName">Maestro del evento:</label>
@@ -46,32 +64,50 @@
             name= "maestro"
             id= "maestro"
             bindValue= "id"
+            [formControl]="maestro"
             >
            </ng-select>
+           <div class="error-message" *ngIf="maestro.invalid && maestro.touched">
+            <p *ngIf="maestro.errors?.['required']">El maestro es obligatorio.</p>
+          </div>
         </div>
         <div class="row">
           <div class="col-5">
             <div class="form-group mb-3">
               <label for="timeStart">Hora del evento:</label>
-              <input [(ngModel)]="timeStart" type="time" class="form-control" name="timeStart" id="timeStart">
+              <input [(ngModel)]="timeStart" type="time" class="form-control" name="timeStart" id="timeStart" [formControl]="timeInit">
+              <div class="error-message" *ngIf="timeInit.invalid && timeInit.touched">
+                <p *ngIf="timeInit.errors?.['required']">La hora inicio es obligatoria.</p>
+              </div>
             </div>
           </div>
           <div class="col-5">
             <div class="form-group mb-3">
               <label for="timeEnd">Hora del evento:</label>
-              <input [(ngModel)]="timeEnd" type="time" class="form-control" name="timeEnd" id="timeEnd">
+              <input (change)="timeHandler()" [(ngModel)]="timeEnd" type="time" class="form-control" name="timeEnd" id="timeEnd" [formControl]="timeEn">
+              <div class="error-message" *ngIf="timeEn.invalid && timeEn.touched">
+                <p *ngIf="timeEn.errors?.['required']">La hora fin es obligatoria.</p>
+              </div>
             </div>
           </div>
+          <div class="error-message" *ngIf="timeError">
+            <p>La hora fin debe ser después de la hora inicio</p>
+          </div>
         </div>
-        
         </div>
       </div>
       <div class="row mb-3">
         <div class="col-12">
           <label for="description">Descripción del evento:</label>
-          <textarea [(ngModel)]="event.description" [(ngModel)]="eventUpdate.description" class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+          <div class="error-message" *ngIf="descripcion.invalid && descripcion.touched">
+            <p *ngIf="descripcion.errors?.['required']">La descripción es obligatorio.</p>
+            <p *ngIf="descripcion.errors?.['maxLength']">La descripción debe tener máximo 100 dígitos</p>
+
+          </div>
+          <textarea [(ngModel)]="event.description" maxlength="100" [(ngModel)]="eventUpdate.description" class="form-control" name="description" id="description" cols="30" rows="10" [formControl]="descripcion"></textarea>
         </div>
       </div>
+      <div id="errorDiv"></div>
       <button *ngIf="!updating" (click)="createEvent()" type="submit" class="btn btn-primary">Guardar</button>
       <button *ngIf="updating" (click)="createUpdate()" type="submit" class="btn btn-primary">Actualizar</button>
     </div>

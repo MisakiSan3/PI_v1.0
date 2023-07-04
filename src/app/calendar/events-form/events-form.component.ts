@@ -1,5 +1,6 @@
 import { Time } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CategoryModel } from 'src/app/models/category-model.entity';
 import { CreateEventModel, EventModel, UpdateEventModel } from 'src/app/models/event-model.entity';
@@ -33,6 +34,8 @@ export class EventsFormComponent implements OnInit {
   events: EventModel[] = [];
   maestros: TeacherModel[] = [];
   updating: boolean = false;
+  dateError: boolean = false;
+  timeError: boolean = false;
   timeStart: Time = {
     hours: 0,
     minutes: 0
@@ -92,10 +95,26 @@ export class EventsFormComponent implements OnInit {
     }
     
   }
+  dateHandler(){
+    if (this.event.start > this.event.end) {
+      this.dateError = true
+    }else {
+      const errorDiv = document.getElementById('errorDiv') as HTMLElement
+      errorDiv.innerHTML = ''
+      this.dateError = false
+    }
+  }
+  timeHandler(){
+    if (this.timeStart >= this.timeEnd) {
+      this.timeError = true
+    }else {
+      const errorDiv = document.getElementById('errorDiv') as HTMLElement
+      errorDiv.innerHTML = ''
+      this.timeError = false
+    }
+  }
   
   createEvent(){
-    
-    
     if (this.esClase) {
       this.event.end = this.event.start + 'T' + this.timeEnd + '-05:00';
       this.event.start = this.event.start + 'T' + this.timeStart + '-05:00';
@@ -103,7 +122,12 @@ export class EventsFormComponent implements OnInit {
       this.event.end = this.event.end + 'T' + this.timeEnd + '-05:00';
       this.event.start = this.event.start + 'T' + this.timeStart + '-05:00';
     }
-    this.postEvent()
+    if (!this.timeError && !this.dateError) {
+      this.postEvent()
+    }else {
+      const errorDiv = document.getElementById('errorDiv') as HTMLElement
+      errorDiv.innerHTML = 'La fecha o la hora son incorrectas'
+    }
   }
 
   postEvent(){
@@ -120,14 +144,20 @@ export class EventsFormComponent implements OnInit {
     }
   }
   createUpdate(){
-    if (this.esClase) {
-      this.eventUpdate.end = this.eventUpdate.start + 'T' + this.timeEnd + '-05:00';
-      this.eventUpdate.start = this.eventUpdate.start + 'T' + this.timeStart + '-05:00';
-    } else {
-      this.eventUpdate.start = this.eventUpdate.start + 'T' + this.timeStart + '-05:00';
-      this.eventUpdate.end = this.eventUpdate.end + 'T' + this.timeEnd + '-05:00';
+    
+      if (this.esClase) {
+        this.eventUpdate.end = this.eventUpdate.start + 'T' + this.timeEnd + '-05:00';
+        this.eventUpdate.start = this.eventUpdate.start + 'T' + this.timeStart + '-05:00';
+      } else {
+        this.eventUpdate.start = this.eventUpdate.start + 'T' + this.timeStart + '-05:00';
+        this.eventUpdate.end = this.eventUpdate.end + 'T' + this.timeEnd + '-05:00';
+      }
+    if (!this.timeError && !this.dateError) {
+      this.updateEvent()
+    }else {
+      const errorDiv = document.getElementById('errorDiv') as HTMLElement
+      errorDiv.innerHTML = 'La fecha o la hora son incorrectas'
     }
-    this.updateEvent()
   }
   updateEvent(){
     try {
@@ -193,4 +223,12 @@ export class EventsFormComponent implements OnInit {
       }
     )
   }
+  nombre = new FormControl('', [Validators.required, Validators.pattern(/\D+/),Validators.maxLength(30)])
+  descripcion = new FormControl('', [Validators.required, Validators.maxLength(100)]);
+  categoria = new FormControl('', [Validators.required]);
+  maestro = new FormControl('', [Validators.required]);
+  dateInit = new FormControl('', [Validators.required]);
+  dateEn = new FormControl('', [Validators.required]);
+  timeInit = new FormControl('', [Validators.required]);
+  timeEn = new FormControl('', [Validators.required]);
 }

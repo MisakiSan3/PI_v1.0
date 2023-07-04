@@ -8,7 +8,8 @@ import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     FullCalendarModule,
     NgSelectModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
   ],
   exports: [
     CalendarComponent,
