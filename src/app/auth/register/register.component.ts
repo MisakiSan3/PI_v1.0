@@ -16,11 +16,8 @@ export class RegisterComponent implements OnInit {
 
   passwordVerify: string = '';
   user: CreateUserModel = {
-    nombre_u: '',
-    apellido_u: '',
-    telf: '',
     email: '',
-    contrasenia: '',
+    password: '',
     nickname: ''
   };
 
@@ -42,17 +39,14 @@ export class RegisterComponent implements OnInit {
   createUser() {
     try {
       if (
-        this.user.nombre_u === '' ||
-        this.user.apellido_u === '' ||
-        this.user.telf === '' ||
         this.user.email === '' ||
-        this.user.contrasenia === '' ||
+        this.user.password === '' ||
         this.user.nickname === ''
       ) {
         throw new Error('Por favor, complete todos los campos');
       }
 
-      if (this.user.contrasenia === this.passwordVerify) {
+      if (this.user.password === this.passwordVerify) {
         if (this.user.email.match(this.emailRegex)) {
           this.userService.store(this.user).subscribe(
             (response) => {

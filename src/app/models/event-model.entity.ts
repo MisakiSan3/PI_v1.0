@@ -7,20 +7,20 @@ export interface EventModel {
     start: Date;
     end: Date;
     description: string;
-    maestro: TeacherModel;
-    categoria: CategoryModel;
+    teacher: TeacherModel;
+    eventCategory: CategoryModel;
 
 }
-export interface CreateEventModel extends  Omit<EventModel, 'id' |'categoria' |'maestro' |'start' |'end'>{
-    categoria: string;
-    maestro: string;
+export interface CreateEventModel extends  Omit<EventModel, 'id' |'eventCategory' |'teacher' |'start' |'end'>{
+    eventCategory: CategoryModel;
+    teacher: TeacherModel;
     start: string;
     end: string;
 }
 
-export interface UpdateEventModel extends Omit<EventModel, 'categoria' |'maestro' |'start' |'end'>{
-    categoria?: string;
-    maestro?: string;
+export interface UpdateEventModel extends Omit<EventModel, 'eventCategory' |'teacher' |'start' |'end'>{
+    eventCategory?: string;
+    teacher?: string;
     start?: string;
     end?: string;
 }

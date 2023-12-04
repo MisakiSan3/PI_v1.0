@@ -34,7 +34,7 @@ export class EventsComponent implements OnInit {
        response =>{
         
           response.forEach(element => {
-            if (element.categoria.nombre_c != 'Clase') {
+            if (element.eventCategory.nombre_c != 'Clase') {
               this.events.push(element)
             }
           });

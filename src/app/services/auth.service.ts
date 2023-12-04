@@ -9,7 +9,7 @@ import { UserAuthModel } from '../models/auth-model.entity';
 })
 export class AuthService {
  
-  readonly API_URL: string = "http://localhost:5000/auth/";
+  readonly API_URL: string = "http://localhost:8092/api/user/";
 
   constructor(private  httpclient:HttpClient) { 
   }
@@ -17,7 +17,7 @@ export class AuthService {
   
 
   login(dto: UserAuthModel):Observable<any>{
-    return this.httpclient.post<any>(this.API_URL + 'login', dto);
+    return this.httpclient.get<any>(this.API_URL + '2');
   }
 
   register(dto: UserModel):Observable<any>{

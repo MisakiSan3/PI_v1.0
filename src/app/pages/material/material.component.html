@@ -11,7 +11,7 @@
           <form [formGroup]="materiaForm">
             <div class="form-group">
               <label for="nombre">Nombre</label>
-              <input [(ngModel)]="updatedSubject.nombre_a" formControlName="nombre" type="text" class="form-control" id="nombre" name="nombre" required>
+              <input [(ngModel)]="updatedSubject.name_s" formControlName="nombre" type="text" class="form-control" id="nombre" name="nombre" required>
               <div *ngIf="nombreInvalido()" class="text-danger">Este campo es obligatorio y no puede llevar simbolos y números.</div>
             </div>
             <button *ngIf="!updating" (click)="createSubjects()" type="submit" class="btn btn-success mt-2 me-2">Registrar</button>
@@ -37,7 +37,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let materia of materias">
-                <td>{{ materia.nombre_a }}</td>
+                <td>{{ materia.name_s }}</td>
                 <td>
                   <button class="btn btn-success mt-2 me-2" (click)="selectSubject(materia)">Actualizar</button>
                 </td>

@@ -2,18 +2,18 @@ import { SubjectModel } from "./subject-model.entity";
 
 export interface TeacherModel {
     id : string;
-    nombre_p : string;
-    apellido_p : string;
+    name_p : string;
+    lastname_p : string;
     telf : string;  
     email : string;
-    asignatura: SubjectModel;
+    subject: SubjectModel;
 
 }
-export interface CreateTeacherModel extends  Omit<TeacherModel, 'id' |'asignatura'>{
-    asignatura: string;
+export interface CreateTeacherModel extends  Omit<TeacherModel, 'id' |'subject'>{
+    subject: SubjectModel;
 }
 
-export interface UpdateTeacherModel extends Omit<TeacherModel, 'asignatura'>{
+export interface UpdateTeacherModel extends Omit<TeacherModel, 'subject'>{
     id: string;
-    asignatura: string;
+    subject: string;
 }

@@ -8,20 +8,17 @@ export class EventsPluginModel {
     description: string = '';
     maestro: TeacherModel = {
         id: "",
-        nombre_p: "",
-        apellido_p: "",
+        name_p: "",
+        lastname_p: "",
         telf: "",
         email: "",
-        asignatura: {
+        subject: {
             id: "",
-            nombre_a: "",
+            name_s: "",
             user: {
-                id: "",
-                nombre_u: "",
-                apellido_u: "",
-                telf: "",
+                id: 0,
                 email: "",
-                contrasenia: "",
+                password: "",
                 nickname: ""
             }
         }

@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const emailValue = this.email.value;
+    /*const emailValue = this.email.value;
     const passwordValue = this.password.value;
     console.log()
 
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
           });
         }
       );
-    }
+    }*/
   }
 
   navigateToRegister() {

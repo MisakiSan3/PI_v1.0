@@ -49,8 +49,27 @@ export class EventsFormComponent implements OnInit {
     start: '',
     end: '',
     description: '',
-    maestro: '',
-    categoria: ''
+    eventCategory: {
+      id: "0",
+      nombre_c:""
+    },
+    teacher:{
+      id:"0",
+      subject:{
+        id: "0",
+        name_s: "",
+        user: {
+          email: "",
+          id: 0,
+          nickname: "",
+          password: ""
+        }
+      },
+      name_p: '',
+      lastname_p: '',
+      telf: '',
+      email: ''
+    }
   };
   eventUpdate: UpdateEventModel = {
     id: '',
@@ -58,8 +77,8 @@ export class EventsFormComponent implements OnInit {
     start: '',
     end: '',
     description: '',
-    maestro: '',
-    categoria: ''
+    teacher: '',
+    eventCategory: ''
   };
 
   getCategories(){
@@ -72,7 +91,7 @@ export class EventsFormComponent implements OnInit {
   }
   getTeachers(){
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
-    this.teacherService.getTeachersByUserId(userId).subscribe(
+    this.teacherService.getAll().subscribe(
       response =>{
         this.maestros = response;
 
@@ -82,7 +101,7 @@ export class EventsFormComponent implements OnInit {
   categoryHandler(){
     let auxClase = false
     this.categorias.forEach(categoria => {
-      if (this.event.categoria === categoria.id) {
+      if (this.event.eventCategory.id === categoria.id) {
         if (categoria.nombre_c === 'Clase') {
           auxClase = true;
         }
@@ -195,9 +214,9 @@ export class EventsFormComponent implements OnInit {
     const endDate = hist.end.slice(0,10)
     this.timeStart = hist.start.slice(11,16)
     this.timeEnd = hist.end.slice(11,16)
-    this.eventUpdate.maestro = hist.maestro.id
-    this.eventUpdate.categoria = hist.categoria.id
-    this.event.categoria = hist.categoria.id
+    this.eventUpdate.teacher = hist.maestro.id
+    this.eventUpdate.eventCategory = hist.categoria.id
+    this.event.eventCategory = hist.categoria.id
     this.eventUpdate.title = hist.title
     this.eventUpdate.description = hist.description
     this.eventUpdate.id = hist.id
@@ -210,7 +229,7 @@ export class EventsFormComponent implements OnInit {
          this.events = response;
          var counter = 0;
          this.events.forEach(element => {
-          if (element.categoria.nombre_c === "Clase") {
+          if (element.eventCategory.nombre_c === "Clase") {
             if(!sessionStorage.getItem(counter.toString())){
               const json = JSON.stringify(element)
               sessionStorage.setItem(counter.toString(),json)

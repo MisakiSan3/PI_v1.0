@@ -12,7 +12,7 @@ import {
 })
 export class CategoryService {
   
-  readonly API_URL: string = "http://localhost:5000/categoria-eventos";
+  readonly API_URL: string = "http://localhost:8092/api/eventscategory/";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,7 +26,7 @@ export class CategoryService {
     return this.httpClient.get<CategoryModel>(url);
   }
   store(category: CreateCategoryModel):Observable<CategoryModel> {//no se usaran todos o campos(id, category)
-    const url = `${this.API_URL}`; 
+    const url = `${this.API_URL}/save`; 
     return this.httpClient.post<CategoryModel>(url, category)
   }
 

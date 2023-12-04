@@ -21,27 +21,24 @@ export class CalendarComponent implements OnInit {
     start: new Date,
     end: new Date,
     description: '',
-    maestro: {
+    teacher: {
       id: '',
-      nombre_p: '',
-      apellido_p: '',
+      name_p: '',
+      lastname_p: '',
       telf: '',
       email: '',
-      asignatura: {
+      subject: {
         id: '',
-        nombre_a: '',
+        name_s: '',
         user: {
-          id: '',
-          nombre_u: '',
-          apellido_u: '',
-          telf: '',
+          id: 0,
           email: '',
-          contrasenia: '',
+          password: '',
           nickname: ''
         }
       }
     },
-    categoria: {
+    eventCategory: {
       id: '',
       nombre_c: ''
     }
@@ -89,8 +86,8 @@ export class CalendarComponent implements OnInit {
     this.event.title = eventArg.title;
     this.event.id = eventArg.publicId;
     this.event.description = eventArg.extendedProps['description'];
-    this.event.categoria = eventArg.extendedProps['categoria'];
-    this.event.maestro = eventArg.extendedProps['maestro'];
+    this.event.eventCategory = eventArg.extendedProps['categoria'];
+    this.event.teacher = eventArg.extendedProps['maestro'];
     this.events.forEach(event => {
       if (event.id == this.event.id) {
        this.startDate = event.start.toLocaleString().slice(11,16);

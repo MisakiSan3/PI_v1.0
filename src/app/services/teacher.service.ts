@@ -12,7 +12,7 @@ import {
 })
 export class TeacherService {
 
-  readonly API_URL: string = "http://localhost:5000/teachers";
+  readonly API_URL: string = "http://localhost:8092/api/teacher/";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -30,7 +30,9 @@ export class TeacherService {
     return this.httpClient.get<TeacherModel>(url);
   }
   store(teacher: CreateTeacherModel):Observable<TeacherModel> {//no se usaran todos o campos(id, category)
-    const url = `${this.API_URL}`;
+    const url = `${this.API_URL}save`;
+    console.log(teacher);
+    
     return this.httpClient.post<TeacherModel>(url, teacher)
   }
 
@@ -39,7 +41,7 @@ export class TeacherService {
     return this.httpClient.patch<TeacherModel>(url, teacher);//devuelve un observable de tipo TeacherModel
   }
   destroy(id: TeacherModel['id']):Observable<any> {
-    const url = `${this.API_URL}/${id}`;
+    const url = `${this.API_URL}${id}`;
     return this.httpClient.delete<any>(url).pipe(map((response: { rta: boolean; }) => {
     //objeto.atributo.metodo(delete)
       return response.rta;

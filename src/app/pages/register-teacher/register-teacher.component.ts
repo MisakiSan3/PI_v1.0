@@ -15,9 +15,18 @@ import { Router } from '@angular/router';
 export class RegisterTeacherComponent implements OnInit {
   teacherForm!: FormGroup;
   teacher: CreateTeacherModel = {
-    asignatura: '',
-    nombre_p: '',
-    apellido_p: '',
+    subject:{
+      id: "0",
+      name_s: "",
+      user: {
+        email: "",
+        id: 0,
+        nickname: "",
+        password: ""
+      }
+    },
+    name_p: '',
+    lastname_p: '',
     telf: '',
     email: ''
   };
@@ -25,11 +34,11 @@ export class RegisterTeacherComponent implements OnInit {
   updating = false;
   teacherEdit: UpdateTeacherModel = {
     id: '',
-    nombre_p: '',
-    apellido_p: '',
+    name_p: '',
+    lastname_p: '',
     telf: '',
     email: '',
-    asignatura: ''
+    subject:""
   };
 
   constructor(
@@ -46,11 +55,11 @@ export class RegisterTeacherComponent implements OnInit {
     if (history.state.id) {
       this.updating = true;
       this.teacherEdit.id = history.state.id;
-      this.teacherEdit.nombre_p = history.state.nombre_p;
-      this.teacherEdit.apellido_p = history.state.apellido_p;
+      this.teacherEdit.name_p = history.state.nombre_p;
+      this.teacherEdit.lastname_p = history.state.apellido_p;
       this.teacherEdit.telf = history.state.telf;
       this.teacherEdit.email = history.state.email;
-      this.teacherEdit.asignatura = history.state.asignatura.id;
+      this.teacherEdit.subject = history.state.asignatura.id;
       console.log(this.teacherEdit);
     }
   }
@@ -67,9 +76,11 @@ export class RegisterTeacherComponent implements OnInit {
 
   getSubjects(): void {
     const userId: string | null = this.tokenService.getUserIdFromToken() ?? '';
-    this.subjectService.getSubjectsByUserId(userId).subscribe(
+    this.subjectService.getAll().subscribe(
       (materias: SubjectModel[]) => {
         this.materias = materias;
+        console.log(materias);
+        
       },
       (error) => {
         console.error('Error al obtener las asignaturas:', error);

@@ -22,8 +22,8 @@ export class TeachersComponent implements OnInit {
   filterName: string = '';
   filterAsignatura: string = '';
   getTeachers(){
-    const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
-    this.teachersService.getTeachersByUserId(userId).subscribe(
+    //const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
+    this.teachersService.getAll().subscribe(
       response =>{
         this.maestros = response;
 

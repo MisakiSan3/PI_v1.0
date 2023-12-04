@@ -12,7 +12,7 @@ import {
 })
 export class UserService {
   
-  readonly API_URL: string = "http://localhost:5000/user";
+  readonly API_URL: string = "http://localhost:8092/api/user";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,7 +26,7 @@ export class UserService {
     return this.httpClient.get<UserModel>(url);
   }
   store(user: CreateUserModel):Observable<UserModel> {//no se usaran todos o campos(id, category)
-    const url = `${this.API_URL}`; 
+    const url = `${this.API_URL}/save`; 
     return this.httpClient.post<UserModel>(url, user)
   }
 

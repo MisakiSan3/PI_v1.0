@@ -12,7 +12,7 @@ import {
 })
 export class EventService {
   
-  readonly API_URL: string = "http://localhost:5000/events";
+  readonly API_URL: string = "http://localhost:8092/api/events/";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,7 +26,7 @@ export class EventService {
     return this.httpClient.get<EventModel>(url);
   }
   store(event: CreateEventModel):Observable<EventModel> {//no se usaran todos o campos(id, category)
-    const url = `${this.API_URL}`; 
+    const url = `${this.API_URL}save`; 
     return this.httpClient.post<EventModel>(url, event)
   }
 

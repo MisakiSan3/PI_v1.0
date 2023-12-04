@@ -10,7 +10,7 @@ export class TeacherPipe implements PipeTransform {
     if(query === '' || query === undefined) {
       return value;
     }
-     value = value.filter(maestro => maestro.nombre_p.toLowerCase().indexOf(query.toLowerCase()) != -1 ||maestro.apellido_p.toLowerCase().indexOf(query.toLowerCase()) != -1)
+     value = value.filter(maestro => maestro.name_p.toLowerCase().indexOf(query.toLowerCase()) != -1 ||maestro.name_p.toLowerCase().indexOf(query.toLowerCase()) != -1)
      return value
   }
 
@@ -25,7 +25,7 @@ export class TeacherAsignaturaPipe implements PipeTransform {
     if(query === '' || query === undefined || !query) {
       return value;
     }
-    value = value.filter(maestro => maestro.asignatura.nombre_a.toLowerCase().indexOf(query.toLowerCase()) != -1)
+    value = value.filter(maestro => maestro.subject.name_s.toLowerCase().indexOf(query.toLowerCase()) != -1)
     return value;
   }
 

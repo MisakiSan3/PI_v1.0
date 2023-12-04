@@ -1,17 +1,14 @@
 export interface UserModel {
-    id: string;
-    nombre_u: string;
-    apellido_u: string;
-    telf: string;
+    id: number;
     email: string;
-    contrasenia: string;
+    password: string;
     nickname: string;
 }
 
 export interface CreateUserModel extends  Omit<UserModel, 'id'>{
 }
 
-export interface UpdateUserModel extends Partial<UserModel>{
+export interface UpdateUserModel extends Omit<UserModel,'id'>{
     id: string;
 }
   

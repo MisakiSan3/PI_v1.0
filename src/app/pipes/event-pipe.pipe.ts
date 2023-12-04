@@ -25,7 +25,7 @@ export class EventAsignaturaPipe implements PipeTransform {
     if(query === '' || query === undefined || !query) {
       return value;
     }
-    value = value.filter(event => event.maestro.asignatura.nombre_a.toLowerCase().indexOf(query.toLowerCase()) != -1)
+    value = value.filter(event => event.teacher.subject.name_s.toLowerCase().indexOf(query.toLowerCase()) != -1)
     return value;
   }
 

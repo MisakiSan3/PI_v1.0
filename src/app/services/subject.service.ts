@@ -13,7 +13,7 @@ import { TokenService } from './token.service';
 })
 export class SubjectService {
   
-  readonly API_URL: string = "http://localhost:5000/subjects";
+  readonly API_URL: string = "http://localhost:8092/api/subject/";
 
   constructor(
     private httpClient: HttpClient,
@@ -37,14 +37,19 @@ export class SubjectService {
   //-------------------------------------------------
 
   store(subject: CreateSubjectModel):Observable<SubjectModel> {
-   
-    const userId = this.tokenService.getUserIdFromToken();
+    const url = `${this.API_URL}save`; 
+   /* const userId = this.tokenService.getUserIdFromToken();
     if (userId) {
       subject.user = userId;
-      
-      const url = `${this.API_URL}`; 
       return this.httpClient.post<SubjectModel>(url, subject)
+    }*/
+    subject.user={
+      "id": 1,
+      "nickname": "Misaki",
+      "email": "misakisan380@gmail.com",
+      "password": "12345678"
     }
+    return this.httpClient.post<SubjectModel>(url, subject)
     throw new Error('No se pudo obtener el ID de usuario del token.');
   }
 
@@ -53,7 +58,7 @@ export class SubjectService {
     return this.httpClient.patch<SubjectModel>(url, subject);//devuelve un observable de tipo SubjectModel
   }
   destroy(id: SubjectModel['id']):Observable<any> {
-    const url = `${this.API_URL}/${id}`;
+    const url = `${this.API_URL}${id}`;
     return this.httpClient.delete<any>(url).pipe(map((response: { rta: boolean; }) => {
     //objeto.atributo.metodo(delete)   
       return response.rta;

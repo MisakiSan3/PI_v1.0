@@ -12,7 +12,7 @@
           <div class="card-body">
             <div class="form-group">
               <label for="nombre_p">Nombre</label>
-              <input [(ngModel)]="teacher.nombre_p" [(ngModel)]="teacherEdit.nombre_p" type="text" id="nombre_p" class="form-control" formControlName="nombre_p" required>
+              <input [(ngModel)]="teacher.name_p" [(ngModel)]="teacherEdit.name_p" type="text" id="nombre_p" class="form-control" formControlName="nombre_p" required>
               <div *ngIf="teacherForm.get('nombre_p')?.invalid && teacherForm.get('nombre_p')?.touched" class="error-message">
                 Nombre es requerido.
               </div>
@@ -20,7 +20,7 @@
 
             <div class="form-group">
               <label for="apellido_p">Apellido</label>
-              <input [(ngModel)]="teacher.apellido_p" [(ngModel)]="teacherEdit.apellido_p" type="text" id="apellido_p" class="form-control" formControlName="apellido_p" required>
+              <input [(ngModel)]="teacher.lastname_p" [(ngModel)]="teacherEdit.lastname_p" type="text" id="apellido_p" class="form-control" formControlName="apellido_p" required>
               <div *ngIf="teacherForm.get('apellido_p')?.invalid && teacherForm.get('apellido_p')?.touched" class="error-message">
                 Apellido es requerido.
               </div>
@@ -47,13 +47,12 @@
             <div class="form-group">
               <label for="asignatura">Asignatura</label>
               <ng-select [items]= "materias"
-                            bindLabel= "nombre_a"
+                            bindLabel= "name_s"
                             name= "asignatura"
                             id= "asignatura"
                             formControlName="asignatura" required
-                            bindValue= "id"
-                            [(ngModel)]="teacher.asignatura"
-                            [(ngModel)]="teacherEdit.asignatura"
+                            [(ngModel)]="teacher.subject"
+                            [(ngModel)]="teacherEdit.subject"
                             >
                          </ng-select>
               <div *ngIf="teacherForm.get('asignatura')?.invalid && teacherForm.get('asignatura')?.touched" class="error-message">

@@ -15,8 +15,13 @@ export class MaterialComponent implements OnInit {
   updating = false;
   updatedSubject: UpdateSubjectModel = {
     id: '',
-    nombre_a: '',
-    user: '',
+    name_s: '',
+    user: {
+      id: 1,
+      nickname: "Misaki",
+      email: "misakisan380@gmail.com",
+      password: "12345678"
+    },
   };
 
   constructor(
@@ -38,7 +43,7 @@ export class MaterialComponent implements OnInit {
 
   getSubjects(): void {
     const userId: string | null = this.tokenService.getUserIdFromToken() ?? '';
-    this.subjectService.getSubjectsByUserId(userId).subscribe(
+    this.subjectService.getAll().subscribe(
       (materias: SubjectModel[]) => {
         this.materias = materias;
       },
@@ -67,8 +72,13 @@ export class MaterialComponent implements OnInit {
     }
 
     const newSubject: CreateSubjectModel = {
-      user: '',
-      nombre_a: this.materiaForm.get('nombre')?.value
+      name_s: this.materiaForm.get('nombre')?.value,
+      user: {
+        id: 2,
+        nickname: "Misaki",
+        email: "misakisan380@gmail.com",
+        password: "12345678"
+      },
     };
 
     this.subjectService.store(newSubject).subscribe(
@@ -88,7 +98,7 @@ export class MaterialComponent implements OnInit {
       return;
     }
 
-    this.updatedSubject.nombre_a = this.materiaForm.get('nombre')?.value;
+    this.updatedSubject.name_s = this.materiaForm.get('nombre')?.value;
 
     this.subjectService.update(this.updatedSubject.id, this.updatedSubject).subscribe(
       response => {
@@ -115,8 +125,8 @@ export class MaterialComponent implements OnInit {
 
   selectSubject(subject: SubjectModel): void {
     this.updatedSubject.id = subject.id;
-    this.updatedSubject.nombre_a = subject.nombre_a;
-    this.updatedSubject.user = subject.user.id;
+    this.updatedSubject.name_s = subject.name_s;
+    this.updatedSubject.user = subject.user;
     this.nombreInvalido()
     this.updating = true;
   }
