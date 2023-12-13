@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   formInvalid = false; // Track if the form is invalid
 
   user: UserAuthModel = {
-    username: '',
+    email: '',
     password: ''
   };
 
@@ -41,13 +41,13 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    /*const emailValue = this.email.value;
+    const emailValue = this.email.value;
     const passwordValue = this.password.value;
     console.log()
 
     if (emailValue && passwordValue) {
       this.user.email = emailValue;
-      this.user.contrasenia = passwordValue;
+      this.user.password = passwordValue;
 
       this.authService.login(this.user).subscribe(
         (data) => {
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
           });
         }
       );
-    }*/
+    }
   }
 
   navigateToRegister() {

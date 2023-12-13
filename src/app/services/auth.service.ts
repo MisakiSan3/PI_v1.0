@@ -17,7 +17,7 @@ export class AuthService {
   
 
   login(dto: UserAuthModel):Observable<any>{
-    return this.httpclient.get<any>(this.API_URL + '2');
+    return this.httpclient.post<any>(this.API_URL + 'login',dto);
   }
 
   register(dto: CreateUserModel):Observable<any>{

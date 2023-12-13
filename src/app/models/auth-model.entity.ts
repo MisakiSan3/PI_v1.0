@@ -1,9 +1,9 @@
 export class UserAuthModel {
-    username: string;
+    email: string;
     password: string;
 
     constructor(email: string, contrasenia: string) {
-        this.username = email;
+        this.email = email;
         this.password = contrasenia;
     }
 }

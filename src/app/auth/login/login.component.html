@@ -11,7 +11,7 @@
               <!-- Email -->
               <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <input [(ngModel)]="user.username" name="email" type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" [formControl]="email">
+                <input [(ngModel)]="user.email" name="email" type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" [formControl]="email">
                 <div class="error-message" *ngIf="email.invalid && email.touched">
                   <p *ngIf="email.errors?.['required']">El correo electrónico es obligatorio.</p>
                   <p *ngIf="email.errors?.['email']">El correo electrónico no es válido.</p>

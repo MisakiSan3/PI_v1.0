@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
+import { TokenService } from 'src/app/services/token.service';
 
 
 
@@ -32,7 +33,7 @@ export class RegisterComponent implements OnInit {
   showValidationError: boolean = false;
   validationErrorMessage: string = '';
 
-  constructor(private router: Router,private authService: AuthService, private userService: UserService, private snackBar: MatSnackBar
+  constructor(private router: Router,private tokenService: TokenService,private authService: AuthService, private userService: UserService, private snackBar: MatSnackBar
     ) {}
 
   ngOnInit(): void {}
@@ -57,7 +58,8 @@ export class RegisterComponent implements OnInit {
           this.authService.register(this.user).subscribe(
             (response) => {
               console.log(response);
-              this.router.navigateByUrl('/login');
+              this.tokenService.setToken(response);
+              this.router.navigateByUrl('/');
 
               this.snackBar.open('Te has registrado con éxito', 'Cerrar', {
                 duration: 3000
