@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { UserModel } from '../models/user-model.entity';
+import { CreateUserModel, UserModel } from '../models/user-model.entity';
 import { UserAuthModel } from '../models/auth-model.entity';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class AuthService {
     return this.httpclient.get<any>(this.API_URL + '2');
   }
 
-  register(dto: UserModel):Observable<any>{
+  register(dto: CreateUserModel):Observable<any>{
     return this.httpclient.post<any>(this.API_URL + 'register', dto);
   }
  

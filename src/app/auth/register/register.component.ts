@@ -5,6 +5,7 @@ import { CreateUserModel, UserModel } from 'src/app/models/user-model.entity';
 import { UserService } from 'src/app/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 
@@ -31,7 +32,7 @@ export class RegisterComponent implements OnInit {
   showValidationError: boolean = false;
   validationErrorMessage: string = '';
 
-  constructor(private router: Router, private userService: UserService, private snackBar: MatSnackBar
+  constructor(private router: Router,private authService: AuthService, private userService: UserService, private snackBar: MatSnackBar
     ) {}
 
   ngOnInit(): void {}
@@ -53,7 +54,7 @@ export class RegisterComponent implements OnInit {
 
       if (this.user.password === this.passwordVerify) {
         if (this.user.email.match(this.emailRegex)) {
-          this.userService.store(this.user).subscribe(
+          this.authService.register(this.user).subscribe(
             (response) => {
               console.log(response);
               this.router.navigateByUrl('/login');
