@@ -10,11 +10,11 @@
             <form>
               <!-- Email -->
               <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input [(ngModel)]="user.email" name="email" type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" [formControl]="email">
-                <div class="error-message" *ngIf="email.invalid && email.touched">
-                  <p *ngIf="email.errors?.['required']">El correo electrónico es obligatorio.</p>
-                  <p *ngIf="email.errors?.['email']">El correo electrónico no es válido.</p>
+                <label for="email">Usuario</label>
+                <input [(ngModel)]="user.username" name="email" type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" [formControl]="username">
+                <div class="error-message" *ngIf="username.invalid && username.touched">
+                  <p *ngIf="username.errors?.['required']">El usuario es obligatorio.</p>
+                  
                 </div>
               </div>
 

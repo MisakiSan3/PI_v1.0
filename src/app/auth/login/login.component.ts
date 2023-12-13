@@ -12,14 +12,14 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email = new FormControl('', [Validators.required, Validators.email]);
+  username= new FormControl('', [Validators.required]);
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
   formSubmitted = false; // Track if the form has been submitted
   formInvalid = false; // Track if the form is invalid
 
   user: UserAuthModel = {
-    email: '',
+    username: '',
     password: ''
   };
 
@@ -35,24 +35,24 @@ export class LoginComponent implements OnInit {
   onLogins(): void {
     this.formSubmitted = true; // Set formSubmitted to true when the form is submitted
 
-    if (this.email.invalid || this.password.invalid) {
+    if (this.username.invalid || this.password.invalid) {
       // Check if the form is invalid
       this.formInvalid = true; // Set formInvalid to true if the form is invalid
       return;
     }
 
-    const emailValue = this.email.value;
+    const usernameValue = this.username.value;
     const passwordValue = this.password.value;
     console.log()
 
-    if (emailValue && passwordValue) {
-      this.user.email = emailValue;
+    if (usernameValue && passwordValue) {
+      this.user.username = usernameValue;
       this.user.password = passwordValue;
 
       this.authService.login(this.user).subscribe(
         (data) => {
           console.log(data);
-          if (!data.accessToke) {
+          if (!data) {
             throw new Error('No existe el usuario');
           } else {
             this.tokenService.setToken(data.accessToke);
