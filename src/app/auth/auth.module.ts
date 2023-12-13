@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
-    MatInputModule
+    MatInputModule,
+    ModalModule
   ],
   exports: [
     LoginComponent,

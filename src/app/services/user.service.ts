@@ -12,7 +12,7 @@ import {
 })
 export class UserService {
   
-  readonly API_URL: string = "http://localhost:8092/api/user";
+  readonly API_URL: string = "http://localhost:8093/api/user";
 
   constructor(private httpClient: HttpClient) { }
 

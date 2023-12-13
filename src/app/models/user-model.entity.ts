@@ -1,8 +1,8 @@
 export interface UserModel {
     id: number;
+    username: string;
     email: string;
     password: string;
-    nickname: string;
 }
 
 export interface CreateUserModel extends  Omit<UserModel, 'id'>{

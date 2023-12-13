@@ -13,7 +13,7 @@ import { TokenService } from './token.service';
 })
 export class SubjectService {
   
-  readonly API_URL: string = "http://localhost:8092/api/subject/";
+  readonly API_URL: string = "http://localhost:8093/api/subject/";
 
   constructor(
     private httpClient: HttpClient,
@@ -45,7 +45,7 @@ export class SubjectService {
     }*/
     subject.user={
       "id": 1,
-      "nickname": "Misaki",
+      "username": "Misaki",
       "email": "misakisan380@gmail.com",
       "password": "12345678"
     }

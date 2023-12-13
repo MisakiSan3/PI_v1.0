@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { CreateUserModel, UserModel } from 'src/app/models/user-model.entity';
 import { UserService } from 'src/app/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+
+
 
 @Component({
   selector: 'app-register',
@@ -16,9 +19,9 @@ export class RegisterComponent implements OnInit {
 
   passwordVerify: string = '';
   user: CreateUserModel = {
+    username: '',
     email: '',
-    password: '',
-    nickname: ''
+    password: ''
   };
 
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
@@ -28,7 +31,8 @@ export class RegisterComponent implements OnInit {
   showValidationError: boolean = false;
   validationErrorMessage: string = '';
 
-  constructor(private router: Router, private userService: UserService, private snackBar: MatSnackBar) {}
+  constructor(private router: Router, private userService: UserService, private snackBar: MatSnackBar
+    ) {}
 
   ngOnInit(): void {}
 
@@ -41,10 +45,11 @@ export class RegisterComponent implements OnInit {
       if (
         this.user.email === '' ||
         this.user.password === '' ||
-        this.user.nickname === ''
+        this.user.username === ''
       ) {
         throw new Error('Por favor, complete todos los campos');
       }
+      
 
       if (this.user.password === this.passwordVerify) {
         if (this.user.email.match(this.emailRegex)) {
@@ -79,7 +84,10 @@ export class RegisterComponent implements OnInit {
 
       this.snackBar.open(error.message, 'Cerrar', {
         duration: 3000
+    
       });
+      
     }
+    
   }
 }

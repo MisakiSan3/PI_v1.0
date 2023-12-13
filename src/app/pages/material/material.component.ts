@@ -18,7 +18,7 @@ export class MaterialComponent implements OnInit {
     name_s: '',
     user: {
       id: 1,
-      nickname: "Misaki",
+      username: "Misaki",
       email: "misakisan380@gmail.com",
       password: "12345678"
     },
@@ -75,7 +75,7 @@ export class MaterialComponent implements OnInit {
       name_s: this.materiaForm.get('nombre')?.value,
       user: {
         id: 2,
-        nickname: "Misaki",
+        username: "Misaki",
         email: "misakisan380@gmail.com",
         password: "12345678"
       },

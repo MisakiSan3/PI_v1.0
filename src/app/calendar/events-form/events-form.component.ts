@@ -61,7 +61,7 @@ export class EventsFormComponent implements OnInit {
         user: {
           email: "",
           id: 0,
-          nickname: "",
+          username: "",
           password: ""
         }
       },

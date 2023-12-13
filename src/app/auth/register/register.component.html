@@ -85,17 +85,17 @@
             <form>
 
               <div class="form-row">
-                <div class="form-group row-md-10">
-                  <!--Nombre-->
+                <!--Nombre-->
+                <!-- <div class="form-group row-md-10">
                   <label for="nombre">Nombre</label>
 
                   <input  type="text" class="form-control" id="nombre" name="nombre"
-                    placeholder="Ingrese su nombre">
+                    placeholder="Ingrese su nombre de usuario">
 
-                </div>
+                </div>-->
 
                 <!--Apellido-->
-                <div class="form-group row-md-10">
+                <!--  <div class="form-group row-md-10">
 
                   <label for="apellido">Apellido</label>
 
@@ -104,23 +104,26 @@
                 </div>
               </div>
 
-              <div class="form-row">
+              <div class="form-row">-->
 
                 <!--Email-->
                 <div class="form-group row-md-10">
 
                   <label for="correo">Correo electrónico</label>
 
-                  <input [(ngModel)]="user.email" name="email"  type="email" class="form-control" id="correo" required placeholder="Ejemplo: pepe@gmail.com" [formControl]="email">
+                  <input [(ngModel)]="user.email" name="email" type="email" class="form-control" id="correo" required
+                    placeholder="Ejemplo: pepe@gmail.com" [formControl]="email">
 
                   <div *ngIf="email.invalid && (email.dirty || email.touched)">
-                    <span class="text-danger" *ngIf="email.errors?.['required']">El correo electrónico es requerido.</span>
-                    <span class="text-danger" *ngIf="email.errors?.['pattern']">El correo electrónico no es válido.</span>
+                    <span class="text-danger" *ngIf="email.errors?.['required']">El correo electrónico es
+                      requerido.</span>
+                    <span class="text-danger" *ngIf="email.errors?.['pattern']">El correo electrónico no es
+                      válido.</span>
                   </div>
 
                 </div>
                 <!--Telefono-->
-                <div class="form-group row-md-10">
+                <!-- <div class="form-group row-md-10">
 
                   <label for="telefono">Teléfono</label>
 
@@ -133,20 +136,22 @@
 
                 </div>
               </div>
-              <div class="form-row">
+              <div class="form-row">-->
                 <!--Contraseña-->
                 <div class="form-group row-md-10">
 
 
                   <label for="contrasena">Contraseña</label>
 
-                  <input [(ngModel)]="user.password" name="password" required type="password" class="form-control" id="contrasena" placeholder="Ingrese su contraseña" [formControl]="password">
+                  <input [(ngModel)]="user.password" name="password" required type="password" class="form-control"
+                    id="contrasena" placeholder="Ingrese su contraseña" [formControl]="password">
 
                   <div *ngIf="password.invalid && (password.dirty || password.touched)">
                     <div *ngIf="password.hasError('required')" class="text-danger">La contraseña es obligatoria.</div>
-                    <div *ngIf="password.hasError('minlength')" class="text-danger">La contraseña debe tener al menos 8 caracteres.</div>
+                    <div *ngIf="password.hasError('minlength')" class="text-danger">La contraseña debe tener al menos 8
+                      caracteres.</div>
                   </div>
-                  
+
 
                 </div>
 
@@ -154,9 +159,11 @@
                 <div class="form-group row-md-10">
                   <label for="repitaContrasena">Repita Contraseña</label>
 
-                  <input [(ngModel)]="passwordVerify" name="password"  type="password" class="form-control" id="repitaContrasena" placeholder="Repita su contraseña" required [formControl]="password">
+                  <input [(ngModel)]="passwordVerify" name="password" type="password" class="form-control"
+                    id="repitaContrasena" placeholder="Repita su contraseña" required [formControl]="password">
 
-                  <span class="text-danger" *ngIf="passwordVerify !== user.password">Las contraseñas no coinciden.</span>
+                  <span class="text-danger" *ngIf="passwordVerify !== user.password">Las contraseñas no
+                    coinciden.</span>
 
                 </div>
               </div>
@@ -164,23 +171,100 @@
               <!--Apodo-->
               <div class="form-group row-md-10">
                 <div class="">
-                  <label for="apodo">Apodo</label>
+                  <label for="apodo">Username</label>
 
-                  <input type="text" class="form-control" id="apodo" placeholder="Ingrese su apodo"[(ngModel)]="user.nickname" name="nickname" >
+                  <input type="text" class="form-control" id="apodo" placeholder="Ingrese su apodo"
+                    [(ngModel)]="user.username" name="nickname">
 
                 </div>
               </div><br>
               <div class="text-center">
+
+                <button (click)="createUser()" class="btn btn-danger">Registrarse</button>
+                <div class="validation-error-message text-danger" *ngIf="showValidationError">{{ validationErrorMessage
+                  }}</div>
                 
-                  <button (click)="createUser()"  class="btn btn-danger">Registrarse</button>
-                  <div class="validation-error-message text-danger" *ngIf="showValidationError">{{ validationErrorMessage }}</div>
-                  
+
               </div>
+
+              <!--VENTANA MODAL-->
+              <!-- Button trigger modal -->
+              <div class="text-center mt-3">
+                Al registrarte, aceptas nuestros<button type="button" class="btn btn-link" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop" id="enabled-link">Terminos y Condiciones</button>
+              </div>
+
+
+              <!-- Modal -->
+              <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="staticBackdropLabel"> Terminos y Condiciones</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <b>Términos y Condiciones para la Agenda Virtual de Estudiantes</b> <br><br>
+                     <b>Fecha de vigencia: 2023-2024</b>  <br><br>
+                      <b>1. Aceptación de los Términos y Condiciones:</b> Al utilizar la Agenda Virtual
+                      Kuyayana, usted acepta cumplir con estos términos y condiciones. Si no está de
+                      acuerdo con alguno de los términos establecidos, le sugerimos que no utilice la
+                      plataforma.<br><br>
+                      <b>2. Uso Apropiado:</b> El uso de la Agenda Virtual Kuyayana está destinado
+                      exclusivamente para fines educativos y organizativos. No se permite el uso
+                      indebido de la plataforma para actividades ilegales, difamatorias, ofensivas o
+                      que violen los derechos de terceros.<br><br>
+                      <b>3. Registro de Usuario:</b> Para acceder a la Agenda Virtual Kuyayana, es necesario
+                      registrarse proporcionando información precisa y actualizada. Usted es
+                      responsable de mantener la confidencialidad de su cuenta y de todas las
+                      actividades realizadas bajo su cuenta.<br><br>
+                      <b>4. Responsabilidad del Contenido:</b> El usuario es completamente responsable del
+                      contenido que añade o comparte en la plataforma. No se permite la publicación
+                      de información falsa, difamatoria, obscena, o que viole los derechos de
+                      propiedad intelectual de terceros.<br><br>
+                      <b>5. Privacidad:</b> La información proporcionada durante el registro y el uso de la
+                      Agenda Virtual Kuyayana estará sujeta a nuestra política de privacidad. Nos
+                      comprometemos a proteger la información personal según lo establecido en
+                      dicha política.<br><br>
+                      <b>6. Propiedad Intelectual:</b> Todos los derechos de propiedad intelectual
+                      relacionados con la Agenda Virtual Kuyayana, incluyendo pero no limitándose a
+                      software, diseño, y contenido, destinada a los estudiantes. Se prohíbe la
+                      reproducción, distribución o modificación no autorizada.<br><br>
+                      <b>7. Suspensión o Terminación del Servicio:</b> Nos reservamos el derecho de
+                      suspender o terminar su acceso a la Agenda Virtual Kuyayana en caso de
+                      incumplimiento de estos términos y condiciones, o por cualquier razón que
+                      consideremos necesaria para proteger la integridad y el buen funcionamiento de
+                      la plataforma.<br><br>
+                      <b>8. Modificaciones de los Términos y Condiciones:</b> Nos reservamos el derecho de
+                      realizar cambios en estos términos y condiciones en cualquier momento. Los
+                      cambios entrarán en vigencia inmediatamente después de su publicación en la
+                      plataforma. Se recomienda revisar periódicamente los términos y condiciones.<br><br>
+                      Al utilizar la Agenda Virtual de Estudiantes, usted reconoce haber leído, comprendido y
+                      aceptado estos términos y condiciones. Si tiene alguna pregunta o inquietud, por favor,
+                      póngase en contacto con nosotros a través de <b><i>grupo2@gmail.com</i></b>.<br><br>
+                      <b>¡Gracias por utilizar la Agenda Virtual Kuyayana!</b><br><br>
+                      <b>Randy Romero, Isak Gomez, Erick Guevara, Jair Delgado </b>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+                      <button type="button" class="btn btn-danger"data-bs-dismiss="modal" >Rechazar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!------------------------------------>
+
+             
             </form>
             <div class="text-center mt-3">
-              <a id="dissabled-link" >¿Ya tienes una cuenta?</a>
-                        <button (click)="navigateToLogin()" id="enabled-link" >Inicia Sesión aquí</button>
+              <a id="dissabled-link">¿Ya tienes una cuenta?</a>
+              <button (click)="navigateToLogin()" id="enabled-link">Inicia Sesión aquí</button>
             </div>
+
           </div>
         </div>
       </div>

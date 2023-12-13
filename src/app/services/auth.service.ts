@@ -9,7 +9,7 @@ import { UserAuthModel } from '../models/auth-model.entity';
 })
 export class AuthService {
  
-  readonly API_URL: string = "http://localhost:8092/api/user/";
+  readonly API_URL: string = "http://localhost:8093/auth/";
 
   constructor(private  httpclient:HttpClient) { 
   }

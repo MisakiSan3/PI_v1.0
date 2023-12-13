@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
   formInvalid = false; // Track if the form is invalid
 
   user: UserAuthModel = {
-    email: '',
-    contrasenia: ''
+    username: '',
+    password: ''
   };
 
   constructor(

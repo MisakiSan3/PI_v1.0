@@ -11,7 +11,7 @@
               <!-- Email -->
               <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <input [(ngModel)]="user.email" name="email" type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" [formControl]="email">
+                <input [(ngModel)]="user.username" name="email" type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" [formControl]="email">
                 <div class="error-message" *ngIf="email.invalid && email.touched">
                   <p *ngIf="email.errors?.['required']">El correo electrónico es obligatorio.</p>
                   <p *ngIf="email.errors?.['email']">El correo electrónico no es válido.</p>
@@ -21,7 +21,7 @@
               <!-- Contraseña -->
               <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input [(ngModel)]="user.contrasenia" name="password" id="password" type="password" class="form-control" placeholder="Ingrese su contraseña" [formControl]="password">
+                <input [(ngModel)]="user.password" name="password" id="password" type="password" class="form-control" placeholder="Ingrese su contraseña" [formControl]="password">
                 <div class="error-message" *ngIf="password.invalid && password.touched">
                   <p *ngIf="password.errors?.['required']">La contraseña es obligatoria.</p>
                   <p *ngIf="password.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</p>

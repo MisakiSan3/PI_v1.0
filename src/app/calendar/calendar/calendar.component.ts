@@ -34,7 +34,7 @@ export class CalendarComponent implements OnInit {
           id: 0,
           email: '',
           password: '',
-          nickname: ''
+          username: ''
         }
       }
     },
