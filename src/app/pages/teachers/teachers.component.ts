@@ -38,7 +38,7 @@ export class TeachersComponent implements OnInit {
 
   getSubjects(){
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
-      this.subjectService.getSubjectsByUserId(userId).subscribe(
+      this.subjectService.getAll().subscribe(
         (materias:SubjectModel[]) => {
           this.materias = materias;
         },
@@ -47,5 +47,5 @@ export class TeachersComponent implements OnInit {
         }
       );
   }
-  
+
 }

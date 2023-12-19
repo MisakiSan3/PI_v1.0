@@ -17,10 +17,10 @@ export class MaterialComponent implements OnInit {
     id: '',
     name_s: '',
     user: {
-      id: 1,
-      username: "Misaki",
-      email: "misakisan380@gmail.com",
-      password: "12345678"
+      id: 0,
+      username: "",
+      email: "",
+      password: ""
     },
   };
 
@@ -56,7 +56,7 @@ export class MaterialComponent implements OnInit {
   nombreInvalido(): boolean {
     const nombreField = this.materiaForm.get('nombre');
     console.log(nombreField?.invalid);
-    
+
     return nombreField?.invalid ?? false;
   }
 
@@ -74,10 +74,10 @@ export class MaterialComponent implements OnInit {
     const newSubject: CreateSubjectModel = {
       name_s: this.materiaForm.get('nombre')?.value,
       user: {
-        id: 2,
-        username: "Misaki",
-        email: "misakisan380@gmail.com",
-        password: "12345678"
+        id: 0,
+        username: "",
+        email: "",
+        password: ""
       },
     };
 

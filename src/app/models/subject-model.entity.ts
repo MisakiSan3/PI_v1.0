@@ -8,7 +8,7 @@ export interface SubjectModel {
 }
 
 export interface CreateSubjectModel extends  Omit<SubjectModel, 'id'>{
-    
+
 }
 
 export interface UpdateSubjectModel extends Partial<SubjectModel>{

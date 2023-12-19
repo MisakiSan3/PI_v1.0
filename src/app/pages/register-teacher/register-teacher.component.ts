@@ -16,7 +16,7 @@ export class RegisterTeacherComponent implements OnInit {
   teacherForm!: FormGroup;
   teacher: CreateTeacherModel = {
     subject:{
-      id: "0",
+      id: '',
       name_s: "",
       user: {
         email: "",
@@ -80,7 +80,7 @@ export class RegisterTeacherComponent implements OnInit {
       (materias: SubjectModel[]) => {
         this.materias = materias;
         console.log(materias);
-        
+
       },
       (error) => {
         console.error('Error al obtener las asignaturas:', error);

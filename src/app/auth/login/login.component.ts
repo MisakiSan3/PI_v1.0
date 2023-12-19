@@ -55,13 +55,13 @@ export class LoginComponent implements OnInit {
           if (!data) {
             throw new Error('No existe el usuario');
           } else {
-            this.tokenService.setToken(data.accessToke);
+            this.tokenService.setToken(data.token);
             const isAuthenticated = this.tokenService.getIsAuthenticated();
             this.router.navigate(['/pages']);
             console.log(isAuthenticated);
           }
           console.log(data.accessToken);
-          this.tokenService.setToken(data.accessToke);
+
         },
         (error) => {
           this.snackBar.open('Error en el inicio de sesión', 'Cerrar', {

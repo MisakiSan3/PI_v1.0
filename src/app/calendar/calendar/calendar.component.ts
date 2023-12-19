@@ -61,9 +61,9 @@ export class CalendarComponent implements OnInit {
         console.log('no hay');
       }
      }
-     
+
   }
-    
+
   calendarOptions:CalendarOptions = {
       plugins: [dayGridPlugin],
       timeZone: 'local',
@@ -74,9 +74,9 @@ export class CalendarComponent implements OnInit {
     events: this.events,
     weekends: false,
   }
-  
+
   handleDateClick(arg: EventClickArg) {
-    
+
     const eventArg = arg.event._def
     if (this.event.id === eventArg.publicId && this.visible) {
       this.visible = false;
@@ -93,12 +93,12 @@ export class CalendarComponent implements OnInit {
        this.startDate = event.start.toLocaleString().slice(11,16);
        this.endDate = event.end.toLocaleString().slice(11,16);
        this.event.start = event.start,
-       this.event.end = event.end   
+       this.event.end = event.end
       }
     });
-    
+
   }
-  
+
   deleteEvent(){
     this.eventsService.destroy(this.event.id).subscribe(
       response =>{
@@ -108,13 +108,13 @@ export class CalendarComponent implements OnInit {
     for (let i = 0; i < this.events.length; i++) {
       if (this.events[i].id === this.event.id) {
         sessionStorage.removeItem(i.toString());
-      }  
+      }
     }
     window.location.reload();
   }
-  
-  
-  
 
-  
+
+
+
+
 }

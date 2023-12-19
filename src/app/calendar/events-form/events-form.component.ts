@@ -56,7 +56,7 @@ export class EventsFormComponent implements OnInit {
     teacher:{
       id:"0",
       subject:{
-        id: "0",
+        id: '',
         name_s: "",
         user: {
           email: "",
@@ -110,9 +110,9 @@ export class EventsFormComponent implements OnInit {
       }
     });
     if (auxClase) {
-      this.esClase = true 
+      this.esClase = true
     }
-    
+
   }
   dateHandler(){
     if (this.event.start > this.event.end) {
@@ -121,7 +121,7 @@ export class EventsFormComponent implements OnInit {
       const errorDiv = document.getElementById('errorDiv') as HTMLElement
       errorDiv.innerHTML = ''
       this.dateError = false
-    } 
+    }
   }
   timeHandler(){
     if (this.timeStart >= this.timeEnd) {
@@ -132,7 +132,7 @@ export class EventsFormComponent implements OnInit {
       this.timeError = false
     }
   }
-  
+
   createEvent(){
     if (this.esClase) {
       this.event.end = this.event.start + 'T' + this.timeEnd + '-05:00';
@@ -163,7 +163,7 @@ export class EventsFormComponent implements OnInit {
     }
   }
   createUpdate(){
-    
+
       if (this.esClase) {
         this.eventUpdate.end = this.eventUpdate.start + 'T' + this.timeEnd + '-05:00';
         this.eventUpdate.start = this.eventUpdate.start + 'T' + this.timeStart + '-05:00';
@@ -221,7 +221,7 @@ export class EventsFormComponent implements OnInit {
     this.eventUpdate.description = hist.description
     this.eventUpdate.id = hist.id
     this.eventUpdate.start = startDate
-    this.eventUpdate.end = endDate 
+    this.eventUpdate.end = endDate
   }
   getEvents(){
     this.eventService.getAll().subscribe(
@@ -235,7 +235,7 @@ export class EventsFormComponent implements OnInit {
               sessionStorage.setItem(counter.toString(),json)
               counter++
             }
-            
+
           }
           counter++
          });

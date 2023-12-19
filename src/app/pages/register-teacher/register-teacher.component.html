@@ -51,8 +51,9 @@
                             name= "asignatura"
                             id= "asignatura"
                             formControlName="asignatura" required
-                            [(ngModel)]="teacher.subject"
+                            [(ngModel)]="teacher.subject.id"
                             [(ngModel)]="teacherEdit.subject"
+                            bindValue="id"
                             >
                          </ng-select>
               <div *ngIf="teacherForm.get('asignatura')?.invalid && teacherForm.get('asignatura')?.touched" class="error-message">

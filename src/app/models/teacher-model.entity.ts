@@ -4,12 +4,12 @@ export interface TeacherModel {
     id : string;
     name_p : string;
     lastname_p : string;
-    telf : string;  
+    telf : string;
     email : string;
     subject: SubjectModel;
 
 }
-export interface CreateTeacherModel extends  Omit<TeacherModel, 'id' |'subject'>{
+export interface CreateTeacherModel extends  Omit<TeacherModel, 'id' >{
     subject: SubjectModel;
 }
 
