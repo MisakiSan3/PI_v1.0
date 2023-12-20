@@ -29,6 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     AuthRoutingModuleModule,
     NgbModule,
+   
 
   ],
   providers: [CookieService],
