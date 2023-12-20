@@ -43,6 +43,8 @@ export class MaterialComponent implements OnInit {
     this.subjectService.getAll().subscribe(
       (materias: SubjectModel[]) => {
         this.materias = materias;
+        console.log(materias);
+        
       },
       (error) => {
         console.error('Error al obtener las asignaturas:', error);
@@ -77,10 +79,10 @@ export class MaterialComponent implements OnInit {
         password: ""
       },
     };
-
+    window.location.reload();
     this.subjectService.store(newSubject).subscribe(
       response => {
-        this.materias.push(response);
+        this.materias.push(response); 
         this.materiaForm.reset();
       },
       error => {
@@ -110,6 +112,7 @@ export class MaterialComponent implements OnInit {
   }
 
   deleteSubject(id: string): void {
+    window.location.reload();
     this.subjectService.destroy(id).subscribe(
       updatedSubject => {
         this.getSubjects();
