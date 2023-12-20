@@ -38,7 +38,8 @@ export class RegisterTeacherComponent implements OnInit {
     lastname_p: '',
     telf: '',
     email: '',
-    subject:""
+    subject:{
+      id:"0"}
   };
 
   constructor(

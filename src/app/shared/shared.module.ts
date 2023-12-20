@@ -7,6 +7,7 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { RouterModule } from '@angular/router';
 import { SliderComponent } from './slider/slider.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     RouterModule,
     NgxBootstrapIconsModule.pick(allIcons),
-    NgbModule
+    NgbModule,
+    BsDropdownModule.forRoot()
+    
   ],
   exports: [
     HeaderComponent,

@@ -52,7 +52,7 @@
                             id= "asignatura"
                             formControlName="asignatura" required
                             [(ngModel)]="teacher.subject.id"
-                            [(ngModel)]="teacherEdit.subject"
+                            [(ngModel)]="teacherEdit.subject.id"
                             bindValue="id"
                             >
                          </ng-select>
@@ -62,7 +62,7 @@
             </div>
           </div>
           <div class="card-footer">
-            <button type="submit" class="btn btn-success">
+            <button type="submit" class="btn btn-success" >
               {{ updating ? 'Actualizar' : 'Registrar' }}
             </button>
 

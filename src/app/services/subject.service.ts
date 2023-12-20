@@ -46,7 +46,7 @@ export class SubjectService {
     const url = `${this.API_URL}save`;
     const userId = this.tokenService.getUserIdFromToken();
     if (userId) {
-      subject.user.id = 1;
+      subject.user.id = 252;
       return this.httpClient.post<SubjectModel>(url, subject, this.httpOptions)
     }
 
@@ -56,7 +56,7 @@ export class SubjectService {
 
   update(id: SubjectModel['id'], subject: UpdateSubjectModel):Observable<SubjectModel> {
     const url = `${this.API_URL}save`;
-    
+
     return this.httpClient.post<SubjectModel>(url, subject,this.httpOptions);//devuelve un observable de tipo SubjectModel
   }
   destroy(id: SubjectModel['id']):Observable<any> {
