@@ -55,12 +55,11 @@ export class RegisterComponent implements OnInit {
 
       if (this.user.password === this.passwordVerify) {
         if (this.user.email.match(this.emailRegex)) {
+          this.router.navigateByUrl('/login');
           this.authService.register(this.user).subscribe(
             (response) => {
               console.log(response);
               this.tokenService.setToken(response);
-              this.router.navigateByUrl('/login');
-
               this.snackBar.open('Te has registrado con éxito', 'Cerrar', {
                 duration: 3000
               });
@@ -69,7 +68,6 @@ export class RegisterComponent implements OnInit {
               console.log(error);
               this.showValidationError = true;
               this.validationErrorMessage = 'Hubo un error al registrar el usuario';
-
               this.snackBar.open('', '', {
               });
             }
@@ -84,13 +82,9 @@ export class RegisterComponent implements OnInit {
       console.log(error);
       this.showValidationError = true;
       this.validationErrorMessage = error.message;
-
       this.snackBar.open(error.message, 'Cerrar', {
         duration: 3000
-    
-      });
-      
+      }); 
     }
-    
   }
 }
