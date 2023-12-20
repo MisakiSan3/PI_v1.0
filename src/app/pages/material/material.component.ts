@@ -17,10 +17,7 @@ export class MaterialComponent implements OnInit {
     id: '',
     name_s: '',
     user: {
-      id: 0,
-      username: "",
-      email: "",
-      password: ""
+      id:"0",
     },
   };
 
@@ -126,7 +123,7 @@ export class MaterialComponent implements OnInit {
   selectSubject(subject: SubjectModel): void {
     this.updatedSubject.id = subject.id;
     this.updatedSubject.name_s = subject.name_s;
-    this.updatedSubject.user = subject.user;
+    this.updatedSubject.user.id = subject.user.id.toString();
     this.nombreInvalido()
     this.updating = true;
   }
