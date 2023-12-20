@@ -50,25 +50,10 @@ export class EventsFormComponent implements OnInit {
     end: '',
     description: '',
     eventCategory: {
-      id: "0",
-      nombre_c:""
+      id: "0"
     },
     teacher:{
-      id:"0",
-      subject:{
-        id: '',
-        name_s: "",
-        user: {
-          email: "",
-          id: 0,
-          username: "",
-          password: ""
-        }
-      },
-      name_p: '',
-      lastname_p: '',
-      telf: '',
-      email: ''
+      id:"0"
     }
   };
   eventUpdate: UpdateEventModel = {
@@ -77,11 +62,16 @@ export class EventsFormComponent implements OnInit {
     start: '',
     end: '',
     description: '',
-    teacher: '',
-    eventCategory: ''
+    teacher: {
+      id: "0"
+    },
+    eventCategory: {
+      id: "0"
+    }
   };
 
   getCategories(){
+    
     this.categoryService.getAll().subscribe(
       response =>{
         this.categorias = response;
@@ -102,7 +92,7 @@ export class EventsFormComponent implements OnInit {
     let auxClase = false
     this.categorias.forEach(categoria => {
       if (this.event.eventCategory.id === categoria.id) {
-        if (categoria.nombre_c === 'Clase') {
+        if (categoria.name_c === 'Clase') {
           auxClase = true;
         }
       }else {
@@ -229,7 +219,7 @@ export class EventsFormComponent implements OnInit {
          this.events = response;
          var counter = 0;
          this.events.forEach(element => {
-          if (element.eventCategory.nombre_c === "Clase") {
+          if (element.eventCategory.name_c === "Clase") {
             if(!sessionStorage.getItem(counter.toString())){
               const json = JSON.stringify(element)
               sessionStorage.setItem(counter.toString(),json)

@@ -30,11 +30,11 @@ export class EventsComponent implements OnInit {
   getEvents(){
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
     this.events = []
-    this.eventsService.getEventsByUserId(userId).subscribe(
+    this.eventsService.getAll().subscribe(
        response =>{
         
           response.forEach(element => {
-            if (element.eventCategory.nombre_c != 'Clase') {
+            if (element.eventCategory.name_c != 'Clase') {
               this.events.push(element)
             }
           });
@@ -61,7 +61,7 @@ export class EventsComponent implements OnInit {
   }
   getSubjects(){
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
-      this.subjectService.getSubjectsByUserId(userId).subscribe(
+      this.subjectService.getAll().subscribe(
         response => {
           this.materias = response;
         },

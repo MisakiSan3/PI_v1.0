@@ -41,12 +41,15 @@ export class DashboardComponent implements OnInit {
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
     this.eventsService.getAll().subscribe(
        response =>{
-        console.log(response);
+        
         
          this.events = response;
          var counter = 0;
+         console.log(this.events);
          this.events.forEach(element => {
-          if (element.eventCategory.nombre_c === "Clase") {
+          console.log(element.eventCategory.name_c);
+          if (element.eventCategory.name_c === "Clase") {
+            console.log(element);
             if(!sessionStorage.getItem(counter.toString())){
               const json = JSON.stringify(element)
               sessionStorage.setItem(counter.toString(),json)

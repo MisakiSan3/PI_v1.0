@@ -40,7 +40,7 @@ export class CalendarComponent implements OnInit {
     },
     eventCategory: {
       id: '',
-      nombre_c: ''
+      name_c: ''
     }
   }
   startDate: string = '';
@@ -60,7 +60,7 @@ export class CalendarComponent implements OnInit {
       }else {
         console.log('no hay');
       }
-     }
+     }  
 
   }
 
@@ -86,8 +86,8 @@ export class CalendarComponent implements OnInit {
     this.event.title = eventArg.title;
     this.event.id = eventArg.publicId;
     this.event.description = eventArg.extendedProps['description'];
-    this.event.eventCategory = eventArg.extendedProps['categoria'];
-    this.event.teacher = eventArg.extendedProps['maestro'];
+    this.event.eventCategory = eventArg.extendedProps['category'];
+    this.event.teacher = eventArg.extendedProps['teacher'];
     this.events.forEach(event => {
       if (event.id == this.event.id) {
        this.startDate = event.start.toLocaleString().slice(11,16);
