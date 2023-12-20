@@ -31,6 +31,7 @@ export class TeachersComponent implements OnInit {
     )
   }
   deleteTeachers(id: string){
+    window.location.href = '/pages/teacher-list'
     this.teachersService.destroy(id).subscribe(response => {
       this.getTeachers()
     })

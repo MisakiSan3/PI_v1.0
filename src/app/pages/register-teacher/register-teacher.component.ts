@@ -94,10 +94,11 @@ export class RegisterTeacherComponent implements OnInit {
       this.teacherForm.markAllAsTouched();
       return;
     }
+    window.location.href = '/pages/teacher-list'
     this.teacherService.store(this.teacher).subscribe(
       (response) => {
         if (response) {
-          this.router.navigateByUrl('pages/teacher-list');
+
         }
       },
       (error) => {
@@ -112,10 +113,11 @@ export class RegisterTeacherComponent implements OnInit {
       return;
     }
     const teacherId = this.teacherEdit.id;
+    window.location.href = '/pages/teacher-list'
     this.teacherService.update(teacherId, this.teacherEdit).subscribe(
       (response) => {
         if (response) {
-          this.router.navigateByUrl('pages/teacher-list');
+
         }
       },
       (error) => {
