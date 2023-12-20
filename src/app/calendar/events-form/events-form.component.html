@@ -58,11 +58,12 @@
           <div class="form-group mb-3">
             <label for="eventName">Maestro del evento:</label>
             <ng-select [items]= "maestros"
-            [(ngModel)]="event.teacher.id"
-            [(ngModel)]="eventUpdate.teacher.id"
             bindLabel= "name_p"
             name= "maestro"
             id= "maestro"
+            formControlName="maestro" required
+            [(ngModel)]="event.teacher.id"
+            [(ngModel)]="eventUpdate.teacher.id"
             [formControl]="maestro"
             bindValue="id"
             >

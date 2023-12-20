@@ -38,8 +38,8 @@ export class EventService {
   }
 
   update(id: EventModel['id'], event: UpdateEventModel):Observable<EventModel> {
-    const url = `${this.API_URL}/${id}`;
-    return this.httpClient.patch<EventModel>(url, event);//devuelve un observable de tipo EventModel
+    const url = `${this.API_URL}save`;
+    return this.httpClient.post<EventModel>(url, event, this.httpOptions);//devuelve un observable de tipo EventModel
   }
   destroy(id: EventModel['id']):Observable<any> {
     const url = `${this.API_URL}${id}`;
