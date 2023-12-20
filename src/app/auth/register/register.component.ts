@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
             (response) => {
               console.log(response);
               this.tokenService.setToken(response);
-              this.router.navigateByUrl('/');
+              this.router.navigateByUrl('/login');
 
               this.snackBar.open('Te has registrado con éxito', 'Cerrar', {
                 duration: 3000

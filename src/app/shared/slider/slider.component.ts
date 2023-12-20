@@ -50,4 +50,16 @@ export class SliderComponent implements OnInit, OnDestroy {
   goToCalendar() {
     this.router.navigate(['/calendar']);
   }
+
+
+  images: string[] = [
+    '../../assets/images/ca.jpg',
+    '../../assets/images/sol.jpg',
+    //'../../assets/images/in.png',
+    
+  ];
+
+  openCalendar() {
+    console.log('Abrir calendario');
+  }
 }

@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EventAsignaturaPipe, EventPipePipe } from '../pipes/event-pipe.pipe';
 import { TeacherAsignaturaPipe, TeacherPipe } from '../pipes/teacher.pipe';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { TeacherAsignaturaPipe, TeacherPipe } from '../pipes/teacher.pipe';
     PagesRoutingModule,
     FormsModule,
     NgSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbCarouselModule
   ],
 })
 export class PagesModule { }

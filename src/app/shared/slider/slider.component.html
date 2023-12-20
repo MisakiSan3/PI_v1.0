@@ -1,4 +1,4 @@
-<div class="title-container">
+<!--<div class="title-container">
   <h1 class="text-center" style="font-family: 'Arial', sans-serif; color: rgb(255, 255, 255);">Bienvenido {{nombreUsuario}}</h1>
 </div>
 
@@ -12,4 +12,22 @@
     <h2 class="text-center">Bienvenido a tu calendario virtual</h2>
     <button class="btn btn-sm btn-outline-success p-2" (click)="goToCalendar()">Ir a tu calendario</button>
   </div>
+</div>-->
+<!-- app.component.html -->
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <ngb-carousel *ngIf="images.length > 0" class="custom-carousel">
+        <ng-template ngbSlide *ngFor="let image of images">
+          <img [src]="image" alt="Slide" class="d-block w-100 custom-image">
+        </ng-template>
+      </ngb-carousel>
+    </div>
+  </div>
+  <div class="row mt-3 justify-content-center mb-3">
+    <button class="btn btn-pink" (click)="goToCalendar()">Mi Calendario</button>
+  </div>
 </div>
+
+

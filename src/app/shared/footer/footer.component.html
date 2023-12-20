@@ -1,4 +1,4 @@
-<footer class="text-center text-lg-start bg-light text-muted footer-color">
+<!--<footer class="text-center text-lg-start bg-light text-muted footer-color">
     <section class=" border border-dark d-flex bg-brown justify-content-center border-bottom">
       
       <div class="row justify-content-center">
@@ -75,5 +75,43 @@
       © 2023 Copyright:
     </div>
    
-  </footer>
-  
+  </footer>-->
+<!-- app.component.html -->
+
+<footer class="footer bg-dark border-top border-3 border-black">
+  <div class="container">
+    <div class="row">
+      <!-- Primera columna -->
+      <div class="col-md-4">
+        <h5 style="color: #ffffff;"><i class="fas fa-book" style="color: #fff;"></i> KUYA YANA</h5>
+        <p style="color: #ffffff;" >Esta es una plataforma donde los estudiantes pueden gestionar sus horarios y eventos.</p>
+      </div>
+
+      <!-- Segunda columna -->
+      <div class="col-md-4">
+        <h5 style="color: #ffffff;"><i class="fas fa-link" style="color: #ffffff;"></i>LINKS</h5>
+        <ul style="list-style: none; padding: 0;">
+          <li><a [routerLink]="[ '/pages/subjects']" style="color: #E04B5A;">Materias</a></li>
+          <li><a [routerLink]="[ '/pages/teacher-list']" style="color: #E04B5A;">Maestros</a></li>
+          <li><a [routerLink]="[ '/pages/event-list']" style="color: #E04B5A;">Eventos</a></li>
+        </ul>
+      </div>
+
+      <!-- Tercera columna -->
+      <div class="col-md-4">
+        <h5 style="color: #ffffff;"><i class="fas fa-share" style="color: #ffffff;"></i> Redes Sociales</h5>
+        <ul class="list-inline" style="padding: 0;">
+          <li class="list-inline-item"><a href="#" style="color: #ffffff;"><i class="fab fa-facebook"></i></a></li>
+          <li class="list-inline-item"><a href="#" style="color: #ffffff;"><i class="fab fa-instagram"></i></a></li>
+          <li class="list-inline-item"><a href="#" style="color: #ffffff;"><i class="fab fa-twitter"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="p-2" bg-dark style="background-color: rgba(255, 255, 255, 0.05);color: #ffffff;">
+    © 2023 Copyright:
+  </div>
+</footer>
+
+
+

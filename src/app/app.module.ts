@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { CookieService } from 'ngx-cookie-service';
 import { EventPipePipe } from './pipes/event-pipe.pipe';
 import { TeacherPipe } from './pipes/teacher.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { TeacherPipe } from './pipes/teacher.pipe';
     AuthModule,
     AppRoutingModule,
     AuthRoutingModuleModule,
+    NgbModule,
 
   ],
   providers: [CookieService],

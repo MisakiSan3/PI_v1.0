@@ -103,3 +103,32 @@ input[name="slider"]:checked ~ .slides {
     animation: none;
   }
 }
+/* styles.css */
+
+.custom-carousel {
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: black; /* Color de las flechas */
+  }
+
+  .carousel-indicators li {
+    background-color: black; /* Color de los indicadores de las imágenes */
+  }
+}
+
+.custom-image {
+  height: 300px; /* Altura deseada para las imágenes */
+  object-fit: cover; /* Ajusta la imagen al tamaño especificado sin deformarla */
+}
+
+/* styles.css */
+
+.btn-pink {
+  background-color: #E04B5A; /* Color de fondo del botón */
+  color: white; /* Color del texto del botón */
+  width: auto; /* Ancho automático según el contenido */
+  padding: 10px 20px; /* Espaciado interno del botón */
+  border-radius: 5px; /* Bordes redondeados del botón */
+}
+
+
