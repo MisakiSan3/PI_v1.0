@@ -86,7 +86,7 @@ export class CalendarComponent implements OnInit {
     this.event.title = eventArg.title;
     this.event.id = eventArg.publicId;
     this.event.description = eventArg.extendedProps['description'];
-    this.event.eventCategory = eventArg.extendedProps['category'];
+    this.event.eventCategory = eventArg.extendedProps['eventCategory'];
     this.event.teacher = eventArg.extendedProps['teacher'];
     this.events.forEach(event => {
       if (event.id == this.event.id) {

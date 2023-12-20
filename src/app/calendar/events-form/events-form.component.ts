@@ -71,9 +71,11 @@ export class EventsFormComponent implements OnInit {
   };
 
   getCategories(){
-
+    
     this.categoryService.getAll().subscribe(
       response =>{
+        console.log(response);
+        
         this.categorias = response;
         this.categoryHandler()
       }
@@ -177,7 +179,7 @@ export class EventsFormComponent implements OnInit {
           }else{
             this.deleteEvents()
             this.getEvents()
-            window.location.href = '/calendar'
+            window.location.href = '/pages'
           }
         }
       )
@@ -200,14 +202,12 @@ export class EventsFormComponent implements OnInit {
   }
   prepareEventUpdate(){
     const hist = history.state
-    console.log(hist)
     const startDate = hist.start.slice(0,10)
     const endDate = hist.end.slice(0,10)
     this.timeStart = hist.start.slice(11,16)
     this.timeEnd = hist.end.slice(11,16)
-    this.eventUpdate.teacher = hist.maestro.id
-    this.eventUpdate.eventCategory = hist.categoria.id
-    this.event.eventCategory = hist.categoria.id
+    this.eventUpdate.teacher.id = hist.teacher.id
+    this.eventUpdate.eventCategory.id = hist.eventCategory.id
     this.eventUpdate.title = hist.title
     this.eventUpdate.description = hist.description
     this.eventUpdate.id = hist.id
