@@ -50,25 +50,10 @@ export class EventsFormComponent implements OnInit {
     end: '',
     description: '',
     eventCategory: {
-      id: "0",
-      nombre_c:""
+      id: "0"
     },
     teacher:{
-      id:"0",
-      subject:{
-        id: '',
-        name_s: "",
-        user: {
-          email: "",
-          id: 0,
-          username: "",
-          password: ""
-        }
-      },
-      name_p: '',
-      lastname_p: '',
-      telf: '',
-      email: ''
+      id:"0"
     }
   };
   eventUpdate: UpdateEventModel = {
@@ -77,11 +62,16 @@ export class EventsFormComponent implements OnInit {
     start: '',
     end: '',
     description: '',
-    teacher: '',
-    eventCategory: ''
+    teacher: {
+      id: "0"
+    },
+    eventCategory: {
+      id: "0"
+    }
   };
 
   getCategories(){
+    
     this.categoryService.getAll().subscribe(
       response =>{
         this.categorias = response;

@@ -41,11 +41,12 @@
             <div class="form-group mb-3">
               <label for="eventName">Categoria del evento:</label>
               <ng-select [items]= "categorias"
-              [(ngModel)]="event.eventCategory"
-              [(ngModel)]="eventUpdate.eventCategory"
+              [(ngModel)]="event.eventCategory.id"
+              [(ngModel)]="eventUpdate.eventCategory.id"
              bindLabel= "name_c"
              name= "categoria"
              id= "categoria"
+             bindValue="id"
              (change)="categoryHandler()"
              [formControl]="categoria"
              >
@@ -57,12 +58,13 @@
           <div class="form-group mb-3">
             <label for="eventName">Maestro del evento:</label>
             <ng-select [items]= "maestros"
-            [(ngModel)]="event.teacher"
-            [(ngModel)]="eventUpdate.teacher"
+            [(ngModel)]="event.teacher.id"
+            [(ngModel)]="eventUpdate.teacher.id"
             bindLabel= "name_p"
             name= "maestro"
             id= "maestro"
             [formControl]="maestro"
+            bindValue="id"
             >
            </ng-select>
            <div class="error-message" *ngIf="maestro.invalid && maestro.touched">

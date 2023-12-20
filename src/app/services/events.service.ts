@@ -42,8 +42,8 @@ export class EventService {
     return this.httpClient.patch<EventModel>(url, event);//devuelve un observable de tipo EventModel
   }
   destroy(id: EventModel['id']):Observable<any> {
-    const url = `${this.API_URL}/${id}`;
-    return this.httpClient.delete<any>(url).pipe(map((response: { rta: boolean; }) => {
+    const url = `${this.API_URL}${id}`;
+    return this.httpClient.delete<any>(url,this.httpOptions).pipe(map((response: { rta: boolean; }) => {
     //objeto.atributo.metodo(delete)
       return response.rta;
       })

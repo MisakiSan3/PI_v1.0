@@ -46,7 +46,7 @@ export class SubjectService {
     const url = `${this.API_URL}save`;
     const userId = this.tokenService.getUserIdFromToken();
     if (userId) {
-      subject.user.id = 252;
+      subject.user.id = 1;
       return this.httpClient.post<SubjectModel>(url, subject, this.httpOptions)
     }
 
