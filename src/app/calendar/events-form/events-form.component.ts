@@ -71,7 +71,7 @@ export class EventsFormComponent implements OnInit {
   };
 
   getCategories(){
-    
+
     this.categoryService.getAll().subscribe(
       response =>{
         this.categorias = response;
@@ -200,6 +200,7 @@ export class EventsFormComponent implements OnInit {
   }
   prepareEventUpdate(){
     const hist = history.state
+    console.log(hist)
     const startDate = hist.start.slice(0,10)
     const endDate = hist.end.slice(0,10)
     this.timeStart = hist.start.slice(11,16)
