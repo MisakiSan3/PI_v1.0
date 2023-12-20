@@ -131,17 +131,4 @@ export class MaterialComponent implements OnInit {
     this.nombreInvalido()
     this.updating = true;
   }
-
-
-  images: string[] = [
-    'URL_IMAGEN_1',
-    'URL_IMAGEN_2',
-    'URL_IMAGEN_3',
-    // Agrega más URLs de imágenes según sea necesario
-  ];
-
-  openCalendar() {
-    // Lógica para abrir el calendario
-    console.log('Abrir calendario');
-  }
 }
