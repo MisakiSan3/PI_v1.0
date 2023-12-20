@@ -8,8 +8,8 @@ import { AuthGuard } from '../guards/auth.guard';
 const routes: Routes = [
   {path:"calendar", component: CalendarComponentComponent,
    children:[
-    {path: "",component: CalendarComponent},
-    {path: 'register-event', component: EventsFormComponent}
+    {path: "",canActivate:[AuthGuard], component: CalendarComponent},
+    {path: 'register-event',canActivate:[AuthGuard], component: EventsFormComponent}
    ]},
 ];
 
