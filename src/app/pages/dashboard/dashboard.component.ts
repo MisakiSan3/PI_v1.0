@@ -41,8 +41,6 @@ export class DashboardComponent implements OnInit {
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
     this.eventsService.getAll().subscribe(
        response =>{
-        
-        
          this.events = response;
          var counter = 0;
          console.log(this.events);
