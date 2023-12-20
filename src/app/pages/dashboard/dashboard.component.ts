@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
   //events: EventModel[] = [];
   ngOnInit(): void {
   this.getEvents();
-  this.tokenService.getUserNameFromToken();
+  console.log(this.tokenService.getToken());
   this.tokenService.getUserIdFromToken();
   }
 
@@ -39,8 +39,10 @@ export class DashboardComponent implements OnInit {
   getEvents(){
     sessionStorage.clear()
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
-    this.eventsService.getEventsByUserId(userId).subscribe(
+    this.eventsService.getAll().subscribe(
        response =>{
+        console.log(response);
+        
          this.events = response;
          var counter = 0;
          this.events.forEach(element => {
