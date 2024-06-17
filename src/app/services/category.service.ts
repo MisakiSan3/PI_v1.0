@@ -7,6 +7,8 @@ import {
   UpdateCategoryModel
 } from '../models/category-model.entity';
 import { TokenService } from './token.service';
+import { Firestore,addDoc,collection,deleteDoc,doc, updateDoc } from '@angular/fire/firestore';
+import { collectionData } from 'rxfire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +17,7 @@ export class CategoryService {
 
   readonly API_URL: string = "http://localhost:8093/api/eventscategory/";
 
-  constructor(private httpClient: HttpClient,private tokenService: TokenService) { }
+  constructor(private httpClient: HttpClient,private tokenService: TokenService, private firestore: Firestore) { }
   httpOptions={
     headers : new HttpHeaders({
       'Content-Type': 'application/json',
@@ -48,5 +50,35 @@ export class CategoryService {
       return response.rta;
       })
       );
+  }
+  //firebase
+  readonly collectionUrl: string = "category"
+
+  getcategoryList(): Observable<CategoryModel[]> {
+    const ref = collection(this.firestore, this.collectionUrl)
+    const docs = collectionData(ref,{"idField":"id"}) as Observable<CategoryModel[]>;
+    return docs;
+  }
+
+  deletecategory(docId: string): Promise<void> {
+    const docRef = doc(this.firestore, `${this.collectionUrl}/${docId}`);
+    return deleteDoc(docRef);
+  }
+
+  savecategory(category: CategoryModel): Promise<any> {
+    const categoryData = JSON.parse(JSON.stringify(category));
+    delete categoryData.id
+    const docRef = collection(this.firestore, this.collectionUrl);
+    return addDoc(docRef, categoryData);
+  }
+
+
+  async updatecategory(category: CategoryModel): Promise<void>{
+    const ocAux = JSON.parse(JSON.stringify(category));
+    const ref =  collection(this.firestore, this.collectionUrl)
+    const docRef = doc(ref,category.id);
+    delete ocAux.id;
+    const data =  await updateDoc(docRef,ocAux);
+    return data;
   }
 }

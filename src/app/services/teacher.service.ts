@@ -7,6 +7,8 @@ import {
   UpdateTeacherModel
 } from '../models/teacher-model.entity';
 import { TokenService } from './token.service';
+import { Firestore,addDoc,collection,deleteDoc,doc, updateDoc } from '@angular/fire/firestore';
+import { collectionData } from 'rxfire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +17,7 @@ export class TeacherService {
 
   readonly API_URL: string = "http://localhost:8093/api/teacher/";
 
-  constructor(private httpClient: HttpClient,private tokenService: TokenService) { }
+  constructor(private httpClient: HttpClient,private tokenService: TokenService, private firestore: Firestore) { }
   httpOptions={
     headers : new HttpHeaders({
       'Content-Type': 'application/json',
@@ -56,4 +58,36 @@ export class TeacherService {
       })
       );
   }
+
+
+  //firebase
+  readonly collectionUrl: string = "teacher"
+
+  getteacherList(): Observable<TeacherModel[]> {
+    const ref = collection(this.firestore, this.collectionUrl)
+    const docs = collectionData(ref,{"idField":"id"}) as Observable<TeacherModel[]>;
+    return docs;
+  }
+
+  deleteteacher(docId: string): Promise<void> {
+    const docRef = doc(this.firestore, `${this.collectionUrl}/${docId}`);
+    return deleteDoc(docRef);
+  }
+
+  saveteacher(teacher: TeacherModel): Promise<any> {
+    const teacherData = JSON.parse(JSON.stringify(teacher));
+    delete teacherData.id
+    const docRef = collection(this.firestore, this.collectionUrl);
+    return addDoc(docRef, teacherData);
+  }
+
+
+  async updateteacher(teacher: TeacherModel): Promise<void>{
+    const ocAux = JSON.parse(JSON.stringify(teacher));
+    const ref =  collection(this.firestore, this.collectionUrl)
+    const docRef = doc(ref,teacher.id);
+    delete ocAux.id;
+    const data =  await updateDoc(docRef,ocAux);
+    return data;
+ }
 }

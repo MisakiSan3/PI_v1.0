@@ -7,6 +7,8 @@ import {
   UpdateSubjectModel
 } from '../models/subject-model.entity';
 import { TokenService } from './token.service';
+import { Firestore,addDoc,collection,deleteDoc,doc, updateDoc } from '@angular/fire/firestore';
+import { collectionData } from 'rxfire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +19,8 @@ export class SubjectService {
 
   constructor(
     private httpClient: HttpClient,
-    private tokenService: TokenService
-
+    private tokenService: TokenService,
+    private firestore: Firestore
 
     ) { }
     httpOptions={
@@ -72,5 +74,36 @@ export class SubjectService {
   getSubjectsByUserId(userId: string): Observable<SubjectModel[]> {
     const url = `${this.API_URL}/user/${userId}`;
     return this.httpClient.get<SubjectModel[]>(url,this.httpOptions);
+  }
+
+   //firebase
+   readonly collectionUrl: string = "subject"
+
+   getsubjectList(): Observable<SubjectModel[]> {
+     const ref = collection(this.firestore, this.collectionUrl)
+     const docs = collectionData(ref,{"idField":"id"}) as Observable<SubjectModel[]>;
+     return docs;
+   }
+ 
+   deletesubject(docId: string): Promise<void> {
+     const docRef = doc(this.firestore, `${this.collectionUrl}/${docId}`);
+     return deleteDoc(docRef);
+   }
+ 
+   savesubject(subject: SubjectModel): Promise<any> {
+     const subjectData = JSON.parse(JSON.stringify(subject));
+     delete subjectData.id
+     const docRef = collection(this.firestore, this.collectionUrl);
+     return addDoc(docRef, subjectData);
+   }
+ 
+ 
+   async updatesubject(subject: SubjectModel): Promise<void>{
+     const ocAux = JSON.parse(JSON.stringify(subject));
+     const ref =  collection(this.firestore, this.collectionUrl)
+     const docRef = doc(ref,subject.id);
+     delete ocAux.id;
+     const data =  await updateDoc(docRef,ocAux);
+     return data;
   }
 }

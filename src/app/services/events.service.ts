@@ -7,6 +7,8 @@ import {
   UpdateEventModel
 } from '../models/event-model.entity';
 import { TokenService } from './token.service';
+import { Firestore,addDoc,collection,deleteDoc,doc, updateDoc } from '@angular/fire/firestore';
+import { collectionData } from 'rxfire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +17,7 @@ export class EventService {
 
   readonly API_URL: string = "http://localhost:8093/api/events/";
 
-  constructor(private httpClient: HttpClient,private tokenService: TokenService) { }
+  constructor(private httpClient: HttpClient,private tokenService: TokenService, private firestore: Firestore) { }
   httpOptions={
     headers : new HttpHeaders({
       'Content-Type': 'application/json',
@@ -32,7 +34,7 @@ export class EventService {
     const url = `${this.API_URL}/${id}`;
     return this.httpClient.get<EventModel>(url);
   }
-  store(event: CreateEventModel):Observable<EventModel> {//no se usaran todos o campos(id, category)
+  store(event: CreateEventModel):Observable<EventModel> {//no se usaran todos o campos(id, event)
     const url = `${this.API_URL}save`;
     return this.httpClient.post<EventModel>(url, event,this.httpOptions)
   }
@@ -52,5 +54,36 @@ export class EventService {
   getEventsByUserId(userId: string): Observable<EventModel[]> {
     const url = `${this.API_URL}/event/${userId}`;
     return this.httpClient.get<EventModel[]>(url);
+  }
+
+   //firebase
+   readonly collectionUrl: string = "events"
+
+   geteventList(): Observable<EventModel[]> {
+     const ref = collection(this.firestore, this.collectionUrl)
+     const docs = collectionData(ref,{"idField":"id"}) as Observable<EventModel[]>;
+     return docs;
+   }
+ 
+   deleteevent(docId: string): Promise<void> {
+     const docRef = doc(this.firestore, `${this.collectionUrl}/${docId}`);
+     return deleteDoc(docRef);
+   }
+ 
+   saveevent(event: EventModel): Promise<any> {
+     const eventData = JSON.parse(JSON.stringify(event));
+     delete eventData.id
+     const docRef = collection(this.firestore, this.collectionUrl);
+     return addDoc(docRef, eventData);
+   }
+ 
+ 
+   async updateevent(event: EventModel): Promise<void>{
+     const ocAux = JSON.parse(JSON.stringify(event));
+     const ref =  collection(this.firestore, this.collectionUrl)
+     const docRef = doc(ref,event.id);
+     delete ocAux.id;
+     const data =  await updateDoc(docRef,ocAux);
+     return data;
   }
 }

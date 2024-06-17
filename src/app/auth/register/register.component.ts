@@ -36,10 +36,23 @@ export class RegisterComponent implements OnInit {
   constructor(private router: Router,private tokenService: TokenService,private authService: AuthService, private userService: UserService, private snackBar: MatSnackBar
     ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   navigateToLogin() {
     this.router.navigateByUrl('/login');
+  }
+
+  saveUser(){
+    try {
+      this.user.email = "misakisan380@gmail.com";
+      this.user.password = "12345678"
+      this.authService.saveUser(this.user.email,this.user.password)
+      
+    } catch (error) { 
+      console.log(error);
+      
+    }
   }
 
   createUser() {
