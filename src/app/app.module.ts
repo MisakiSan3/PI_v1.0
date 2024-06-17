@@ -15,6 +15,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { EventPipePipe } from './pipes/event-pipe.pipe';
 import { TeacherPipe } from './pipes/teacher.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 
 @NgModule({
@@ -29,8 +31,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     AuthRoutingModuleModule,
     NgbModule,
-   
-
+    provideFirebaseApp(()=> initializeApp({
+      apiKey: "AIzaSyB_VUDv4quwTtf3MAU4v9iq7JxSQIHD0Ro",
+      authDomain: "kuyayana-dev.firebaseapp.com",
+      projectId: "kuyayana-dev",
+      storageBucket: "kuyayana-dev.appspot.com",
+      messagingSenderId: "136741212515",
+      appId: "1:136741212515:web:8b540cbc7758f5326a8356",
+      measurementId: "G-FP5YP12CLD"
+    })),
+    provideFirestore(() => getFirestore())
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
