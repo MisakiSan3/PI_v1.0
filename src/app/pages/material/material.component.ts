@@ -45,7 +45,7 @@ export class MaterialComponent implements OnInit {
       (materias: SubjectModel[]) => {
         this.materias = materias;
         console.log(materias);
-        
+
       },
       (error) => {
         console.error('Error al obtener las asignaturas:', error);
@@ -83,7 +83,7 @@ export class MaterialComponent implements OnInit {
     window.location.reload();
     this.subjectService.store(newSubject).subscribe(
       response => {
-        this.materias.push(response); 
+        this.materias.push(response);
         this.materiaForm.reset();
       },
       error => {
