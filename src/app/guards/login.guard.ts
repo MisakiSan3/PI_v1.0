@@ -13,7 +13,10 @@ import { CanActivate, Router } from "@angular/router";
 
 
     canActivate(): boolean {
-        if (this.tokenService.getIsAuthenticated()) {
+      const currentUser = localStorage.getItem("currentUser");
+      console.log(currentUser);
+      
+        if (currentUser) {
             this.router.navigateByUrl('/pages');
           return false;
         }else {

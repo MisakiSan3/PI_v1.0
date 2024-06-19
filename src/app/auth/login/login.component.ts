@@ -30,8 +30,9 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+  }
+ 
   onLogins(): void {
     this.formSubmitted = true; // Set formSubmitted to true when the form is submitted
 
@@ -43,32 +44,12 @@ export class LoginComponent implements OnInit {
 
     const usernameValue = this.username.value;
     const passwordValue = this.password.value;
-    console.log()
-
     if (usernameValue && passwordValue) {
       this.user.username = usernameValue;
       this.user.password = passwordValue;
 
-      this.authService.login(this.user).subscribe(
-        (data) => {
-          console.log(data);
-          if (!data) {
-            throw new Error('No existe el usuario');
-          } else {
-            this.tokenService.setToken(data.token);
-            const isAuthenticated = this.tokenService.getIsAuthenticated();
-            this.router.navigate(['/pages']);
-            console.log(isAuthenticated);
-          }
-          console.log(data.accessToken);
-
-        },
-        (error) => {
-          this.snackBar.open('Error en el inicio de sesión', 'Cerrar', {
-            duration: 5000
-          });
-        }
-      );
+      this.authService.logInPassword(this.user.username,this.user.password);
+      
     }
   }
 
