@@ -1,10 +1,8 @@
-
-
-<form [formGroup]="teacherForm" (ngSubmit)="updating ? updateTeacher() : createTeacher()">
+<form [formGroup]="teacherForm" (ngSubmit)="updating ? updateTeacher(successModal) : createTeacher(warningModal)">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8 col-md-10 col-sm-12">
-        <button type="submit"[routerLink]="[ '../teacher-list']" class="btn btn-primary mb-3">
+        <button type="button" [routerLink]="['../teacher-list']" class="btn btn-primary mb-3">
           Regresar
         </button>
         <div class="card">
@@ -12,7 +10,7 @@
           <div class="card-body">
             <div class="form-group">
               <label for="nombre_p">Nombre</label>
-              <input [(ngModel)]="teacher.name_p" [(ngModel)]="teacherEdit.name_p" type="text" id="nombre_p" class="form-control" formControlName="nombre_p" required>
+              <input type="text" id="nombre_p" class="form-control" formControlName="nombre_p" required>
               <div *ngIf="teacherForm.get('nombre_p')?.invalid && teacherForm.get('nombre_p')?.touched" class="error-message">
                 Nombre es requerido.
               </div>
@@ -20,7 +18,7 @@
 
             <div class="form-group">
               <label for="apellido_p">Apellido</label>
-              <input [(ngModel)]="teacher.lastname_p" [(ngModel)]="teacherEdit.lastname_p" type="text" id="apellido_p" class="form-control" formControlName="apellido_p" required>
+              <input type="text" id="apellido_p" class="form-control" formControlName="apellido_p" required>
               <div *ngIf="teacherForm.get('apellido_p')?.invalid && teacherForm.get('apellido_p')?.touched" class="error-message">
                 Apellido es requerido.
               </div>
@@ -28,7 +26,7 @@
 
             <div class="form-group">
               <label for="email">Email</label>
-              <input [(ngModel)]="teacher.email" [(ngModel)]="teacherEdit.email" type="email" id="email" class="form-control" formControlName="email" required>
+              <input type="email" id="email" class="form-control" formControlName="email" required>
               <div *ngIf="teacherForm.get('email')?.invalid && teacherForm.get('email')?.touched" class="error-message">
                 <div *ngIf="teacherForm.get('email')?.errors?.['required']">Email es requerido.</div>
                 <div *ngIf="teacherForm.get('email')?.errors?.['pattern']">Email no es válido.</div>
@@ -37,7 +35,7 @@
 
             <div class="form-group">
               <label for="telf">Teléfono</label>
-              <input [(ngModel)]="teacher.telf" [(ngModel)]="teacherEdit.telf" type="text" id="telf" maxlength="10" class="form-control" formControlName="telf" required>
+              <input type="text" id="telf" maxlength="10" class="form-control" formControlName="telf" required>
               <div *ngIf="teacherForm.get('telf')?.invalid && teacherForm.get('telf')?.touched" class="error-message">
                 <div *ngIf="teacherForm.get('telf')?.errors?.['required']">Teléfono es requerido.</div>
                 <div *ngIf="teacherForm.get('telf')?.errors?.['pattern']">Teléfono no es válido.</div>
@@ -46,23 +44,20 @@
 
             <div class="form-group">
               <label for="asignatura">Asignatura</label>
-              <ng-select [items]= "materias"
-                            bindLabel= "name_s"
-                            name= "asignatura"
-                            id= "asignatura"
-                            formControlName="asignatura" required
-                            [(ngModel)]="teacher.subject.id"
-                            [(ngModel)]="teacherEdit.subject.id"
-                            bindValue="id"
-                            >
-                         </ng-select>
+              <ng-select [items]="materias"
+                         bindLabel="name_s"
+                         name="asignatura"
+                         id="asignatura"
+                         formControlName="asignatura"
+                         required>
+              </ng-select>
               <div *ngIf="teacherForm.get('asignatura')?.invalid && teacherForm.get('asignatura')?.touched" class="error-message">
                 Asignatura es requerida.
               </div>
             </div>
           </div>
           <div class="card-footer">
-            <button type="submit" class="btn btn-success" >
+            <button type="submit" class="btn btn-success">
               {{ updating ? 'Actualizar' : 'Registrar' }}
             </button>
 
@@ -75,7 +70,40 @@
     </div>
   </div>
 
+  <!-- Modal de advertencia por campos vacíos -->
+  <ng-template #warningModal>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Campos Incompletos</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modalRef?.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Por favor, complete todos los campos antes de enviar el formulario.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Cerrar</button>
+      </div>
+    </div>
+  </ng-template>
 
-
+  <!-- Modal de éxito al registrar o actualizar -->
+  <ng-template #successModal>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{ updating ? 'Actualización' : 'Registro' }} Exitoso</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modalRef?.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ updating ? 'El profesor ha sido actualizado correctamente.' : 'El profesor ha sido registrado correctamente.' }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Cerrar</button>
+      </div>
+    </div>
+  </ng-template>
 
 </form>

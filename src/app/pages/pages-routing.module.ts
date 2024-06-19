@@ -7,6 +7,7 @@ import { RegisterTeacherComponent } from './register-teacher/register-teacher.co
 import { MaterialComponent } from './material/material.component';
 import { EventsComponent } from './events/events.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 const routes: Routes = [
   {path:"pages",/*canActivate:[AuthGuard],*/ component: PagesComponent,
@@ -20,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes), ModalModule.forRoot(),],
   providers: [AuthGuard],
   exports: [RouterModule]
 })
