@@ -32,7 +32,7 @@ export class EventsComponent implements OnInit {
     this.events = []
     this.eventsService.getAll().subscribe(
        response =>{
-        
+
           response.forEach(element => {
             if (element.eventCategory.name_c != 'Clase') {
               this.events.push(element)
@@ -52,7 +52,7 @@ export class EventsComponent implements OnInit {
     }
   }
   deleteEvent(id: string){
-    
+
     this.eventsService.destroy(id).subscribe(
       response =>{
         this.getEvents()
