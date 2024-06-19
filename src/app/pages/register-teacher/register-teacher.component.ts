@@ -21,7 +21,7 @@ export class RegisterTeacherComponent implements OnInit {
       name_s: "",
       user: {
         email: "",
-        id: 0,
+        id: "",
         username: "",
         password: ""
       }

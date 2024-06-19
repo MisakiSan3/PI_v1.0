@@ -77,7 +77,7 @@ export class MaterialComponent implements OnInit {
     const newSubject: CreateSubjectModel = {
       name_s: this.materiaForm.get('nombre')?.value,
       user: {
-        id: 0,
+        id: "",
         username: '',
         email: '',
         password: ''
