@@ -10,7 +10,7 @@ const routes: Routes = [
    children:[
     {path: "",canActivate:[AuthGuard], component: CalendarComponent},
     {path: 'register-event',canActivate:[AuthGuard], component: EventsFormComponent}
-   ]},
+   ]}
 ];
 
 @NgModule({

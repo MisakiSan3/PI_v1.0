@@ -90,7 +90,7 @@ export class SubjectService {
      return deleteDoc(docRef);
    }
  
-   savesubject(subject: SubjectModel): Promise<any> {
+   savesubject(subject: CreateSubjectModel):any {
      const subjectData = JSON.parse(JSON.stringify(subject));
      delete subjectData.id
      const docRef = collection(this.firestore, this.collectionUrl);

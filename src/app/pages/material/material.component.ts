@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreateSubjectModel, SubjectModel, UpdateSubjectModel } from 'src/app/models/subject-model.entity';
 import { SubjectService } from 'src/app/services/subject.service';
 import { TokenService } from 'src/app/services/token.service';
+import { AsyncPipe } from '@angular/common';
+import { documentId } from '@angular/fire/firestore';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-material',
@@ -20,7 +23,12 @@ export class MaterialComponent implements OnInit {
     user: {
       id:"0",
     },
+    
   };
+  docId: string | undefined;
+  
+
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,7 +38,13 @@ export class MaterialComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.getSubjects();
+    //this.getSubjects();
+    //firebase get
+    this.subjectService.getsubjectList().subscribe(
+      (materias: SubjectModel[])=>
+      {this.materias =materias;
+        console.log(materias)
+      })
   }
 
   initializeForm(): void {
@@ -131,4 +145,28 @@ export class MaterialComponent implements OnInit {
     this.nombreInvalido()
     this.updating = true;
   }
+
+  //Firebase create
+    async createSubjectsF(){
+    if (this.materiaForm.invalid) {
+      this.materiaForm.markAllAsTouched();
+      return;
+    }
+
+    const newSubjects: CreateSubjectModel = {
+      name_s: this.materiaForm.get('nombre')?.value,
+      user: {
+        id: 0,
+        username: "",
+        email: "",
+        password: ""
+      },
+    };
+    const response = await this.subjectService.savesubject(newSubjects);
+    console.log(response)
+
+  }
+  
+  
+  
 }
