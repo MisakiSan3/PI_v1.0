@@ -7,8 +7,9 @@ import {
   UpdateUserModel
 } from '../models/user-model.entity';
 
-import { Firestore,addDoc,collection,deleteDoc,doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore,addDoc,collection,deleteDoc,doc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { collectionData } from 'rxfire/firestore';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class UserService {
   
   readonly API_URL: string = "http://localhost:8093/api/user";
 
-  constructor(private httpClient: HttpClient, private firestore: Firestore) { }
+  constructor(private httpClient: HttpClient, private firestore: Firestore, private authService: AuthService) { }
 
   getAll():Observable<UserModel[]> {
     const url = `${this.API_URL}`; 
@@ -61,11 +62,16 @@ export class UserService {
     return deleteDoc(docRef);
   }
 
-  saveuser(user: UserModel): Promise<any> {
-    const userData = JSON.parse(JSON.stringify(user));
-    delete userData.id
-    const docRef = collection(this.firestore, this.collectionUrl);
-    return addDoc(docRef, userData);
+  async saveuser(user: UserModel): Promise<any> {
+    const userAux = JSON.parse(JSON.stringify(user));
+    const cred = await this.authService.saveUser(user.email, user.password);
+    user.id = cred.user.uid;
+    const ref = collection(this.firestore, this.collectionUrl);
+    const docRef = doc(ref, user.id);
+    delete userAux.password
+    delete userAux.id;
+    const data = await setDoc(docRef, userAux);
+    return data;
   }
 
 

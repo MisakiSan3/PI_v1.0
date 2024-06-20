@@ -12,12 +12,46 @@
             <div class="form-group">
               <label for="nombre">Nombre</label>
               <input [(ngModel)]="updatedSubject.name_s" formControlName="nombre" type="text" class="form-control" id="nombre" name="nombre" required>
-              <div *ngIf="nombreInvalido()" class="text-danger">Este campo es obligatorio y no puede llevar simbolos y números.</div>
+              <div class="material" *ngIf="nombreInvalido() && materiaForm.get('nombre')?.touched">
+                Este campo es obligatorio y no puede llevar símbolos y números.
+              </div>
             </div>
             <button *ngIf="!updating" (click)="createSubjectsF()" type="submit" class="btn btn-success mt-2 me-2">Registrar</button>
             <button *ngIf="updating" (click)="update()" type="submit" class="btn btn-success mt-2 me-2">Actualizar</button>
             <button (click)="vaciar()" type="button" class="btn btn-danger mt-2">Vaciar</button>
           </form>
+
+          <!-- Modal Template for Empty Field -->
+          <ng-template #errorTemplate>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">Error</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>El campo de Nombre no puede estar vacío.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Cerrar</button>
+            </div>
+          </ng-template>
+
+          <!-- Modal Template for Successful Registration -->
+          <ng-template #successTemplate>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">Registro Exitoso</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>La materia ha sido registrada exitosamente.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Cerrar</button>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>
@@ -52,5 +86,3 @@
     </div>
   </div>
 </div>
-
-

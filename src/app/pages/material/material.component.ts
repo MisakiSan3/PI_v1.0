@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CreateSubjectModel, SubjectModel, UpdateSubjectModel } from 'src/app/models/subject-model.entity';
 import { SubjectService } from 'src/app/services/subject.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -21,19 +21,17 @@ export class MaterialComponent implements OnInit {
     id: '',
     name_s: '',
     user: {
-      id:"0",
+      id: '0',
     },
     
   };
-  docId: string | undefined;
-  
-
-
+  modalRef?: BsModalRef;
 
   constructor(
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
@@ -58,8 +56,6 @@ export class MaterialComponent implements OnInit {
     this.subjectService.getAll().subscribe(
       (materias: SubjectModel[]) => {
         this.materias = materias;
-        console.log(materias);
-        
       },
       (error) => {
         console.error('Error al obtener las asignaturas:', error);
@@ -69,8 +65,6 @@ export class MaterialComponent implements OnInit {
 
   nombreInvalido(): boolean {
     const nombreField = this.materiaForm.get('nombre');
-    console.log(nombreField?.invalid);
-
     return nombreField?.invalid ?? false;
   }
 
@@ -79,8 +73,13 @@ export class MaterialComponent implements OnInit {
     this.updating = false;
   }
 
-  createSubjects(): void {
+  openModal(template: TemplateRef<any>): void {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  createSubjects(successTemplate: TemplateRef<any>, errorTemplate: TemplateRef<any>): void {
     if (this.materiaForm.invalid) {
+      this.openModal(errorTemplate);
       this.materiaForm.markAllAsTouched();
       return;
     }
@@ -88,17 +87,18 @@ export class MaterialComponent implements OnInit {
     const newSubject: CreateSubjectModel = {
       name_s: this.materiaForm.get('nombre')?.value,
       user: {
-        id: 0,
-        username: "",
-        email: "",
-        password: ""
+        id: "",
+        username: '',
+        email: '',
+        password: ''
       },
     };
-    window.location.reload();
+
     this.subjectService.store(newSubject).subscribe(
       response => {
-        this.materias.push(response); 
+        this.materias.push(response);
         this.materiaForm.reset();
+        this.openModal(successTemplate);
       },
       error => {
         console.error('Error al crear la materia:', error);
@@ -127,7 +127,6 @@ export class MaterialComponent implements OnInit {
   }
 
   deleteSubject(id: string): void {
-    window.location.reload();
     this.subjectService.destroy(id).subscribe(
       updatedSubject => {
         this.getSubjects();
@@ -142,7 +141,6 @@ export class MaterialComponent implements OnInit {
     this.updatedSubject.id = subject.id;
     this.updatedSubject.name_s = subject.name_s;
     this.updatedSubject.user.id = subject.user.id.toString();
-    this.nombreInvalido()
     this.updating = true;
   }
 
@@ -156,7 +154,7 @@ export class MaterialComponent implements OnInit {
     const newSubjects: CreateSubjectModel = {
       name_s: this.materiaForm.get('nombre')?.value,
       user: {
-        id: 0,
+        id: "0",
         username: "",
         email: "",
         password: ""

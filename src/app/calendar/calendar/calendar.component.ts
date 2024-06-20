@@ -31,7 +31,7 @@ export class CalendarComponent implements OnInit {
         id: '',
         name_s: '',
         user: {
-          id: 0,
+          id: "",
           email: '',
           password: '',
           username: ''

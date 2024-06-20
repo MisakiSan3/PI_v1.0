@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { CreateUserModel, UserModel } from '../models/user-model.entity';
 import { UserAuthModel } from '../models/auth-model.entity';
-import {Auth,signInWithEmailAndPassword,onAuthStateChanged, signOut, createUserWithEmailAndPassword, UserCredential, updateEmail,updatePassword} from '@angular/fire/auth'
+import {Auth,signInWithEmailAndPassword,onAuthStateChanged, signOut, createUserWithEmailAndPassword, UserCredential, updateEmail,updatePassword, user} from '@angular/fire/auth'
 import { Router } from '@angular/router';
 
 
@@ -14,6 +14,13 @@ export class AuthService {
  
   readonly API_URL: string = "http://localhost:8093/auth/";
   constructor(private  httpclient:HttpClient, private auth: Auth, private router: Router) { 
+    onAuthStateChanged(this.auth, async (user) => {
+      if (user) {
+        localStorage.setItem("currentUser", user.uid);
+      } else {
+        localStorage.clear();
+      }
+    });
   }
 
   
@@ -55,4 +62,7 @@ export class AuthService {
       await updatePassword(user,password)
     }
   }
+
+    
+  
 }
