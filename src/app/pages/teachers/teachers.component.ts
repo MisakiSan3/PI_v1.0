@@ -14,7 +14,6 @@ export class TeachersComponent implements OnInit {
   constructor(private teachersService:TeacherService, private tokenService: TokenService, private subjectService: SubjectService) {
   }
   ngOnInit(): void {
-    this.getTeachers();
     this.getSubjectsF();
     this.getTeachersF();
   }
@@ -50,21 +49,12 @@ export class TeachersComponent implements OnInit {
       );
   }
   //obtener materias Firebase
-  getSubjectsF(){
-    this.subjectService.getsubjectList().subscribe(
-      (materias: SubjectModel[])=>
-      {this.materias =materias;
-        console.log(materias)
-      })
+  async getSubjectsF(){
+    this.materias = await this.subjectService.getSubjectListByUser();
   }
   // obtener Teachers firebase
-  getTeachersF(){
-    this.teachersService.getteacherList().subscribe(
-      response =>{
-        this.maestros = response;
-  
-      }
-    )
+  async getTeachersF(){
+    this.maestros = await this.teachersService.getTeacherListByUser()
     
   }
 

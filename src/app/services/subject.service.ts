@@ -126,6 +126,7 @@ export class SubjectService {
     const subjectList: SubjectModel[] = []
     docs.docs.forEach(element => {
       const aux = element.data() as SubjectModel
+      aux.id = element.id
       subjectList.push(aux)
     });
      return subjectList;

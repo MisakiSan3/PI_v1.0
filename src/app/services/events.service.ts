@@ -7,7 +7,7 @@ import {
   UpdateEventModel
 } from '../models/event-model.entity';
 import { TokenService } from './token.service';
-import { Firestore,addDoc,collection,deleteDoc,doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore,addDoc,collection,deleteDoc,doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { collectionData } from 'rxfire/firestore';
 
 @Injectable({
@@ -88,4 +88,30 @@ export class EventService {
      const data =  await updateDoc(docRef,ocAux);
      return data;
   }
+
+  async getEventListByUser():Promise<any> {
+    const userId = localStorage.getItem("currentUser");
+    const collectionRef = collection(this.firestore, this.collectionUrl);
+    const q = query(collectionRef, where('teacher.subject.user.id', '==', userId),where('eventCategory.name_c','!=','Clase'));
+    const docs = await getDocs(q)
+    const eventrList: EventModel[] = []
+    docs.docs.forEach(element => {
+      const aux = element.data() as EventModel
+      eventrList.push(aux)
+    });
+     return eventrList;
+   }
+   async getClassListByUser():Promise<any> {
+    const userId = localStorage.getItem("currentUser");
+    const collectionRef = collection(this.firestore, this.collectionUrl);
+    const q = query(collectionRef, where('teacher.subject.user.id', '==', userId),where('eventCategory.name_c','==','Clase'));
+    const docs = await getDocs(q)
+    const eventrList: EventModel[] = []
+    docs.docs.forEach(element => {
+      const aux = element.data() as EventModel
+      aux.id = element.id
+      eventrList.push(aux)
+    });
+     return eventrList;
+   }
 }

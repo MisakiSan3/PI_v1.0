@@ -75,7 +75,6 @@ export class EventsFormComponent implements OnInit {
     
     this.categoryService.getcategoryList().subscribe(
       response =>{
-        console.log(response);
         
         this.categorias = response;
         this.categoryHandler()
@@ -147,6 +146,7 @@ export class EventsFormComponent implements OnInit {
   postEvent(){
     try {
       this.eventService.saveevent(this.event);
+      
     } catch (error) {
       console.log(error);
     }
@@ -240,13 +240,7 @@ export class EventsFormComponent implements OnInit {
   timeEn = new FormControl('', [Validators.required]);
 
   //get maestros
-  getTeachersF(){
-    this.teachersService.getteacherList().subscribe(
-      response =>{
-        this.maestros = response;
-  
-      }
-    )
-    
-  }
+  async getTeachersF(){
+     this.maestros = await this.teachersService.getTeacherListByUser()
+    } 
 }

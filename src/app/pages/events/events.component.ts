@@ -27,20 +27,12 @@ export class EventsComponent implements OnInit {
   timeStart: string[] = []
   timeEnd: string[] = []
   events: EventModel[]= [];
-  getEvents(){
-    const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
+  async getEvents(){
     this.events = []
-    this.eventsService.getAll().subscribe(
-       response =>{
-
-          response.forEach(element => {
-            if (element.eventCategory.name_c != 'Clase') {
-              this.events.push(element)
-            }
-          });
-          this.prepareEvents()
-      }
-    )
+    this.events = await this.eventsService.getEventListByUser();
+      console.log(this.events);
+    
+    this.prepareEvents();
   }
   prepareEvents(){
     for (let i = 0; i < this.events.length; i++) {
@@ -72,11 +64,9 @@ export class EventsComponent implements OnInit {
   }*/
 
   //Get de materias Firebase
-  getSubjectsF(){
-    this.subjectService.getsubjectList().subscribe(
-      (materias: SubjectModel[])=>
-      {this.materias =materias;
-        console.log(materias)
-      })
+ async getSubjectsF(){
+    this.materias = await this.subjectService.getSubjectListByUser()
+    console.log(this.materias);
+    
   }
 }

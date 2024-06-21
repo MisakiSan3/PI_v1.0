@@ -37,7 +37,6 @@ export class MaterialComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.getSubjectsF();
-    this.subjectService.getSubjectListByUser();
     
   }
 

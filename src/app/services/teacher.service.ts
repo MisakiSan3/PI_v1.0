@@ -7,7 +7,7 @@ import {
   UpdateTeacherModel
 } from '../models/teacher-model.entity';
 import { TokenService } from './token.service';
-import { Firestore,addDoc,collection,deleteDoc,doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore,addDoc,collection,deleteDoc,doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { collectionData } from 'rxfire/firestore';
 
 @Injectable({
@@ -89,5 +89,19 @@ export class TeacherService {
     delete ocAux.id;
     const data =  await updateDoc(docRef,ocAux);
     return data;
+ }
+
+ async getTeacherListByUser():Promise<any> {
+  const userId = localStorage.getItem("currentUser");
+  const collectionRef = collection(this.firestore, this.collectionUrl);
+  const q = query(collectionRef, where('subject.user.id', '==', userId));
+  const docs = await getDocs(q)
+  const teacherList: TeacherModel[] = []
+  docs.docs.forEach(element => {
+    const aux = element.data() as TeacherModel
+    aux.id = element.id
+    teacherList.push(aux)
+  });
+   return teacherList;
  }
 }
