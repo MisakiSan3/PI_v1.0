@@ -92,16 +92,19 @@ export class SubjectService {
      return deleteDoc(docRef);
    }
  
-   savesubject(subject: CreateSubjectModel):any {
+   async savesubject(subject: CreateSubjectModel): Promise<any> {
      const userId = localStorage.getItem("currentUser");
-     console.log(userId);
      
-     const currentUser = this.userService.getUser(userId!.toString());
-     console.log(currentUser);
+     const currentUser = await this.userService.getUser(userId!.toString())
+     const data = currentUser._document.data.value.mapValue.fields;
+     subject.user.email = data.email.stringValue;
+     subject.user.username = data.username.stringValue;
+     subject.user.id = currentUser._document.key.path.segments[6];
      
-     subject.user = currentUser
+     //subject.user = currentUser
      const subjectData = JSON.parse(JSON.stringify(subject));
      delete subjectData.id
+     delete subjectData.user.password
      const docRef = collection(this.firestore, this.collectionUrl);
      return addDoc(docRef, subjectData);
    }
