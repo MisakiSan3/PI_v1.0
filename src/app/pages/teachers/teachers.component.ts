@@ -57,6 +57,7 @@ export class TeachersComponent implements OnInit {
         console.log(materias)
       })
   }
+  // obtener Teachers firebase
   getTeachersF(){
     this.teachersService.getteacherList().subscribe(
       response =>{
@@ -65,6 +66,13 @@ export class TeachersComponent implements OnInit {
       }
     )
     
+  }
+
+  //Eliminar teachers firebase
+
+  async deleteTeacherF(teacher: TeacherModel){
+    const response =await this.teachersService.deleteteacher(teacher)
+
   }
 
 }

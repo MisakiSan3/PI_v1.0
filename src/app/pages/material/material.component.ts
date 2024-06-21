@@ -36,13 +36,9 @@ export class MaterialComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    //this.getSubjects();
-    //firebase get
-    this.subjectService.getsubjectList().subscribe(
-      (materias: SubjectModel[])=>
-      {this.materias =materias;
-        console.log(materias)
-      })
+    this.getSubjectsF();
+    
+    
   }
 
   initializeForm(): void {
@@ -164,7 +160,27 @@ export class MaterialComponent implements OnInit {
     console.log(response)
 
   }
-  
-  
+  //Firebase get 
+   getSubjectsF(){
+    this.subjectService.getsubjectList().subscribe(
+    (materias: SubjectModel[])=>
+    {
+      this.materias =materias;
+      console.log(materias)
+    })
+  }
+  //firebase delete
+
+  async deleteSubjectF(materia:SubjectModel){
+    const response = await this.subjectService.deletesubject(materia)
+    console.log(response)
+
+  }
+
+  //firebase actualizar
+  updateSubjectF(){
+    this.subjectService.updatesubject(this.updatedSubject)
+    
+  }
   
 }

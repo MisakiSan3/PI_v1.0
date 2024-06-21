@@ -17,7 +17,7 @@ export class RegisterTeacherComponent implements OnInit {
   teacherForm!: FormGroup;
   teacher: CreateTeacherModel= {
     subject: {
-      id: '',
+      id: "",
       name_s: "",
       user: {
         email: "",
@@ -156,13 +156,13 @@ export class RegisterTeacherComponent implements OnInit {
   }
   //crear teacher Firebase 
   async createTeacherF() {
-    const Newteacher: CreateTeacherModel ={
+    /*const Newteacher: CreateTeacherModel ={
       email: this.teacherForm.get("email")?.value,
       name_p: this.teacherForm.get("nombre_p")?.value,
       lastname_p: this.teacherForm.get("apellido_p")?.value,
       telf: this.teacherForm.get("telf")?.value,
       subject: {
-        id: '',
+        id: "",
         name_s: "",
         user: {
           email: "",
@@ -171,12 +171,10 @@ export class RegisterTeacherComponent implements OnInit {
           password: ""
         }
       },
-    }
-    const response = await this.teacherService.saveteacher(Newteacher);
+    }*/
+    const response = await this.teacherService.saveteacher(this.teacher);
     console.log(response)
     
   }
-  Newteacher(Newteacher: any) {
-    throw new Error('Method not implemented.');
-  }
+
 }
