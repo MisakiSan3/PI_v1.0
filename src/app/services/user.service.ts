@@ -7,7 +7,7 @@ import {
   UpdateUserModel
 } from '../models/user-model.entity';
 
-import { Firestore,addDoc,collection,deleteDoc,doc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore,addDoc,collection,deleteDoc,doc, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { collectionData } from 'rxfire/firestore';
 import { AuthService } from './auth.service';
 
@@ -60,6 +60,14 @@ export class UserService {
   deleteuser(docId: string): Promise<void> {
     const docRef = doc(this.firestore, `${this.collectionUrl}/${docId}`);
     return deleteDoc(docRef);
+  }
+
+  getUser(docId: string): any {
+    const docRef = doc(this.firestore, `${this.collectionUrl}/${docId}`);
+    const user = getDoc(docRef);
+    console.log(user);
+    
+    return user;
   }
 
   async saveuser(user: UserModel): Promise<any> {

@@ -9,6 +9,7 @@ import {
 import { TokenService } from './token.service';
 import { Firestore,addDoc,collection,deleteDoc,doc, updateDoc } from '@angular/fire/firestore';
 import { collectionData } from 'rxfire/firestore';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class SubjectService {
   constructor(
     private httpClient: HttpClient,
     private tokenService: TokenService,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private userService: UserService
 
     ) { }
     httpOptions={
@@ -91,6 +93,13 @@ export class SubjectService {
    }
  
    savesubject(subject: CreateSubjectModel):any {
+     const userId = localStorage.getItem("currentUser");
+     console.log(userId);
+     
+     const currentUser = this.userService.getUser(userId!.toString());
+     console.log(currentUser);
+     
+     subject.user = currentUser
      const subjectData = JSON.parse(JSON.stringify(subject));
      delete subjectData.id
      const docRef = collection(this.firestore, this.collectionUrl);
