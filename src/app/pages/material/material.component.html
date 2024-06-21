@@ -17,7 +17,7 @@
               </div>
             </div>
             <button *ngIf="!updating" (click)="createSubjectsF()" type="submit" class="btn btn-success mt-2 me-2">Registrar</button>
-            <button *ngIf="updating" (click)="update()" type="submit" class="btn btn-success mt-2 me-2">Actualizar</button>
+            <button *ngIf="updating" (click)="updateSubjectF()" type="submit" class="btn btn-success mt-2 me-2">Actualizar</button>
             <button (click)="vaciar()" type="button" class="btn btn-danger mt-2">Vaciar</button>
           </form>
 
@@ -76,7 +76,7 @@
                   <button class="btn btn-success mt-2 me-2" (click)="selectSubject(materia)">Actualizar</button>
                 </td>
                 <td>
-                  <button class="btn btn-danger mt-2" (click)="deleteSubject(materia.id)">Eliminar</button>
+                  <button class="btn btn-danger mt-2" (click)="deleteSubjectF(materia)">Eliminar</button>
                 </td>
               </tr>
             </tbody>

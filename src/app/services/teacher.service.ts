@@ -69,8 +69,8 @@ export class TeacherService {
     return docs;
   }
 
-  deleteteacher(docId: string): Promise<void> {
-    const docRef = doc(this.firestore, `${this.collectionUrl}/${docId}`);
+  deleteteacher(teacher: TeacherModel): Promise<void> {
+    const docRef = doc(this.firestore, `${this.collectionUrl}/${teacher.id}`);
     return deleteDoc(docRef);
   }
 

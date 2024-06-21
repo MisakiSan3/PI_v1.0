@@ -85,8 +85,8 @@ export class SubjectService {
      return docs;
    }
  
-   deletesubject(docId: string): Promise<void> {
-     const docRef = doc(this.firestore, `${this.collectionUrl}/${docId}`);
+   deletesubject(subject: SubjectModel): Promise<void> {
+     const docRef = doc(this.firestore, `${this.collectionUrl}/${subject.id}`);
      return deleteDoc(docRef);
    }
  
@@ -98,7 +98,7 @@ export class SubjectService {
    }
  
  
-   async updatesubject(subject: SubjectModel): Promise<void>{
+   async updatesubject(subject: UpdateSubjectModel): Promise<void>{
      const ocAux = JSON.parse(JSON.stringify(subject));
      const ref =  collection(this.firestore, this.collectionUrl)
      const docRef = doc(ref,subject.id);
@@ -106,4 +106,5 @@ export class SubjectService {
      const data =  await updateDoc(docRef,ocAux);
      return data;
   }
+  
 }

@@ -176,7 +176,5 @@ export class RegisterTeacherComponent implements OnInit {
     console.log(response)
     
   }
-  Newteacher(Newteacher: any) {
-    throw new Error('Method not implemented.');
-  }
+
 }
