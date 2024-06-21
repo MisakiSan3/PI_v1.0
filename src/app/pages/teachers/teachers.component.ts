@@ -15,7 +15,8 @@ export class TeachersComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getTeachers();
-    this.getSubjects()
+    this.getSubjectsF();
+    this.getTeachersF();
   }
   maestros: TeacherModel[] = []
   materias: SubjectModel[] = []
@@ -47,6 +48,23 @@ export class TeachersComponent implements OnInit {
           console.error('Error al obtener las asignaturas:', error);
         }
       );
+  }
+  //obtener materias Firebase
+  getSubjectsF(){
+    this.subjectService.getsubjectList().subscribe(
+      (materias: SubjectModel[])=>
+      {this.materias =materias;
+        console.log(materias)
+      })
+  }
+  getTeachersF(){
+    this.teachersService.getteacherList().subscribe(
+      response =>{
+        this.maestros = response;
+  
+      }
+    )
+    
   }
 
 }

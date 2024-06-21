@@ -17,7 +17,7 @@ export class EventsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEvents();
-    this.getSubjects()
+    this.getSubjectsF();
   }
   filterName: string = '';
   filterAsignatura: string = '';
@@ -59,7 +59,7 @@ export class EventsComponent implements OnInit {
       }
     )
   }
-  getSubjects(){
+  /*getSubjects(){
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
       this.subjectService.getAll().subscribe(
         response => {
@@ -69,5 +69,14 @@ export class EventsComponent implements OnInit {
           console.error('Error al obtener las asignaturas:', error);
         }
       );
+  }*/
+
+  //Get de materias Firebase
+  getSubjectsF(){
+    this.subjectService.getsubjectList().subscribe(
+      (materias: SubjectModel[])=>
+      {this.materias =materias;
+        console.log(materias)
+      })
   }
 }

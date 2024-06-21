@@ -21,12 +21,13 @@ export class EventsFormComponent implements OnInit {
     private teacherService:TeacherService,
     private eventService:EventService,
     private router: Router,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private teachersService:TeacherService,
     ) {
   }
   ngOnInit(): void {
     this.updatingVerification()
-    this.getTeachers();
+    this.getTeachersF();
     this.getCategories();
   }
   categorias: CategoryModel[] = [];
@@ -241,4 +242,15 @@ export class EventsFormComponent implements OnInit {
   dateEn = new FormControl('', [Validators.required]);
   timeInit = new FormControl('', [Validators.required]);
   timeEn = new FormControl('', [Validators.required]);
+
+  //get maestros
+  getTeachersF(){
+    this.teachersService.getteacherList().subscribe(
+      response =>{
+        this.maestros = response;
+  
+      }
+    )
+    
+  }
 }

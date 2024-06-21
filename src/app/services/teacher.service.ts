@@ -74,7 +74,7 @@ export class TeacherService {
     return deleteDoc(docRef);
   }
 
-  saveteacher(teacher: TeacherModel): Promise<any> {
+  saveteacher(teacher: CreateTeacherModel): Promise<any> {
     const teacherData = JSON.parse(JSON.stringify(teacher));
     delete teacherData.id
     const docRef = collection(this.firestore, this.collectionUrl);

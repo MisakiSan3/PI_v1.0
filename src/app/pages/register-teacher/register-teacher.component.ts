@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SubjectModel } from 'src/app/models/subject-model.entity';
-import { CreateTeacherModel, UpdateTeacherModel } from 'src/app/models/teacher-model.entity';
+import { CreateTeacherModel, TeacherModel, UpdateTeacherModel } from 'src/app/models/teacher-model.entity';
 import { SubjectService } from 'src/app/services/subject.service';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -15,8 +15,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class RegisterTeacherComponent implements OnInit {
   teacherForm!: FormGroup;
-  teacher: CreateTeacherModel = {
-    subject:{
+  teacher: CreateTeacherModel= {
+    subject: {
       id: '',
       name_s: "",
       user: {
@@ -29,7 +29,8 @@ export class RegisterTeacherComponent implements OnInit {
     name_p: '',
     lastname_p: '',
     telf: '',
-    email: ''
+    email: '',
+
   };
   materias: SubjectModel[] = [];
   updating = false;
@@ -57,7 +58,7 @@ export class RegisterTeacherComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.getSubjects();
+    /*this.getSubjects();*/
     if (history.state.id) {
       this.updating = true;
       this.teacherEdit.id = history.state.id;
@@ -68,6 +69,9 @@ export class RegisterTeacherComponent implements OnInit {
       this.teacherEdit.subject = { id: history.state.asignatura.id };
       console.log(this.teacherEdit);
     }
+    //get Subjects Firebase
+    this.getSubjectsF()
+    
   }
 
   initializeForm(): void {
@@ -80,7 +84,7 @@ export class RegisterTeacherComponent implements OnInit {
     });
   }
 
-  getSubjects(): void {
+  /*getSubjects(): void {
     const userId: string | null = this.tokenService.getUserIdFromToken() ?? '';
     this.subjectService.getAll().subscribe(
       (materias: SubjectModel[]) => {
@@ -91,9 +95,9 @@ export class RegisterTeacherComponent implements OnInit {
         console.error('Error al obtener las asignaturas:', error);
       }
     );
-  }
+  }*/
 
-  createTeacher(template: TemplateRef<any>): void {
+  /*createTeacher(template: TemplateRef<any>): void {
     if (this.teacherForm.invalid) {
       this.openModal(template);
       return;
@@ -110,7 +114,7 @@ export class RegisterTeacherComponent implements OnInit {
         console.error('Error al registrar el profesor:', error);
       }
     );
-  }
+  }*/
 
   updateTeacher(template: TemplateRef<any>): void {
     if (this.teacherForm.invalid) {
@@ -141,5 +145,38 @@ export class RegisterTeacherComponent implements OnInit {
     setTimeout(() => {
       this.modalRef?.hide();
     }, 2000); // Cierra automáticamente el modal después de 2 segundos
+  }
+  //obtener  materias para teacher Firebase 
+  getSubjectsF(){
+    this.subjectService.getsubjectList().subscribe(
+      (materias: SubjectModel[])=>
+      {this.materias =materias;
+        console.log(materias)
+      })
+  }
+  //crear teacher Firebase 
+  async createTeacherF() {
+    const Newteacher: CreateTeacherModel ={
+      email: this.teacherForm.get("email")?.value,
+      name_p: this.teacherForm.get("nombre_p")?.value,
+      lastname_p: this.teacherForm.get("apellido_p")?.value,
+      telf: this.teacherForm.get("telf")?.value,
+      subject: {
+        id: '',
+        name_s: "",
+        user: {
+          email: "",
+          id: "",
+          username: "",
+          password: ""
+        }
+      },
+    }
+    const response = await this.teacherService.saveteacher(Newteacher);
+    console.log(response)
+    
+  }
+  Newteacher(Newteacher: any) {
+    throw new Error('Method not implemented.');
   }
 }
