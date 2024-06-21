@@ -7,7 +7,7 @@ import {
   UpdateSubjectModel
 } from '../models/subject-model.entity';
 import { TokenService } from './token.service';
-import { Firestore,addDoc,collection,deleteDoc,doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore,addDoc,collection,deleteDoc,doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { collectionData } from 'rxfire/firestore';
 import { UserService } from './user.service';
 
@@ -118,5 +118,16 @@ export class SubjectService {
      const data =  await updateDoc(docRef,ocAux);
      return data;
   }
-  
+  async getSubjectListByUser():Promise<any> {
+    const userId = localStorage.getItem("currentUser");
+    const collectionRef = collection(this.firestore, this.collectionUrl);
+    const q = query(collectionRef, where('user.id', '==', userId));
+    const docs = await getDocs(q)
+    const subjectList: SubjectModel[] = []
+    docs.docs.forEach(element => {
+      const aux = element.data() as SubjectModel
+      subjectList.push(aux)
+    });
+     return subjectList;
+   }
 }
