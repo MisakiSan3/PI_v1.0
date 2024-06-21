@@ -59,13 +59,8 @@ export class TeachersComponent implements OnInit {
   }
   // obtener Teachers firebase
   getTeachersF(){
-    this.teachersService.getteacherList().subscribe(
-      response =>{
-        this.maestros = response;
-  
-      }
-    )
-    
+    this.teachersService.getteacherList();
+     
   }
 
   //Eliminar teachers firebase

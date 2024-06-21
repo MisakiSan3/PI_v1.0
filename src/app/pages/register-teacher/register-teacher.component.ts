@@ -147,12 +147,8 @@ export class RegisterTeacherComponent implements OnInit {
     }, 2000); // Cierra automáticamente el modal después de 2 segundos
   }
   //obtener  materias para teacher Firebase 
-  getSubjectsF(){
-    this.subjectService.getsubjectList().subscribe(
-      (materias: SubjectModel[])=>
-      {this.materias =materias;
-        console.log(materias)
-      })
+  async getSubjectsF(){
+    this.materias = await this.subjectService.getSubjectListByUser()
   }
   //crear teacher Firebase 
   async createTeacherF() {

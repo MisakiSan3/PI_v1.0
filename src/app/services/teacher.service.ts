@@ -7,7 +7,7 @@ import {
   UpdateTeacherModel
 } from '../models/teacher-model.entity';
 import { TokenService } from './token.service';
-import { Firestore,addDoc,collection,deleteDoc,doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore,addDoc,collection,deleteDoc,doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { collectionData } from 'rxfire/firestore';
 
 @Injectable({
