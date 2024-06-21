@@ -73,7 +73,7 @@ export class EventsFormComponent implements OnInit {
 
   getCategories(){
     
-    this.categoryService.getAll().subscribe(
+    this.categoryService.getcategoryList().subscribe(
       response =>{
         console.log(response);
         
@@ -86,6 +86,8 @@ export class EventsFormComponent implements OnInit {
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
     this.teacherService.getAll().subscribe(
       response =>{
+        console.log(response);
+        
         this.maestros = response;
 
       }
@@ -144,13 +146,7 @@ export class EventsFormComponent implements OnInit {
 
   postEvent(){
     try {
-      this.eventService.store(this.event).subscribe(
-        responseStore => {
-          this.deleteEvents()
-              this.getEvents()
-              window.location.href = '/calendar'
-        }
-      )
+      this.eventService.saveevent(this.event);
     } catch (error) {
       console.log(error);
     }

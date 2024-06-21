@@ -70,8 +70,10 @@ export class EventService {
      return deleteDoc(docRef);
    }
  
-   saveevent(event: EventModel): Promise<any> {
+   saveevent(event: CreateEventModel): Promise<any> {
      const eventData = JSON.parse(JSON.stringify(event));
+     console.log(eventData);
+     
      delete eventData.id
      const docRef = collection(this.firestore, this.collectionUrl);
      return addDoc(docRef, eventData);
