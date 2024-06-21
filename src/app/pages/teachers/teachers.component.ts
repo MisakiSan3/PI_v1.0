@@ -53,9 +53,9 @@ export class TeachersComponent implements OnInit {
     this.materias = await this.subjectService.getSubjectListByUser();
   }
   // obtener Teachers firebase
-  async getTeachersF(){
-    this.maestros = await this.teachersService.getTeacherListByUser()
-    
+  getTeachersF(){
+    this.teachersService.getteacherList();
+     
   }
 
   //Eliminar teachers firebase
