@@ -15,7 +15,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class RegisterTeacherComponent implements OnInit {
   teacherForm!: FormGroup;
-  teacher: CreateTeacherModel= {
+  teacher: TeacherModel= {
     subject: {
       id: "",
       name_s: "",
@@ -30,7 +30,7 @@ export class RegisterTeacherComponent implements OnInit {
     lastname_p: '',
     telf: '',
     email: '',
-
+    id: ''
   };
   materias: SubjectModel[] = [];
   updating = false;
@@ -51,23 +51,24 @@ export class RegisterTeacherComponent implements OnInit {
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private teacherService: TeacherService,
-    private tokenService: TokenService,
     private router: Router,
     private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
     this.initializeForm();
-    /*this.getSubjects();*/
+    
     if (history.state.id) {
       this.updating = true;
-      this.teacherEdit.id = history.state.id;
-      this.teacherEdit.name_p = history.state.nombre_p;
-      this.teacherEdit.lastname_p = history.state.apellido_p;
-      this.teacherEdit.telf = history.state.telf;
-      this.teacherEdit.email = history.state.email;
-      this.teacherEdit.subject = { id: history.state.asignatura.id };
-      console.log(this.teacherEdit);
+    console.log(history.state);
+
+      this.teacher.id = history.state.id;
+      this.teacher.name_p = history.state.name_p;
+      this.teacher.lastname_p = history.state.lastname_p;
+      this.teacher.telf = history.state.telf;
+      this.teacher.email = history.state.email;
+      this.teacher.subject = history.state.subject
+      console.log(this.teacher);
     }
     //get Subjects Firebase
     this.getSubjectsF()
@@ -122,18 +123,9 @@ export class RegisterTeacherComponent implements OnInit {
       return;
     }
 
-    const teacherId = this.teacherEdit.id;
-    window.location.href = '/pages/teacher-list';
-    this.teacherService.update(teacherId, this.teacherEdit).subscribe(
-      (response) => {
-        if (response) {
-          this.openSuccessModal(template);
-        }
-      },
-      (error) => {
-        console.error('Error al actualizar el profesor:', error);
-      }
-    );
+  
+    this.teacherService.updateteacher(this.teacher);
+    this.router.navigate(['pages/teacher-list']);
   }
 
   openModal(template: TemplateRef<any>) {
@@ -169,7 +161,7 @@ export class RegisterTeacherComponent implements OnInit {
       },
     }*/
     const response = await this.teacherService.saveteacher(this.teacher);
-    console.log(response)
+    this.router.navigate(['pages/teacher-list']);
     
   }
 
