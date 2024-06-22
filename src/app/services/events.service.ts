@@ -104,7 +104,7 @@ export class EventService {
    async getClassListByUser():Promise<any> {
     const userId = localStorage.getItem("currentUser");
     const collectionRef = collection(this.firestore, this.collectionUrl);
-    const q = query(collectionRef, where('teacher.subject.user.id', '==', userId),where('eventCategory.name_c','==','Clase'));
+    const q = query(collectionRef, where('teacher.subject.user.id', '==', userId));
     const docs = await getDocs(q)
     const eventrList: EventModel[] = []
     docs.docs.forEach(element => {
@@ -114,10 +114,10 @@ export class EventService {
     });
      return eventrList;
    }
-   async getEventsListByUser():Promise<any> {
+   /*async getEventsListByUser():Promise<any> {
     const userId = localStorage.getItem("currentUser");
     const collectionRef = collection(this.firestore, this.collectionUrl);
-    const q = query(collectionRef, where('teacher.subject.user.id', '==', userId),where('eventCategory.name_c','==','Evento'));
+    const q = query(collectionRef, where('teacher.subject.user.id', '==', userId));
     const docs = await getDocs(q)
     const eventrList: EventModel[] = []
     docs.docs.forEach(element => {
@@ -126,5 +126,5 @@ export class EventService {
       eventrList.push(aux)
     });
      return eventrList;
-   }
+   }*/
 }
