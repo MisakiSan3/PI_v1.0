@@ -30,8 +30,6 @@ export class EventsComponent implements OnInit {
   async getEvents(){
     this.events = []
     this.events = await this.eventsService.getEventListByUser();
-      console.log(this.events);
-    
     this.prepareEvents();
   }
   prepareEvents(){
@@ -43,13 +41,9 @@ export class EventsComponent implements OnInit {
       this.timeEnd[i] = event.end.toString().slice(11,16)
     }
   }
-  deleteEvent(id: string){
+  deleteEvent(event: EventModel){
 
-    this.eventsService.destroy(id).subscribe(
-      response =>{
-        this.getEvents()
-      }
-    )
+    this.eventsService.deleteevent(event)
   }
   /*getSubjects(){
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
@@ -65,8 +59,7 @@ export class EventsComponent implements OnInit {
 
   //Get de materias Firebase
  async getSubjectsF(){
-    this.materias = await this.subjectService.getSubjectListByUser()
-    console.log(this.materias);
-    
+    this.materias = await this.subjectService.getSubjectListByUser();
   }
+
 }

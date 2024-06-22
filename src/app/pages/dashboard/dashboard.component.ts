@@ -25,9 +25,7 @@ export class DashboardComponent implements OnInit {
   
   //events: EventModel[] = [];
   ngOnInit(): void {
-  this.getEvents();
-  console.log(this.tokenService.getToken());
-  this.tokenService.getUserIdFromToken();
+ 
   }
 
   getUserNameFromToken() {

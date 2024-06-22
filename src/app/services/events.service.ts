@@ -95,8 +95,10 @@ export class EventService {
     const q = query(collectionRef, where('teacher.subject.user.id', '==', userId),where('eventCategory.name_c','!=','Clase'));
     const docs = await getDocs(q)
     const eventrList: EventModel[] = []
+    var aux: EventModel
     docs.docs.forEach(element => {
-      const aux = element.data() as EventModel
+      aux = element.data() as EventModel
+      aux.id = element.id
       eventrList.push(aux)
     });
      return eventrList;
