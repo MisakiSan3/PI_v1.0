@@ -53,15 +53,18 @@ export class TeachersComponent implements OnInit {
     this.materias = await this.subjectService.getSubjectListByUser();
   }
   // obtener Teachers firebase
-  getTeachersF(){
-    this.teachersService.getteacherList();
-     
-  }
+  async getTeachersF(){
+    this.maestros = await this.teachersService.getTeacherListByUser()
+ }
+
 
   //Eliminar teachers firebase
 
   async deleteTeacherF(teacher: TeacherModel){
-    const response =await this.teachersService.deleteteacher(teacher)
+    const response =await this.teachersService.deleteteacher(teacher);
+    window.location.href = '/pages/teacher-list'
+    console.log(response)
+
 
   }
 

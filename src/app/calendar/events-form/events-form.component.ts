@@ -161,7 +161,7 @@ export class EventsFormComponent implements OnInit {
         this.eventUpdate.end = this.eventUpdate.end + 'T' + this.timeEnd + '-05:00';
       }
     if (!this.timeError && !this.dateError) {
-      this.updateEvent()
+      this.updateEventsF()
     }else {
       const errorDiv = document.getElementById('errorDiv') as HTMLElement
       errorDiv.innerHTML = 'La fecha o la hora son incorrectas'
@@ -242,5 +242,17 @@ export class EventsFormComponent implements OnInit {
   //get maestros
   async getTeachersF(){
      this.maestros = await this.teachersService.getTeacherListByUser()
-    } 
+  }
+
+  async updateEventsF(){
+    try {
+      await this.eventService.updateevent(this.eventUpdate);
+      window.location.href = '/calendar'
+    } catch (error) {
+      console.error('Error actualizando la materia', error);
+    }
+  }
+
+  
+
 }

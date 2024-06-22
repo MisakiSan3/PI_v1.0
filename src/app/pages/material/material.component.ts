@@ -156,6 +156,7 @@ export class MaterialComponent implements OnInit {
       },
     };
     const response = await this.subjectService.savesubject(newSubjects);
+    window.location.href = '/pages/subjects'
     console.log(response)
 
   }
@@ -166,15 +167,21 @@ export class MaterialComponent implements OnInit {
   //firebase delete
 
   async deleteSubjectF(materia:SubjectModel){
-    const response = await this.subjectService.deletesubject(materia)
+    const response = await this.subjectService.deletesubject(materia);
+    window.location.href = '/pages/subjects'
     console.log(response)
 
   }
 
   //firebase actualizar
-  updateSubjectF(){
-    this.subjectService.updatesubject(this.updatedSubject)
-    
+  async updateSubjectF() {
+    try {
+      await this.subjectService.updatesubject(this.updatedSubject);
+      this.materiaForm.reset();
+      window.location.reload();
+    } catch (error) {
+      console.error('Error actualizando la materia', error);
+    }
   }
   
 }

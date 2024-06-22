@@ -46,7 +46,8 @@ export class CalendarComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
   ngOnInit(): void {
-   this.getEventsF()
+   this.getEventsF();
+   /*this.getEvents2F();*/
   }
   deleteEvents(){
     sessionStorage.clear();
@@ -103,9 +104,20 @@ export class CalendarComponent implements OnInit {
   }
 
   async getEventsF(){
-    this.events = await this.eventsService.getClassListByUser();
-    this.calendarOptions.events = this.events
+    this.events = await this.eventsService.getClassListByUser()
+      this.calendarOptions.events = this.events
     
+  }
+  /*async getEvents2F(){
+    this.events = await this.eventsService.getEventListByUser();
+    this.calendarOptions.events = this.events
+
+  }*/
+
+  async deleteEventsF(events: EventModel){
+    const response = await this.eventsService.deleteevent(events);
+    window.location.href = '/calendar'
+
   }
 
 

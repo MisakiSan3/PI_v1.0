@@ -65,8 +65,8 @@ export class EventService {
      return docs;
    }
  
-   deleteevent(docId: string): Promise<void> {
-     const docRef = doc(this.firestore, `${this.collectionUrl}/${docId}`);
+   deleteevent(event: EventModel): Promise<void> {
+     const docRef = doc(this.firestore, `${this.collectionUrl}/${event.id}`);
      return deleteDoc(docRef);
    }
  
@@ -80,7 +80,7 @@ export class EventService {
    }
  
  
-   async updateevent(event: EventModel): Promise<void>{
+   async updateevent(event: UpdateEventModel): Promise<void>{
      const ocAux = JSON.parse(JSON.stringify(event));
      const ref =  collection(this.firestore, this.collectionUrl)
      const docRef = doc(ref,event.id);
@@ -105,6 +105,19 @@ export class EventService {
     const userId = localStorage.getItem("currentUser");
     const collectionRef = collection(this.firestore, this.collectionUrl);
     const q = query(collectionRef, where('teacher.subject.user.id', '==', userId),where('eventCategory.name_c','==','Clase'));
+    const docs = await getDocs(q)
+    const eventrList: EventModel[] = []
+    docs.docs.forEach(element => {
+      const aux = element.data() as EventModel
+      aux.id = element.id
+      eventrList.push(aux)
+    });
+     return eventrList;
+   }
+   async getEventsListByUser():Promise<any> {
+    const userId = localStorage.getItem("currentUser");
+    const collectionRef = collection(this.firestore, this.collectionUrl);
+    const q = query(collectionRef, where('teacher.subject.user.id', '==', userId),where('eventCategory.name_c','==','Evento'));
     const docs = await getDocs(q)
     const eventrList: EventModel[] = []
     docs.docs.forEach(element => {
