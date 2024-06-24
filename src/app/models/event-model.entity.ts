@@ -13,8 +13,8 @@ export interface EventModel {
 
 }
 export interface CreateEventModel extends  Omit<EventModel, 'id' |'eventCategory' |'teacher' |'start' |'end'>{
-    eventCategory: AssitModel;
-    teacher: AssitModel;
+    eventCategory: CategoryModel;
+    teacher: TeacherModel;
     start: string;
     end: string;
 }

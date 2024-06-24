@@ -51,10 +51,25 @@ export class EventsFormComponent implements OnInit {
     end: '',
     description: '',
     eventCategory: {
-      id: "0"
+      id: "0",
+      name_c: ''
     },
     teacher:{
-      id:"0"
+      id: "0",
+      name_p: '',
+      lastname_p: '',
+      telf: '',
+      email: '',
+      subject: {
+        id: '',
+        name_s: '',
+        user: {
+          id: '',
+          username: '',
+          email: '',
+          password: ''
+        }
+      }
     }
   };
   eventUpdate: UpdateEventModel = {
@@ -189,6 +204,7 @@ export class EventsFormComponent implements OnInit {
   }
   updatingVerification(){
     if (history.state.id) {
+      
       if (typeof history.state === typeof this.event) {
         this.prepareEventUpdate()
         this.updating = true;
@@ -203,8 +219,8 @@ export class EventsFormComponent implements OnInit {
     const endDate = hist.end.slice(0,10)
     this.timeStart = hist.start.slice(11,16)
     this.timeEnd = hist.end.slice(11,16)
-    this.eventUpdate.teacher.id = hist.teacher.id
-    this.eventUpdate.eventCategory.id = hist.eventCategory.id
+    this.eventUpdate.teacher = hist.teacher
+    this.eventUpdate.eventCategory = hist.eventCategory
     this.eventUpdate.title = hist.title
     this.eventUpdate.description = hist.description
     this.eventUpdate.id = hist.id
