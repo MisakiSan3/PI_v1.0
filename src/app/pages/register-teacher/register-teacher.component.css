@@ -120,3 +120,38 @@ label {
   text-decoration: none;
   opacity: 0.75;
 }
+
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+}
+
+.modal-content {
+  border-radius: 0.3rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.modal-header .close {
+  padding: 1rem;
+  margin: -1rem -1rem -1rem auto;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-body p {
+  font-size: 1.2em;
+}
+
+.modal-body .btn {
+  margin-top: 15px;
+}

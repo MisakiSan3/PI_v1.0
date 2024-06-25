@@ -99,8 +99,30 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   .col-md-6 .img-fluid {
     max-width: 100%;
     max-height: 100%;
   }
+
+.error-message{
+  color: red;
+}
+
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-body p {
+  font-size: 1.2em;
+}
+
+.modal-body .btn {
+  margin-top: 15px;
+}

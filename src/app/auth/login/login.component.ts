@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { UserAuthModel } from 'src/app/models/auth-model.entity';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-login',
@@ -12,33 +12,34 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username= new FormControl('', [Validators.required]);
+  username = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')]);
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
-  formSubmitted = false; // Track if the form has been submitted
-  formInvalid = false; // Track if the form is invalid
+  formSubmitted = false;
+  formInvalid = false;
 
   user: UserAuthModel = {
     username: '',
     password: ''
   };
 
+  modalRef?: BsModalRef;
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private tokenService: TokenService,
-    private snackBar: MatSnackBar
+    private modalService: BsModalService
   ) {}
 
-  ngOnInit(): void {
-  }
- 
-  onLogins(): void {
-    this.formSubmitted = true; // Set formSubmitted to true when the form is submitted
+  ngOnInit(): void {}
+
+  onLogins(template: TemplateRef<any>): void {
+    this.formSubmitted = true;
 
     if (this.username.invalid || this.password.invalid) {
-      // Check if the form is invalid
-      this.formInvalid = true; // Set formInvalid to true if the form is invalid
+      this.formInvalid = true;
+      this.modalRef = this.modalService.show(template);
       return;
     }
 
@@ -48,8 +49,7 @@ export class LoginComponent implements OnInit {
       this.user.username = usernameValue;
       this.user.password = passwordValue;
 
-      this.authService.logInPassword(this.user.username,this.user.password);
-      
+      this.authService.logInPassword(this.user.username, this.user.password);
     }
   }
 
