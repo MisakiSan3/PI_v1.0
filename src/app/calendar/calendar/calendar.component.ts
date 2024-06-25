@@ -46,22 +46,11 @@ export class CalendarComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
   ngOnInit(): void {
-   this.getEvents();
+   this.getEventsF();
+   /*this.getEvents2F();*/
   }
   deleteEvents(){
     sessionStorage.clear();
-  }
-  getEvents(){
-    for (let i = 0; i < sessionStorage.length; i++) {
-      const sesionJson = sessionStorage.getItem(i.toString());
-      if (sesionJson) {
-        const event = JSON.parse(sesionJson);
-        this.events.push(event)
-      }else {
-        console.log('no hay');
-      }
-     }  
-
   }
 
   calendarOptions:CalendarOptions = {
@@ -90,6 +79,7 @@ export class CalendarComponent implements OnInit {
     this.event.teacher = eventArg.extendedProps['teacher'];
     this.events.forEach(event => {
       if (event.id == this.event.id) {
+ 
        this.startDate = event.start.toLocaleString().slice(11,16);
        this.endDate = event.end.toLocaleString().slice(11,16);
        this.event.start = event.start,
@@ -113,7 +103,22 @@ export class CalendarComponent implements OnInit {
     window.location.reload();
   }
 
+  async getEventsF(){
+    this.events = await this.eventsService.getClassListByUser()
+      this.calendarOptions.events = this.events
+    
+  }
+  /*async getEvents2F(){
+    this.events = await this.eventsService.getEventListByUser();
+    this.calendarOptions.events = this.events
 
+  }*/
+
+  async deleteEventsF(events: EventModel){
+    const response = await this.eventsService.deleteevent(events);
+    window.location.href = '/calendar'
+
+  }
 
 
 

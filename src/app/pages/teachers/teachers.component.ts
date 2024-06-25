@@ -14,8 +14,8 @@ export class TeachersComponent implements OnInit {
   constructor(private teachersService:TeacherService, private tokenService: TokenService, private subjectService: SubjectService) {
   }
   ngOnInit(): void {
-    this.getTeachers();
-    this.getSubjects()
+    this.getSubjectsF();
+    this.getTeachersF();
   }
   maestros: TeacherModel[] = []
   materias: SubjectModel[] = []
@@ -47,6 +47,25 @@ export class TeachersComponent implements OnInit {
           console.error('Error al obtener las asignaturas:', error);
         }
       );
+  }
+  //obtener materias Firebase
+  async getSubjectsF(){
+    this.materias = await this.subjectService.getSubjectListByUser();
+  }
+  // obtener Teachers firebase
+  async getTeachersF(){
+    this.maestros = await this.teachersService.getTeacherListByUser()
+ }
+
+
+  //Eliminar teachers firebase
+
+  async deleteTeacherF(teacher: TeacherModel){
+    const response =await this.teachersService.deleteteacher(teacher);
+    window.location.href = '/pages/teacher-list'
+    console.log(response)
+
+
   }
 
 }

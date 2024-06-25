@@ -4,6 +4,9 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CreateSubjectModel, SubjectModel, UpdateSubjectModel } from 'src/app/models/subject-model.entity';
 import { SubjectService } from 'src/app/services/subject.service';
 import { TokenService } from 'src/app/services/token.service';
+import { AsyncPipe } from '@angular/common';
+import { documentId } from '@angular/fire/firestore';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-material',
@@ -20,6 +23,7 @@ export class MaterialComponent implements OnInit {
     user: {
       id: '0',
     },
+    
   };
   modalRef?: BsModalRef;
 
@@ -32,7 +36,8 @@ export class MaterialComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.getSubjects();
+    this.getSubjectsF();
+    
   }
 
   initializeForm(): void {
@@ -133,4 +138,50 @@ export class MaterialComponent implements OnInit {
     this.updatedSubject.user.id = subject.user.id.toString();
     this.updating = true;
   }
+
+  //Firebase create
+    async createSubjectsF(){
+    if (this.materiaForm.invalid) {
+      this.materiaForm.markAllAsTouched();
+      return;
+    }
+
+    const newSubjects: CreateSubjectModel = {
+      name_s: this.materiaForm.get('nombre')?.value,
+      user: {
+        id: "0",
+        username: "",
+        email: "",
+        password: ""
+      },
+    };
+    const response = await this.subjectService.savesubject(newSubjects);
+    window.location.href = '/pages/subjects'
+    console.log(response)
+
+  }
+  //Firebase get 
+   async getSubjectsF(){
+    this.materias = await this.subjectService.getSubjectListByUser();
+  }
+  //firebase delete
+
+  async deleteSubjectF(materia:SubjectModel){
+    const response = await this.subjectService.deletesubject(materia);
+    window.location.href = '/pages/subjects'
+    console.log(response)
+
+  }
+
+  //firebase actualizar
+  async updateSubjectF() {
+    try {
+      await this.subjectService.updatesubject(this.updatedSubject);
+      this.materiaForm.reset();
+      window.location.reload();
+    } catch (error) {
+      console.error('Error actualizando la materia', error);
+    }
+  }
+  
 }

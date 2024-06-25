@@ -21,12 +21,13 @@ export class EventsFormComponent implements OnInit {
     private teacherService:TeacherService,
     private eventService:EventService,
     private router: Router,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private teachersService:TeacherService,
     ) {
   }
   ngOnInit(): void {
     this.updatingVerification()
-    this.getTeachers();
+    this.getTeachersF();
     this.getCategories();
   }
   categorias: CategoryModel[] = [];
@@ -50,10 +51,25 @@ export class EventsFormComponent implements OnInit {
     end: '',
     description: '',
     eventCategory: {
-      id: "0"
+      id: "0",
+      name_c: ''
     },
     teacher:{
-      id:"0"
+      id: "0",
+      name_p: '',
+      lastname_p: '',
+      telf: '',
+      email: '',
+      subject: {
+        id: '',
+        name_s: '',
+        user: {
+          id: '',
+          username: '',
+          email: '',
+          password: ''
+        }
+      }
     }
   };
   eventUpdate: UpdateEventModel = {
@@ -72,9 +88,8 @@ export class EventsFormComponent implements OnInit {
 
   getCategories(){
     
-    this.categoryService.getAll().subscribe(
+    this.categoryService.getcategoryList().subscribe(
       response =>{
-        console.log(response);
         
         this.categorias = response;
         this.categoryHandler()
@@ -85,6 +100,8 @@ export class EventsFormComponent implements OnInit {
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
     this.teacherService.getAll().subscribe(
       response =>{
+        console.log(response);
+        
         this.maestros = response;
 
       }
@@ -143,13 +160,8 @@ export class EventsFormComponent implements OnInit {
 
   postEvent(){
     try {
-      this.eventService.store(this.event).subscribe(
-        responseStore => {
-          this.deleteEvents()
-              this.getEvents()
-              window.location.href = '/calendar'
-        }
-      )
+      this.eventService.saveevent(this.event);
+      
     } catch (error) {
       console.log(error);
     }
@@ -164,7 +176,7 @@ export class EventsFormComponent implements OnInit {
         this.eventUpdate.end = this.eventUpdate.end + 'T' + this.timeEnd + '-05:00';
       }
     if (!this.timeError && !this.dateError) {
-      this.updateEvent()
+      this.updateEventsF()
     }else {
       const errorDiv = document.getElementById('errorDiv') as HTMLElement
       errorDiv.innerHTML = 'La fecha o la hora son incorrectas'
@@ -192,6 +204,7 @@ export class EventsFormComponent implements OnInit {
   }
   updatingVerification(){
     if (history.state.id) {
+      
       if (typeof history.state === typeof this.event) {
         this.prepareEventUpdate()
         this.updating = true;
@@ -206,8 +219,8 @@ export class EventsFormComponent implements OnInit {
     const endDate = hist.end.slice(0,10)
     this.timeStart = hist.start.slice(11,16)
     this.timeEnd = hist.end.slice(11,16)
-    this.eventUpdate.teacher.id = hist.teacher.id
-    this.eventUpdate.eventCategory.id = hist.eventCategory.id
+    this.eventUpdate.teacher = hist.teacher
+    this.eventUpdate.eventCategory = hist.eventCategory
     this.eventUpdate.title = hist.title
     this.eventUpdate.description = hist.description
     this.eventUpdate.id = hist.id
@@ -241,4 +254,21 @@ export class EventsFormComponent implements OnInit {
   dateEn = new FormControl('', [Validators.required]);
   timeInit = new FormControl('', [Validators.required]);
   timeEn = new FormControl('', [Validators.required]);
+
+  //get maestros
+  async getTeachersF(){
+     this.maestros = await this.teachersService.getTeacherListByUser()
+  }
+
+  async updateEventsF(){
+    try {
+      await this.eventService.updateevent(this.eventUpdate);
+      window.location.href = '/calendar'
+    } catch (error) {
+      console.error('Error actualizando la materia', error);
+    }
+  }
+
+  
+
 }

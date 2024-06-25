@@ -4,7 +4,8 @@
     <div class="col-12">
       <div class="row">
         <div class="col-12">
-          <a class="btn btn-danger" [routerLink]="[ '/calendar']">Regresar</a>
+          <a class="btn btn-danger" *ngIf="event.eventCategory.name_c == 'Clase'" [routerLink]="[ '/calendar']">Regresar</a>
+          <a class="btn btn-danger"  *ngIf="event.eventCategory.name_c != 'Clase'" [routerLink]="[ '/pages/event-list']">Regresar</a>
           <h1>Formulario de Eventos</h1>
         </div>
       </div>
@@ -41,12 +42,11 @@
             <div class="form-group mb-3">
               <label for="eventName">Categoria del evento:</label>
               <ng-select [items]= "categorias"
-              [(ngModel)]="event.eventCategory.id"
-              [(ngModel)]="eventUpdate.eventCategory.id"
+              [(ngModel)]="event.eventCategory"
+              [(ngModel)]="eventUpdate.eventCategory"
              bindLabel= "name_c"
              name= "categoria"
              id= "categoria"
-             bindValue="id"
              (change)="categoryHandler()"
              [formControl]="categoria"
              >
@@ -61,10 +61,9 @@
             bindLabel= "name_p"
             name= "maestro"
             id= "maestro"
-            [(ngModel)]="event.teacher.id"
-            [(ngModel)]="eventUpdate.teacher.id"
+            [(ngModel)]="event.teacher"
+            [(ngModel)]="eventUpdate.teacher"
             [formControl]="maestro"
-            bindValue="id"
             >
            </ng-select>
            <div class="error-message" *ngIf="maestro.invalid && maestro.touched">

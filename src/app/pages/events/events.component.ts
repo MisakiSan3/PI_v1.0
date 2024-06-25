@@ -17,7 +17,7 @@ export class EventsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEvents();
-    this.getSubjects()
+    this.getSubjectsF();
   }
   filterName: string = '';
   filterAsignatura: string = '';
@@ -27,20 +27,10 @@ export class EventsComponent implements OnInit {
   timeStart: string[] = []
   timeEnd: string[] = []
   events: EventModel[]= [];
-  getEvents(){
-    const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
+  async getEvents(){
     this.events = []
-    this.eventsService.getAll().subscribe(
-       response =>{
-
-          response.forEach(element => {
-            if (element.eventCategory.name_c != 'Clase') {
-              this.events.push(element)
-            }
-          });
-          this.prepareEvents()
-      }
-    )
+    this.events = await this.eventsService.getEventListByUser();
+    this.prepareEvents();
   }
   prepareEvents(){
     for (let i = 0; i < this.events.length; i++) {
@@ -51,15 +41,11 @@ export class EventsComponent implements OnInit {
       this.timeEnd[i] = event.end.toString().slice(11,16)
     }
   }
-  deleteEvent(id: string){
+  deleteEvent(event: EventModel){
 
-    this.eventsService.destroy(id).subscribe(
-      response =>{
-        this.getEvents()
-      }
-    )
+    this.eventsService.deleteevent(event)
   }
-  getSubjects(){
+  /*getSubjects(){
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';
       this.subjectService.getAll().subscribe(
         response => {
@@ -69,5 +55,11 @@ export class EventsComponent implements OnInit {
           console.error('Error al obtener las asignaturas:', error);
         }
       );
+  }*/
+
+  //Get de materias Firebase
+ async getSubjectsF(){
+    this.materias = await this.subjectService.getSubjectListByUser();
   }
+
 }

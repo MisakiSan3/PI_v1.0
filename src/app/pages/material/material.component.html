@@ -1,7 +1,7 @@
 <div class="container pt-5">
   <a class="btn btn-danger mb-3" [routerLink]="['/pages']">Regresar</a>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4 col-lg-6 col-sm-12">
       <div class="card">
         <div class="card-header">
           <h1>Registro de Materias</h1>
@@ -15,8 +15,8 @@
                 Este campo es obligatorio y no puede llevar símbolos y números.
               </div>
             </div>
-            <button *ngIf="!updating" (click)="createSubjects(successTemplate, errorTemplate)" type="button" class="btn btn-success mt-2 me-2">Registrar</button>
-            <button *ngIf="updating" (click)="update()" type="submit" class="btn btn-success mt-2 me-2">Actualizar</button>
+            <button *ngIf="!updating" (click)="createSubjectsF()" type="submit" class="btn btn-success mt-2 me-2">Registrar</button>
+            <button *ngIf="updating" (click)="updateSubjectF()" type="submit" class="btn btn-success mt-2 me-2">Actualizar</button>
             <button (click)="vaciar()" type="button" class="btn btn-danger mt-2">Vaciar</button>
           </form>
 
@@ -58,7 +58,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8 col-lg-6 col-sm-12">
       <div class="card">
         <div class="card-header">
           <h1>Listado de Materias</h1>
@@ -79,7 +79,7 @@
                   <button class="btn btn-success mt-2 me-2" (click)="selectSubject(materia)">Actualizar</button>
                 </td>
                 <td>
-                  <button class="btn btn-danger mt-2" (click)="deleteSubject(materia.id)">Eliminar</button>
+                  <button class="btn btn-danger mt-2" (click)="deleteSubjectF(materia)">Eliminar</button>
                 </td>
               </tr>
             </tbody>

@@ -7,8 +7,9 @@ import {
   UpdateSubjectModel
 } from '../models/subject-model.entity';
 import { TokenService } from './token.service';
-import { Firestore,addDoc,collection,deleteDoc,doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore,addDoc,collection,deleteDoc,doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { collectionData } from 'rxfire/firestore';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class SubjectService {
   constructor(
     private httpClient: HttpClient,
     private tokenService: TokenService,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private userService: UserService
 
     ) { }
     httpOptions={
@@ -85,20 +87,30 @@ export class SubjectService {
      return docs;
    }
  
-   deletesubject(docId: string): Promise<void> {
-     const docRef = doc(this.firestore, `${this.collectionUrl}/${docId}`);
+   deletesubject(subject: SubjectModel): Promise<void> {
+     const docRef = doc(this.firestore, `${this.collectionUrl}/${subject.id}`);
      return deleteDoc(docRef);
    }
  
-   savesubject(subject: SubjectModel): Promise<any> {
+   async savesubject(subject: CreateSubjectModel): Promise<any> {
+     const userId = localStorage.getItem("currentUser");
+     
+     const currentUser = await this.userService.getUser(userId!.toString())
+     const data = currentUser._document.data.value.mapValue.fields;
+     subject.user.email = data.email.stringValue;
+     subject.user.username = data.username.stringValue;
+     subject.user.id = currentUser._document.key.path.segments[6];
+     
+     //subject.user = currentUser
      const subjectData = JSON.parse(JSON.stringify(subject));
      delete subjectData.id
+     delete subjectData.user.password
      const docRef = collection(this.firestore, this.collectionUrl);
      return addDoc(docRef, subjectData);
    }
  
  
-   async updatesubject(subject: SubjectModel): Promise<void>{
+   async updatesubject(subject: UpdateSubjectModel): Promise<void>{
      const ocAux = JSON.parse(JSON.stringify(subject));
      const ref =  collection(this.firestore, this.collectionUrl)
      const docRef = doc(ref,subject.id);
@@ -106,4 +118,17 @@ export class SubjectService {
      const data =  await updateDoc(docRef,ocAux);
      return data;
   }
+  async getSubjectListByUser():Promise<any> {
+    const userId = localStorage.getItem("currentUser");
+    const collectionRef = collection(this.firestore, this.collectionUrl);
+    const q = query(collectionRef, where('user.id', '==', userId));
+    const docs = await getDocs(q)
+    const subjectList: SubjectModel[] = []
+    docs.docs.forEach(element => {
+      const aux = element.data() as SubjectModel
+      aux.id = element.id
+      subjectList.push(aux)
+    });
+     return subjectList;
+   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SubjectModel } from 'src/app/models/subject-model.entity';
-import { CreateTeacherModel, UpdateTeacherModel } from 'src/app/models/teacher-model.entity';
+import { CreateTeacherModel, TeacherModel, UpdateTeacherModel } from 'src/app/models/teacher-model.entity';
 import { SubjectService } from 'src/app/services/subject.service';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -15,9 +15,9 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class RegisterTeacherComponent implements OnInit {
   teacherForm!: FormGroup;
-  teacher: CreateTeacherModel = {
-    subject:{
-      id: '',
+  teacher: TeacherModel= {
+    subject: {
+      id: "",
       name_s: "",
       user: {
         email: "",
@@ -29,7 +29,8 @@ export class RegisterTeacherComponent implements OnInit {
     name_p: '',
     lastname_p: '',
     telf: '',
-    email: ''
+    email: '',
+    id: ''
   };
   materias: SubjectModel[] = [];
   updating = false;
@@ -50,24 +51,28 @@ export class RegisterTeacherComponent implements OnInit {
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
     private teacherService: TeacherService,
-    private tokenService: TokenService,
     private router: Router,
     private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
     this.initializeForm();
-    this.getSubjects();
+    
     if (history.state.id) {
       this.updating = true;
-      this.teacherEdit.id = history.state.id;
-      this.teacherEdit.name_p = history.state.nombre_p;
-      this.teacherEdit.lastname_p = history.state.apellido_p;
-      this.teacherEdit.telf = history.state.telf;
-      this.teacherEdit.email = history.state.email;
-      this.teacherEdit.subject = { id: history.state.asignatura.id };
-      console.log(this.teacherEdit);
+    console.log(history.state);
+
+      this.teacher.id = history.state.id;
+      this.teacher.name_p = history.state.name_p;
+      this.teacher.lastname_p = history.state.lastname_p;
+      this.teacher.telf = history.state.telf;
+      this.teacher.email = history.state.email;
+      this.teacher.subject = history.state.subject
+      console.log(this.teacher);
     }
+    //get Subjects Firebase
+    this.getSubjectsF()
+    
   }
 
   initializeForm(): void {
@@ -80,7 +85,7 @@ export class RegisterTeacherComponent implements OnInit {
     });
   }
 
-  getSubjects(): void {
+  /*getSubjects(): void {
     const userId: string | null = this.tokenService.getUserIdFromToken() ?? '';
     this.subjectService.getAll().subscribe(
       (materias: SubjectModel[]) => {
@@ -91,9 +96,9 @@ export class RegisterTeacherComponent implements OnInit {
         console.error('Error al obtener las asignaturas:', error);
       }
     );
-  }
+  }*/
 
-  createTeacher(template: TemplateRef<any>): void {
+  /*createTeacher(template: TemplateRef<any>): void {
     if (this.teacherForm.invalid) {
       this.openModal(template);
       return;
@@ -110,7 +115,7 @@ export class RegisterTeacherComponent implements OnInit {
         console.error('Error al registrar el profesor:', error);
       }
     );
-  }
+  }*/
 
   updateTeacher(template: TemplateRef<any>): void {
     if (this.teacherForm.invalid) {
@@ -118,18 +123,9 @@ export class RegisterTeacherComponent implements OnInit {
       return;
     }
 
-    const teacherId = this.teacherEdit.id;
-    window.location.href = '/pages/teacher-list';
-    this.teacherService.update(teacherId, this.teacherEdit).subscribe(
-      (response) => {
-        if (response) {
-          this.openSuccessModal(template);
-        }
-      },
-      (error) => {
-        console.error('Error al actualizar el profesor:', error);
-      }
-    );
+  
+    this.teacherService.updateteacher(this.teacher);
+    this.router.navigate(['pages/teacher-list']);
   }
 
   openModal(template: TemplateRef<any>) {
@@ -142,4 +138,31 @@ export class RegisterTeacherComponent implements OnInit {
       this.modalRef?.hide();
     }, 2000); // Cierra automáticamente el modal después de 2 segundos
   }
+  //obtener  materias para teacher Firebase 
+  async getSubjectsF(){
+    this.materias = await this.subjectService.getSubjectListByUser()
+  }
+  //crear teacher Firebase 
+  async createTeacherF() {
+    /*const Newteacher: CreateTeacherModel ={
+      email: this.teacherForm.get("email")?.value,
+      name_p: this.teacherForm.get("nombre_p")?.value,
+      lastname_p: this.teacherForm.get("apellido_p")?.value,
+      telf: this.teacherForm.get("telf")?.value,
+      subject: {
+        id: "",
+        name_s: "",
+        user: {
+          email: "",
+          id: "",
+          username: "",
+          password: ""
+        }
+      },
+    }*/
+    const response = await this.teacherService.saveteacher(this.teacher);
+    this.router.navigate(['pages/teacher-list']);
+    
+  }
+
 }

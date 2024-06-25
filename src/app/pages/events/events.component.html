@@ -14,10 +14,10 @@
                       <div class="col">
                           <label class="label" for="teacherSubject">Asignatura:</label>
                           <ng-select [items]= "materias"
-                          bindLabel= "nombre_a"
+                          bindLabel= "name_s"
                           name= "filterAsignatura"
                           id= "filterAsignatura"
-                          bindValue= "nombre_a"
+                          bindValue= "nombre_s"
                           [(ngModel)]="filterAsignatura"
                           >
                        </ng-select>
@@ -61,11 +61,11 @@
                               <div class="col"><p>{{evento.description}}</p></div>
                           </div>
                           <div class="row">
-                              <div class="col-lg-1 col-md-1 col-sm-12">
+                              <div class="col-lg-1 col-md-1 col-sm-12 me-3">
                                   <a class="btn btn-dark"[routerLink]="[ '../../calendar/register-event' ] " [state]="evento">Editar</a>
                               </div>
-                              <div class="col-lg-1 col-md-1 col-sm-12">
-                                  <a class="btn btn-danger" (click)="deleteEvent(evento.id)" >Eliminar</a>
+                              <div class="col-lg-1 col-md-1 col-sm-12 mx-3">
+                                  <a class="btn btn-danger" (click)="deleteEvent(evento)" >Eliminar</a>
                               </div>
                           </div>
                       </div>
