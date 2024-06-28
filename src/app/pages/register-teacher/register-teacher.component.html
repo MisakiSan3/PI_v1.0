@@ -80,11 +80,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        Por favor, complete todos los campos antes de enviar el formulario.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Cerrar</button>
+      <div class="modal-body text-center">
+        <p>Por favor, complete todos los campos antes de enviar el formulario.</p>
+        <button type="button" class="btn btn-primary" (click)="modalRef?.hide()">Cerrar</button>
       </div>
     </div>
   </ng-template>
@@ -106,5 +104,4 @@
       </div>
     </div>
   </ng-template>
-
 </form>

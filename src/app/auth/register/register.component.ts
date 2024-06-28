@@ -49,10 +49,10 @@ export class RegisterComponent implements OnInit {
       this.user.email = "misakisan380@gmail.com";
       this.user.password = "12345678"
       this.authService.saveUser(this.user.email,this.user.password)
-      
-    } catch (error) { 
+
+    } catch (error) {
       console.log(error);
-      
+
     }
   }
 
@@ -65,11 +65,11 @@ export class RegisterComponent implements OnInit {
       ) {
         throw new Error('Por favor, complete todos los campos');
       }
-      
+
 
       if (this.user.password === this.passwordVerify) {
         if (this.user.email.match(this.emailRegex)) {
-          
+
           await this.userService.saveuser(this.user).then(()=>{
             this.snackBar.open('Te has registrado con éxito', 'Cerrar', {
               duration: 3000
@@ -77,22 +77,23 @@ export class RegisterComponent implements OnInit {
           })
 
           this.router.navigateByUrl('/login');
-          //this.authService.register(this.user).subscribe(
-          //  (response) => {
-          //    console.log(response);
-          //    this.tokenService.setToken(response);
-          //    this.snackBar.open('Te has registrado con éxito', 'Cerrar', {
-          //      duration: 3000
-          //    });
-          //  },
-          //  (error) => {
-          //    console.log(error);
-          //    this.showValidationError = true;
-          //    this.validationErrorMessage = 'Hubo un error al registrar el usuario';
-          //    this.snackBar.open('', '', {
-          //    });
-          //  }
-          //);
+          /*
+          this.authService.register(this.user).subscribe(
+            (response) => {
+              console.log(response);
+              this.tokenService.setToken(response);
+              this.snackBar.open('Te has registrado con éxito', 'Cerrar', {
+                duration: 3000
+              });
+            },
+            (error) => {
+              console.log(error);
+              this.showValidationError = true;
+              this.validationErrorMessage = 'Hubo un error al registrar el usuario';
+               this.snackBar.open('', '', {
+              });
+             }
+          );*/
         } else {
           throw new Error('El correo electrónico no es válido');
         }
@@ -105,7 +106,7 @@ export class RegisterComponent implements OnInit {
       this.validationErrorMessage = error.message;
       this.snackBar.open(error.message, 'Cerrar', {
         duration: 3000
-      }); 
+      });
     }
   }
 }
