@@ -1,4 +1,4 @@
-<form [formGroup]="teacherForm" (ngSubmit)="updating ? updateTeacher(successModal) : createTeacherF()">
+<form [formGroup]="teacherForm" (ngSubmit)="updating ? updateTeacher(successModal) : createTeacherF(successModal)">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-8 col-md-10 col-sm-12">
@@ -102,7 +102,7 @@
         {{ updating ? 'El profesor ha sido actualizado correctamente.' : 'El profesor ha sido registrado correctamente.' }}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Cerrar</button>
+        <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()" (click)="reloadPage()">Cerrar</button>
       </div>
     </div>
   </ng-template>

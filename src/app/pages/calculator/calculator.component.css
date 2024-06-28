@@ -1,0 +1,78 @@
+/* Estilo general */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 100px;
+  }
+  
+  /* Encabezados de las secciones */
+  h3 {
+    color: #333;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 5px;
+  }
+  
+  /* Botones */
+  button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Inputs */
+  input[type="number"] {
+    margin: 5px 0;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Secciones */
+  .section {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  .section-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Contenedores de notas */
+  .notes-container {
+    margin-top: 10px;
+  }
+  
+  .note-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .note-item input {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .note-item button {
+    flex: none;
+  }

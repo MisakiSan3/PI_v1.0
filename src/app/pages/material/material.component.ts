@@ -26,6 +26,7 @@ export class MaterialComponent implements OnInit {
     
   };
   modalRef?: BsModalRef;
+  
 
   constructor(
     private formBuilder: FormBuilder,
@@ -140,7 +141,7 @@ export class MaterialComponent implements OnInit {
   }
 
   //Firebase create
-    async createSubjectsF(){
+    async createSubjectsF(successTemplate: TemplateRef<any>){
     if (this.materiaForm.invalid) {
       this.materiaForm.markAllAsTouched();
       return;
@@ -156,10 +157,12 @@ export class MaterialComponent implements OnInit {
       },
     };
     const response = await this.subjectService.savesubject(newSubjects);
-    window.location.href = '/pages/subjects'
+    this.openModal(successTemplate);
+    
     console.log(response)
 
   }
+  
   //Firebase get 
    async getSubjectsF(){
     this.materias = await this.subjectService.getSubjectListByUser();
@@ -182,6 +185,11 @@ export class MaterialComponent implements OnInit {
     } catch (error) {
       console.error('Error actualizando la materia', error);
     }
+  }
+
+  reloadPage() {
+    this.modalRef?.hide();
+    window.location.reload();
   }
   
 }

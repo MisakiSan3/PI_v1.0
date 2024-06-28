@@ -8,6 +8,7 @@ import { MaterialComponent } from './material/material.component';
 import { EventsComponent } from './events/events.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { CalculatorComponent } from './calculator/calculator.component';
 
 const routes: Routes = [
   {path:"pages",/*canActivate:[AuthGuard],*/ component: PagesComponent,
@@ -16,7 +17,8 @@ const routes: Routes = [
     {path: "teacher-list", /*canActivate:[AuthGuard],*/ component: TeachersComponent},
     {path: "teacher-register", /*canActivate:[AuthGuard],*/ component: RegisterTeacherComponent},
     {path: "subjects", /*canActivate:[AuthGuard],*/ component: MaterialComponent},
-    {path: "event-list", /*canActivate:[AuthGuard],*/ component: EventsComponent}
+    {path: "event-list", /*canActivate:[AuthGuard],*/ component: EventsComponent},
+    {path:"calculator",component:CalculatorComponent}
    ]},
 ];
 

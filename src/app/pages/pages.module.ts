@@ -14,10 +14,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { EventAsignaturaPipe, EventPipePipe } from '../pipes/event-pipe.pipe';
 import { TeacherAsignaturaPipe, TeacherPipe } from '../pipes/teacher.pipe';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { CalculatorComponent } from './calculator/calculator.component';
 
 
 @NgModule({
-  declarations: [PagesComponent, TeachersComponent, RegisterTeacherComponent, MaterialComponent, EventsComponent,DashboardComponent,EventAsignaturaPipe,EventPipePipe,TeacherPipe,TeacherAsignaturaPipe],
+  declarations: [PagesComponent, TeachersComponent, RegisterTeacherComponent, MaterialComponent, EventsComponent,DashboardComponent,EventAsignaturaPipe,EventPipePipe,TeacherPipe,TeacherAsignaturaPipe, CalculatorComponent],
   imports: [
     CommonModule,
     RouterModule,

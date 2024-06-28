@@ -47,6 +47,7 @@ export class RegisterTeacherComponent implements OnInit {
 
   modalRef: BsModalRef | undefined;
 
+
   constructor(
     private formBuilder: FormBuilder,
     private subjectService: SubjectService,
@@ -143,7 +144,7 @@ export class RegisterTeacherComponent implements OnInit {
     this.materias = await this.subjectService.getSubjectListByUser()
   }
   //crear teacher Firebase 
-  async createTeacherF() {
+  async createTeacherF(template: TemplateRef<any>) {
     /*const Newteacher: CreateTeacherModel ={
       email: this.teacherForm.get("email")?.value,
       name_p: this.teacherForm.get("nombre_p")?.value,
@@ -161,8 +162,13 @@ export class RegisterTeacherComponent implements OnInit {
       },
     }*/
     const response = await this.teacherService.saveteacher(this.teacher);
-    this.router.navigate(['pages/teacher-list']);
+    this.openModal(template);
     
+  }
+
+  reloadPage() {
+    this.modalRef?.hide();
+    this.router.navigate(['pages/teacher-list']);
   }
 
 }

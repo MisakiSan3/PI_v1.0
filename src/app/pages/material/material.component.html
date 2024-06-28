@@ -16,7 +16,7 @@
                 Este campo es obligatorio y no puede llevar símbolos y números.
               </div>
             </div>
-            <button *ngIf="!updating" (click)="createSubjectsF()" type="submit" class="btn btn-success mt-2 me-2">Registrar</button>
+            <button *ngIf="!updating" (click)="createSubjectsF(successTemplate)" type="submit" class="btn btn-success mt-2 me-2">Registrar</button>
             <button *ngIf="updating" (click)="updateSubjectF()" type="submit" class="btn btn-success mt-2 me-2">Actualizar</button>
             <button (click)="vaciar()" type="button" class="btn btn-danger mt-2">Vaciar</button>
           </form>
@@ -49,7 +49,7 @@
               <p>La materia ha sido registrada exitosamente.</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Cerrar</button>
+              <button type="button" class="btn btn-default" (click)="modalRef?.hide()" (click)="reloadPage()">Cerrar</button>
             </div>
           </ng-template>
         </div>

@@ -1,0 +1,24 @@
+<div class="container">
+    <div *ngFor="let section of sections; let i = index" class="section">
+      <div class="section-controls">
+        <h3>Sección {{ i + 1 }}</h3>
+        <button (click)="removeSection(i)">Eliminar Sección</button>
+      </div>
+      <div class="notes-container">
+        <div *ngFor="let note of section.notes; let j = index" class="note-item">
+          <input type="number" [(ngModel)]="section.notes[j]" placeholder="Nota">
+          <button (click)="removeNote(i, j)">Eliminar Nota</button>
+        </div>
+        <button (click)="addNoteToSection(i)">Agregar Nota</button>
+      </div>
+      <div>
+        <label for="percentage">Porcentaje:</label>
+        <input type="number" [(ngModel)]="section.percentage" placeholder="Porcentaje">
+      </div>
+      <div>
+        <p>Promedio General: {{ calculateAverage(section.notes) | number:'1.2-2' }}</p>
+        <p>Nota Porcentual: {{ calculatePercentage(section.notes, section.percentage) | number:'1.2-2' }}</p>
+      </div>
+    </div>
+    <button (click)="addSection()">Agregar Sección</button>
+  </div>
