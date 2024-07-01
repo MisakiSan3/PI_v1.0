@@ -6,12 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./calculator.component.css']
 })
 export class CalculatorComponent {
-  sections: { notes: number[], percentage: number }[] = [
-    { notes: [], percentage: 0 }
+  sections: { notes: number[], percentage: number, showResultsFlag: boolean }[] = [
+    { notes: [], percentage: 0, showResultsFlag: false }
   ];
+  showResultsFlag = false;
+  currentSection: any = null;
+  currentIndex: number | null = null;
 
   addSection() {
-    this.sections.push({ notes: [], percentage: 0 });
+    this.sections.push({ notes: [], percentage: 0, showResultsFlag: false });
   }
 
   removeSection(index: number) {
@@ -26,6 +29,14 @@ export class CalculatorComponent {
     this.sections[sectionIndex].notes.splice(noteIndex, 1);
   }
 
+  validateNoteInput(event: Event, sectionIndex: number, noteIndex: number) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    const validValue = value.replace(/[^0-9.]/g, '');
+    this.sections[sectionIndex].notes[noteIndex] = parseFloat(validValue) || 0;
+    input.value = validValue;
+  }
+
   calculateAverage(notes: number[]): number {
     const sum = notes.reduce((a, b) => a + b, 0);
     return notes.length ? sum / notes.length : 0;
@@ -35,4 +46,15 @@ export class CalculatorComponent {
     const average = this.calculateAverage(notes);
     return (average * percentage) / 100;
   }
+
+  showResults(sectionIndex: number) {
+    this.currentSection = this.sections[sectionIndex];
+    this.currentIndex = sectionIndex;
+    this.showResultsFlag = true;
+  }
+
+  closeModal() {
+    this.showResultsFlag = false;
+  }
+
 }

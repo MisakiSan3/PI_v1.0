@@ -1,4 +1,5 @@
 <div class="container">
+  <div class="input-section">
     <div *ngFor="let section of sections; let i = index" class="section">
       <div class="section-controls">
         <h3>Sección {{ i + 1 }}</h3>
@@ -6,19 +7,40 @@
       </div>
       <div class="notes-container">
         <div *ngFor="let note of section.notes; let j = index" class="note-item">
-          <input type="number" [(ngModel)]="section.notes[j]" placeholder="Nota">
+          <input type="text" [(ngModel)]="section.notes[j]" (input)="validateNoteInput($event, i, j)" placeholder="Nota">
           <button (click)="removeNote(i, j)">Eliminar Nota</button>
         </div>
         <button (click)="addNoteToSection(i)">Agregar Nota</button>
       </div>
-      <div>
+      <div class="percentage-container">
         <label for="percentage">Porcentaje:</label>
         <input type="number" [(ngModel)]="section.percentage" placeholder="Porcentaje">
+        <span>%</span>
       </div>
-      <div>
-        <p>Promedio General: {{ calculateAverage(section.notes) | number:'1.2-2' }}</p>
-        <p>Nota Porcentual: {{ calculatePercentage(section.notes, section.percentage) | number:'1.2-2' }}</p>
-      </div>
+      <button (click)="showResults(i)">Mostrar Resultados</button>
     </div>
     <button (click)="addSection()">Agregar Sección</button>
   </div>
+  
+  <ng-template #resultTemplate let-section let-i="index">
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <div class="result">
+          <div class="result-box green">
+            <h3>Promedio</h3>
+            <p>{{ calculateAverage(section.notes) | number:'1.2-2' }}</p>
+          </div>
+          <div class="result-box green">
+            <h3>Nota Calculada</h3>
+            <p>{{ calculatePercentage(section.notes, section.percentage) | number:'1.2-2' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  
+  <ng-container *ngIf="showResultsFlag">
+    <ng-container *ngTemplateOutlet="resultTemplate; context: { $implicit: currentSection, index: currentIndex }"></ng-container>
+  </ng-container>
+</div>
