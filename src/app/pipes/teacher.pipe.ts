@@ -25,7 +25,7 @@ export class TeacherAsignaturaPipe implements PipeTransform {
     if(query === '' || query === undefined || !query) {
       return value;
     }
-    value = value.filter(maestro => maestro.subject.name_s.toLowerCase().indexOf(query.toLowerCase()) != -1)
+    value = value.filter(maestro => maestro.subject.subjectName.toLowerCase().indexOf(query.toLowerCase()) != -1)
     return value;
   }
 

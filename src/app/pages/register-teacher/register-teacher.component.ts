@@ -18,7 +18,7 @@ export class RegisterTeacherComponent implements OnInit {
   teacher: TeacherModel= {
     subject: {
       id: "",
-      name_s: "",
+      subjectName: "",
       user: {
         email: "",
         id: "",
@@ -152,7 +152,7 @@ export class RegisterTeacherComponent implements OnInit {
       telf: this.teacherForm.get("telf")?.value,
       subject: {
         id: "",
-        name_s: "",
+        subjectName: "",
         user: {
           email: "",
           id: "",

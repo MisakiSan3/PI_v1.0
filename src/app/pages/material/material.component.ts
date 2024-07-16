@@ -19,7 +19,7 @@ export class MaterialComponent implements OnInit {
   updating = false;
   updatedSubject: UpdateSubjectModel = {
     id: '',
-    name_s: '',
+    subjectName: '',
     user: {
       id: '0',
     },
@@ -81,7 +81,7 @@ export class MaterialComponent implements OnInit {
     }
 
     const newSubject: CreateSubjectModel = {
-      name_s: this.materiaForm.get('nombre')?.value,
+      subjectName: this.materiaForm.get('nombre')?.value,
       user: {
         id: "",
         username: '',
@@ -108,7 +108,7 @@ export class MaterialComponent implements OnInit {
       return;
     }
 
-    this.updatedSubject.name_s = this.materiaForm.get('nombre')?.value;
+    this.updatedSubject.subjectName = this.materiaForm.get('nombre')?.value;
 
     this.subjectService.update(this.updatedSubject.id, this.updatedSubject).subscribe(
       response => {
@@ -135,7 +135,7 @@ export class MaterialComponent implements OnInit {
 
   selectSubject(subject: SubjectModel): void {
     this.updatedSubject.id = subject.id;
-    this.updatedSubject.name_s = subject.name_s;
+    this.updatedSubject.subjectName = subject.subjectName;
     this.updatedSubject.user.id = subject.user.id.toString();
     this.updating = true;
   }
@@ -148,7 +148,7 @@ export class MaterialComponent implements OnInit {
     }
 
     const newSubjects: CreateSubjectModel = {
-      name_s: this.materiaForm.get('nombre')?.value,
+      subjectName: this.materiaForm.get('nombre')?.value,
       user: {
         id: "0",
         username: "",

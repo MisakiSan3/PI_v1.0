@@ -62,7 +62,7 @@ export class EventsFormComponent implements OnInit {
       email: '',
       subject: {
         id: '',
-        name_s: '',
+        subjectName: '',
         user: {
           id: '',
           username: '',

@@ -3,7 +3,7 @@ import { UserModel } from "./user-model.entity";
 
 export interface SubjectModel {
     id: string;
-    name_s: string;
+    subjectName: string;
     user: UserModel;
 
 }

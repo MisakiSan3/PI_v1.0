@@ -10,7 +10,7 @@
           <form [formGroup]="materiaForm">
             <div class="form-group">
               <label for="nombre">Nombre</label>
-              <input [(ngModel)]="updatedSubject.name_s" formControlName="nombre" type="text" class="form-control" id="nombre" name="nombre" required>
+              <input [(ngModel)]="updatedSubject.subjectName" formControlName="nombre" type="text" class="form-control" id="nombre" name="nombre" required>
               <div class="material" *ngIf="nombreInvalido() && materiaForm.get('nombre')?.touched">
                 Este campo es obligatorio y no puede llevar símbolos y números.
               </div>
@@ -72,7 +72,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let materia of materias">
-                <td>{{ materia.name_s }}</td>
+                <td>{{ materia.subjectName }}</td>
                 <td>
                   <button class="btn btn-success mt-2 me-2" (click)="selectSubject(materia)">Actualizar</button>
                 </td>

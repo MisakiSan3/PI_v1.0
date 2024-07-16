@@ -14,7 +14,7 @@ export class EventsPluginModel {
         email: "",
         subject: {
             id: "",
-            name_s: "",
+            subjectName: "",
             user: {
                 id: 0,
                 email: "",
