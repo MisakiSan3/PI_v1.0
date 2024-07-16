@@ -44,7 +44,7 @@
               <ng-select [items]= "categorias"
               [(ngModel)]="event.eventCategory"
               [(ngModel)]="eventUpdate.eventCategory"
-             bindLabel= "name_c"
+             bindLabel= "categoryName"
              name= "categoria"
              id= "categoria"
              (change)="categoryHandler()"
@@ -73,7 +73,7 @@
         <div class="row">
           <div class="col-5">
             <div class="form-group mb-3">
-              <label for="timeStart">Hora del evento:</label>
+              <label for="timeStart">Hora inicio del evento:</label>
               <input [(ngModel)]="timeStart" type="time" class="form-control" name="timeStart" id="timeStart" [formControl]="timeInit">
               <div class="error-message" *ngIf="timeInit.invalid && timeInit.touched">
                 <p *ngIf="timeInit.errors?.['required']">La hora inicio es obligatoria.</p>
@@ -82,7 +82,7 @@
           </div>
           <div class="col-5">
             <div class="form-group mb-3">
-              <label for="timeEnd">Hora del evento:</label>
+              <label for="timeEnd">Hora final del evento:</label>
               <input (change)="timeHandler()" [(ngModel)]="timeEnd" type="time" class="form-control" name="timeEnd" id="timeEnd" [formControl]="timeEn">
               <div class="error-message" *ngIf="timeEn.invalid && timeEn.touched">
                 <p *ngIf="timeEn.errors?.['required']">La hora fin es obligatoria.</p>
