@@ -10,7 +10,7 @@
           <div class="card-body">
             <div class="form-group">
               <label for="nombre_p">Nombre</label>
-              <input type="text" id="nombre_p" class="form-control" formControlName="nombre_p" required [(ngModel)]="teacher.name_p" >
+              <input type="text" id="nombre_p" class="form-control" formControlName="nombre_p" required [(ngModel)]="teacher.teacherName" >
               <div *ngIf="teacherForm.get('nombre_p')?.invalid && teacherForm.get('nombre_p')?.touched" class="error-message">
                 Nombre es requerido.
               </div>
@@ -18,7 +18,7 @@
 
             <div class="form-group">
               <label for="apellido_p">Apellido</label>
-              <input type="text" id="apellido_p" class="form-control" formControlName="apellido_p" required [(ngModel)]="teacher.lastname_p">
+              <input type="text" id="apellido_p" class="form-control" formControlName="apellido_p" required [(ngModel)]="teacher.teacherLastName">
               <div *ngIf="teacherForm.get('apellido_p')?.invalid && teacherForm.get('apellido_p')?.touched" class="error-message">
                 Apellido es requerido.
               </div>
@@ -34,11 +34,11 @@
             </div>
 
             <div class="form-group">
-              <label for="telf">Teléfono</label>
-              <input type="text" id="telf" maxlength="10" class="form-control" formControlName="telf" required [(ngModel)]="teacher.telf">
-              <div *ngIf="teacherForm.get('telf')?.invalid && teacherForm.get('telf')?.touched" class="error-message">
-                <div *ngIf="teacherForm.get('telf')?.errors?.['required']">Teléfono es requerido.</div>
-                <div *ngIf="teacherForm.get('telf')?.errors?.['pattern']">Teléfono no es válido.</div>
+              <label for="phoneNumber">Teléfono</label>
+              <input type="text" id="phoneNumber" maxlength="10" class="form-control" formControlName="phoneNumber" required [(ngModel)]="teacher.phoneNumber">
+              <div *ngIf="teacherForm.get('phoneNumber')?.invalid && teacherForm.get('phoneNumber')?.touched" class="error-message">
+                <div *ngIf="teacherForm.get('phoneNumber')?.errors?.['required']">Teléfono es requerido.</div>
+                <div *ngIf="teacherForm.get('phoneNumber')?.errors?.['pattern']">Teléfono no es válido.</div>
               </div>
             </div>
 

@@ -26,9 +26,9 @@ export class RegisterTeacherComponent implements OnInit {
         password: ""
       }
     },
-    name_p: '',
-    lastname_p: '',
-    telf: '',
+    teacherName: '',
+    teacherLastName: '',
+    phoneNumber: '',
     email: '',
     id: ''
   };
@@ -36,9 +36,9 @@ export class RegisterTeacherComponent implements OnInit {
   updating = false;
   teacherEdit: UpdateTeacherModel = {
     id: '',
-    name_p: '',
-    lastname_p: '',
-    telf: '',
+    teacherName: '',
+    teacherLastName: '',
+    phoneNumber: '',
     email: '',
     subject:{
       id: "0"
@@ -64,9 +64,9 @@ export class RegisterTeacherComponent implements OnInit {
     console.log(history.state);
 
       this.teacher.id = history.state.id;
-      this.teacher.name_p = history.state.name_p;
-      this.teacher.lastname_p = history.state.lastname_p;
-      this.teacher.telf = history.state.telf;
+      this.teacher.teacherName = history.state.teacherName;
+      this.teacher.teacherLastName = history.state.teacherLastName;
+      this.teacher.phoneNumber = history.state.phoneNumber;
       this.teacher.email = history.state.email;
       this.teacher.subject = history.state.subject
       console.log(this.teacher);
@@ -81,7 +81,7 @@ export class RegisterTeacherComponent implements OnInit {
       nombre_p: ['', Validators.required],
       apellido_p: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')]],
-      telf: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]+')]],
       asignatura: [null, Validators.required]
     });
   }
@@ -147,9 +147,9 @@ export class RegisterTeacherComponent implements OnInit {
   async createTeacherF(template: TemplateRef<any>) {
     /*const Newteacher: CreateTeacherModel ={
       email: this.teacherForm.get("email")?.value,
-      name_p: this.teacherForm.get("nombre_p")?.value,
-      lastname_p: this.teacherForm.get("apellido_p")?.value,
-      telf: this.teacherForm.get("telf")?.value,
+      teacherName: this.teacherForm.get("nombre_p")?.value,
+      teacherLastName: this.teacherForm.get("apellido_p")?.value,
+      phoneNumber: this.teacherForm.get("phoneNumber")?.value,
       subject: {
         id: "",
         subjectName: "",

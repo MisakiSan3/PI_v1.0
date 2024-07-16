@@ -57,7 +57,7 @@ export class EventService {
   }
 
    //firebase
-   readonly collectionUrl: string = "events"
+   readonly collectionUrl: string = "event"
 
    geteventList(): Observable<EventModel[]> {
      const ref = collection(this.firestore, this.collectionUrl)
@@ -92,13 +92,17 @@ export class EventService {
   async getEventListByUser():Promise<any> {
     const userId = localStorage.getItem("currentUser");
     const collectionRef = collection(this.firestore, this.collectionUrl);
-    const q = query(collectionRef, where('teacher.subject.user.id', '==', userId),where('eventCategory.name_c','!=','Clase'));
+    const q = query(collectionRef, where('teacher.subject.user.id', '==', userId),where('eventCategory.categoryName','!=','Clase'));
     const docs = await getDocs(q)
+    
+    
     const eventrList: EventModel[] = []
     var aux: EventModel
     docs.docs.forEach(element => {
       aux = element.data() as EventModel
       aux.id = element.id
+      console.log(element);
+      
       eventrList.push(aux)
     });
      return eventrList;

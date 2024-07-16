@@ -10,7 +10,7 @@ export class TeacherPipe implements PipeTransform {
     if(query === '' || query === undefined) {
       return value;
     }
-     value = value.filter(maestro => maestro.name_p.toLowerCase().indexOf(query.toLowerCase()) != -1 ||maestro.name_p.toLowerCase().indexOf(query.toLowerCase()) != -1)
+     value = value.filter(maestro => maestro.teacherName.toLowerCase().indexOf(query.toLowerCase()) != -1 ||maestro.teacherName.toLowerCase().indexOf(query.toLowerCase()) != -1)
      return value
   }
 

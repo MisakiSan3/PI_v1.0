@@ -8,9 +8,9 @@ export class EventsPluginModel {
     description: string = '';
     maestro: TeacherModel = {
         id: "",
-        name_p: "",
-        lastname_p: "",
-        telf: "",
+        teacherName: "",
+        teacherLastName: "",
+        phoneNumber: "",
         email: "",
         subject: {
             id: "",

@@ -52,13 +52,13 @@ export class EventsFormComponent implements OnInit {
     description: '',
     eventCategory: {
       id: "0",
-      name_c: ''
+      categoryName: ''
     },
     teacher:{
       id: "0",
-      name_p: '',
-      lastname_p: '',
-      telf: '',
+      teacherName: '',
+      teacherLastName: '',
+      phoneNumber: '',
       email: '',
       subject: {
         id: '',
@@ -111,7 +111,7 @@ export class EventsFormComponent implements OnInit {
     let auxClase = false
     this.categorias.forEach(categoria => {
       if (this.event.eventCategory.id === categoria.id) {
-        if (categoria.name_c === 'Clase') {
+        if (categoria.categoryName === 'Clase') {
           auxClase = true;
         }
       }else {
@@ -233,7 +233,7 @@ export class EventsFormComponent implements OnInit {
          this.events = response;
          var counter = 0;
          this.events.forEach(element => {
-          if (element.eventCategory.name_c === "Clase") {
+          if (element.eventCategory.categoryName === "Clase") {
             if(!sessionStorage.getItem(counter.toString())){
               const json = JSON.stringify(element)
               sessionStorage.setItem(counter.toString(),json)

@@ -26,6 +26,8 @@ export class TeachersComponent implements OnInit {
     this.teachersService.getAll().subscribe(
       response =>{
         this.maestros = response;
+        
+        
 
       }
     )
@@ -55,6 +57,7 @@ export class TeachersComponent implements OnInit {
   // obtener Teachers firebase
   async getTeachersF(){
     this.maestros = await this.teachersService.getTeacherListByUser()
+    console.log(this.maestros);
  }
 
 

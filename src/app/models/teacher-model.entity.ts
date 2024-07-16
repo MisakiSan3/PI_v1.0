@@ -3,9 +3,9 @@ import { SubjectModel } from "./subject-model.entity";
 
 export interface TeacherModel {
     id : string;
-    name_p : string;
-    lastname_p : string;
-    telf : string;
+    teacherName : string;
+    teacherLastName : string;
+    phoneNumber : string;
     email : string;
     subject: SubjectModel;
 
