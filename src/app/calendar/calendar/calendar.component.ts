@@ -23,9 +23,9 @@ export class CalendarComponent implements OnInit {
     description: '',
     teacher: {
       id: '',
-      name_p: '',
-      lastname_p: '',
-      telf: '',
+      teacherName: '',
+      teacherLastName: '',
+      phoneNumber: '',
       email: '',
       subject: {
         id: '',
@@ -40,7 +40,7 @@ export class CalendarComponent implements OnInit {
     },
     eventCategory: {
       id: '',
-      name_c: ''
+      categoryName: ''
     }
   }
   startDate: string = '';

@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
 
   password = new FormControl('', [Validators.required, Validators.minLength(8)]);
   email = new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]);
-  telf = new FormControl('', [Validators.required, Validators.pattern(this.phoneRegex)]);
+  phoneNumber = new FormControl('', [Validators.required, Validators.pattern(this.phoneRegex)]);
 
   showValidationError: boolean = false;
   validationErrorMessage: string = '';

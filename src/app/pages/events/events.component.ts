@@ -30,6 +30,8 @@ export class EventsComponent implements OnInit {
   async getEvents(){
     this.events = []
     this.events = await this.eventsService.getEventListByUser();
+    console.log(this.events);
+    
     this.prepareEvents();
   }
   prepareEvents(){

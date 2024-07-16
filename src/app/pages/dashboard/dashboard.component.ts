@@ -43,8 +43,8 @@ export class DashboardComponent implements OnInit {
          var counter = 0;
          console.log(this.events);
          this.events.forEach(element => {
-          console.log(element.eventCategory.name_c);
-          if (element.eventCategory.name_c === "Clase") {
+          console.log(element.eventCategory.categoryName);
+          if (element.eventCategory.categoryName === "Clase") {
             console.log(element);
             if(!sessionStorage.getItem(counter.toString())){
               const json = JSON.stringify(element)

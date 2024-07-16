@@ -4,8 +4,8 @@
     <div class="col-12">
       <div class="row">
         <div class="col-12">
-          <a class="btn btn-danger" *ngIf="event.eventCategory.name_c == 'Clase'" [routerLink]="[ '/calendar']">Regresar</a>
-          <a class="btn btn-danger"  *ngIf="event.eventCategory.name_c != 'Clase'" [routerLink]="[ '/pages/event-list']">Regresar</a>
+          <a class="btn btn-danger" *ngIf="event.eventCategory.categoryName == 'Clase'" [routerLink]="[ '/calendar']">Regresar</a>
+          <a class="btn btn-danger"  *ngIf="event.eventCategory.categoryName != 'Clase'" [routerLink]="[ '/pages/event-list']">Regresar</a>
           <h1>Formulario de Eventos</h1>
         </div>
       </div>
@@ -58,7 +58,7 @@
           <div class="form-group mb-3">
             <label for="eventName">Maestro del evento:</label>
             <ng-select [items]= "maestros"
-            bindLabel= "name_p"
+            bindLabel= "teacherName"
             name= "maestro"
             id= "maestro"
             [(ngModel)]="event.teacher"

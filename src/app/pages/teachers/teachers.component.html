@@ -37,7 +37,7 @@
             <div class="card-body ">
                 <div *ngFor="let maestro of maestros |teacher:filterName | teacherAsignaturaPipe: filterAsignatura let i = index" class="accordion accordion-flush" id="accordion">
                     <a class="accordion-button" data-bs-toggle="collapse" href="#{{i}}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        {{maestro.name_p + ' ' + maestro.lastname_p}}
+                        {{maestro.teacherName + ' ' + maestro.teacherLastName}}
                     </a>
                     <div class="collapse" id="{{i}}">
                         <div class="card bg-brown my-1 card-body">
@@ -51,7 +51,7 @@
                             </div>
                             <div class="row justify-content-evenly">
                                 <div class="col"><h5>Contacto:</h5></div>
-                                <div class="col"><p>{{maestro.telf}}</p></div>
+                                <div class="col"><p>{{maestro.phoneNumber}}</p></div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-1 col-md-1 col-sm-12 me-3">
