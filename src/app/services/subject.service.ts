@@ -7,9 +7,12 @@ import {
   UpdateSubjectModel
 } from '../models/subject-model.entity';
 import { TokenService } from './token.service';
-import { Firestore,addDoc,collection,deleteDoc,doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
+import { DocumentReference, Firestore,addDoc,collection,deleteDoc,doc, getDoc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { collectionData } from 'rxfire/firestore';
 import { UserService } from './user.service';
+import { CreateRecordModel, RecordModel } from '../models/record-model.entity';
+import { UserModel } from '../models/user-model.entity';
+import { RecordService } from './record.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +25,8 @@ export class SubjectService {
     private httpClient: HttpClient,
     private tokenService: TokenService,
     private firestore: Firestore,
-    private userService: UserService
+    private userService: UserService,
+    private recordService: RecordService
 
     ) { }
     httpOptions={
@@ -87,13 +91,19 @@ export class SubjectService {
      return docs;
    }
  
-   deletesubject(subject: SubjectModel): Promise<void> {
+   async deletesubject(subject: SubjectModel): Promise<void> {
      const docRef = doc(this.firestore, `${this.collectionUrl}/${subject.id}`);
+     const getRecord = await getDocs(query(collection(this.firestore,"record"),where("subject.id","==",subject.id))) ;
+     console.log(getRecord.docs[0].id);
+     
+     const docRefRecord = doc(this.firestore,`record/${getRecord.docs[0].id}` )
+     deleteDoc(docRefRecord)
      return deleteDoc(docRef);
    }
  
    async savesubject(subject: CreateSubjectModel): Promise<any> {
      const userId = localStorage.getItem("currentUser");
+     const collectionRef = collection(this.firestore, this.collectionUrl);
      
      const currentUser = await this.userService.getUser(userId!.toString())
      const data = currentUser._document.data.value.mapValue.fields;
@@ -105,9 +115,22 @@ export class SubjectService {
      const subjectData = JSON.parse(JSON.stringify(subject));
      delete subjectData.id
      delete subjectData.user.password
-     const docRef = collection(this.firestore, this.collectionUrl);
-     return addDoc(docRef, subjectData);
-   }
+     const tempdDoc= await addDoc(collectionRef, subjectData)
+     const document = await getDoc(doc(this.firestore,this.collectionUrl,tempdDoc.id))
+     const newRecord: CreateRecordModel = {
+      finalGrade: 0,
+      sections: [],
+      subject: {
+        id: document.id,
+        subjectName: document.get("subjectName") as string,
+        user: document.get("user") as UserModel
+      }
+     }
+    const record = await this.recordService.saverecord(newRecord)
+     
+     return document
+    }
+
  
  
    async updatesubject(subject: UpdateSubjectModel): Promise<void>{

@@ -1,46 +1,80 @@
 <div class="container">
-  <div class="input-section">
-    <div *ngFor="let section of sections; let i = index" class="section">
-      <div class="section-controls">
-        <h3>Sección {{ i + 1 }}</h3>
-        <button (click)="removeSection(i)">Eliminar Sección</button>
-      </div>
-      <div class="notes-container">
-        <div *ngFor="let note of section.notes; let j = index" class="note-item">
-          <input type="text" [(ngModel)]="section.notes[j]" (input)="validateNoteInput($event, i, j)" placeholder="Nota">
-          <button (click)="removeNote(i, j)">Eliminar Nota</button>
+  <ul class="nav nav-tabs">
+    <li *ngFor="let record of records; let i = index" class="nav-item" (click)="selectRecord(i)">
+      <a class="nav-link active" aria-current="page" >{{record.subject.subjectName}}</a>
+    </li>
+  </ul>
+
+  <div *ngFor="let record of records; let i = index">
+    <div *ngIf="selectedRecord == i">
+        {{record.subject.subjectName}}
+
+        <div class="input-section">
+          <div *ngFor="let section of record.sections; let j = index" class="section">
+            <div class="section-controls">
+              <h3>Sección {{ j + 1 }}</h3>
+              <button (click)="removeSection(j)">Eliminar Sección</button>
+            </div>
+            <div class="notes-container">
+              <div *ngFor="let grade of section.grades; let k = index" class="note-item">
+                <input id="grade-{{j}}-{{k}}" (blur)="calculatePercentage()" type="text" [(ngModel)]="section.grades[k]" (input)="validateNoteInput($event, j, k)" placeholder="Nota">
+                <button (click)="removeNote(j, k)">Eliminar Nota</button>
+              </div>
+              <button (click)="addNoteToSection(j)">Agregar Nota</button>
+            </div>
+            <div class="percentage-container">
+              <label for="percentage">Porcentaje:</label>
+              <input type="number" (change)="calculatePercentage()" [(ngModel)]="section.percentage" placeholder="Porcentaje">
+              <span>%</span>
+            </div>
+            <div>
+              <span>
+                Promedio:
+              </span>
+              <span>
+                {{calculateAverage(section.grades)}}
+              </span>
+            </div>
+            <div>
+              <span>
+                Nota de sección:
+              </span>
+              <span>
+                {{section.sectionGrade}}
+              </span>
+            </div>
+          </div>
+          <div>
+            <span>Nota Final:</span>
+            <span> {{record.finalGrade}}</span>
+          </div>
+          <button (click)="addSection()">Agregar Sección</button>
+          <button class="ms-4" (click)="updateRecord()">Guardar</button>
         </div>
-        <button (click)="addNoteToSection(i)">Agregar Nota</button>
-      </div>
-      <div class="percentage-container">
-        <label for="percentage">Porcentaje:</label>
-        <input type="number" [(ngModel)]="section.percentage" placeholder="Porcentaje">
-        <span>%</span>
-      </div>
-      <button (click)="showResults(i)">Mostrar Resultados</button>
+        
+        <ng-template #resultTemplate let-section let-i="index">
+          <div class="modal">
+            <div class="modal-content">
+              <span class="close" (click)="closeModal()">&times;</span>
+              <div class="result">
+                <div class="result-box green">
+                  <h3>Promedio</h3>
+                  <p>{{ calculateAverage(section.grades) | number:'1.2-2' }}</p>
+                </div>
+                <div class="result-box green">
+                  <h3>Nota Calculada</h3>
+                  <p></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        
+        <ng-container *ngIf="showResultsFlag">
+          <ng-container *ngTemplateOutlet="resultTemplate; context: { $implicit: currentSection, index: currentIndex }"></ng-container>
+        </ng-container>
     </div>
-    <button (click)="addSection()">Agregar Sección</button>
   </div>
+
   
-  <ng-template #resultTemplate let-section let-i="index">
-    <div class="modal">
-      <div class="modal-content">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <div class="result">
-          <div class="result-box green">
-            <h3>Promedio</h3>
-            <p>{{ calculateAverage(section.notes) | number:'1.2-2' }}</p>
-          </div>
-          <div class="result-box green">
-            <h3>Nota Calculada</h3>
-            <p>{{ calculatePercentage(section.notes, section.percentage) | number:'1.2-2' }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-  
-  <ng-container *ngIf="showResultsFlag">
-    <ng-container *ngTemplateOutlet="resultTemplate; context: { $implicit: currentSection, index: currentIndex }"></ng-container>
-  </ng-container>
 </div>

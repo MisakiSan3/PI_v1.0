@@ -7,6 +7,7 @@ import { TokenService } from 'src/app/services/token.service';
 import { AsyncPipe } from '@angular/common';
 import { documentId } from '@angular/fire/firestore';
 import { Subject } from 'rxjs';
+import { RecordModel } from 'src/app/models/record-model.entity';
 
 @Component({
   selector: 'app-material',
@@ -157,6 +158,9 @@ export class MaterialComponent implements OnInit {
       },
     };
     const response = await this.subjectService.savesubject(newSubjects);
+     
+     
+     
     this.openModal(successTemplate);
     
     console.log(response)
