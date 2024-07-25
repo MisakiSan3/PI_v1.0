@@ -10,7 +10,13 @@ import { RecordService } from 'src/app/services/record.service';
 export class CalculatorComponent implements OnInit {
   records: RecordModel[] = [];
   selectedRecord: number = 0;
-  selectedSection: number = 0;
+  showResultsFlag = false;
+  showFinalResultsFlag = false;
+  finalGrade: number = 0;
+  allGrades: number[] = [];
+  currentSection: any = null;
+  currentIndex: number | null = null;
+
   auxRecord: RecordModel = {
     finalGrade: 0,
     sections: [],
@@ -25,32 +31,29 @@ export class CalculatorComponent implements OnInit {
         username:"",
       } 
     }
+  }
 
-  }
   constructor(private recordService: RecordService){}
+
   ngOnInit(): void {
-    this.getRecords()
+    this.getRecords();
   }
- 
-  showResultsFlag = false;
-  currentSection: any = null;
-  currentIndex: number | null = null;
 
   async getRecords(){
     this.records = await this.recordService.getrecordListByUser();    
   }
 
   selectRecord(i: number){
-    this.selectedRecord =  i
+    this.selectedRecord = i;
   }
 
   addSection() {
-    this.records[this.selectedRecord].sections.push({ grades: [],sectionGrade: 0, percentage: 0, showResults: false })
+    this.records[this.selectedRecord].sections.push({ grades: [], sectionGrade: 0, percentage: 0, showResults: false });
   }
 
   removeSection(index: number) {
-    this.records[this.selectedRecord].sections.splice(index,1);
-    this.calculatePercentage()
+    this.records[this.selectedRecord].sections.splice(index, 1);
+    this.calculatePercentage();
   }
 
   addNoteToSection(sectionIndex: number) {
@@ -58,8 +61,8 @@ export class CalculatorComponent implements OnInit {
   }
 
   removeNote(sectionIndex: number, noteIndex: number) {
-    this.records[this.selectedRecord].sections[sectionIndex].grades.splice(noteIndex,1);
-    this.calculatePercentage()
+    this.records[this.selectedRecord].sections[sectionIndex].grades.splice(noteIndex, 1);
+    this.calculatePercentage();
   }
 
   validateNoteInput(event: Event, sectionIndex: number, noteIndex: number) {
@@ -72,32 +75,40 @@ export class CalculatorComponent implements OnInit {
 
   calculateAverage(notes: number[]): number {
     const sum = notes.reduce((a, b) => a + b, 0);
-    return parseFloat((notes.length ? sum / notes.length : 0).toFixed(2)) ;
+    return parseFloat((notes.length ? sum / notes.length : 0).toFixed(2));
   }
 
-  calculatePercentage(): number {
-    var average = 0
-    var auxPercentaje = 0
+  calculatePercentage() {
+    let average = 0;
+    let auxPercentage = 0;
+    this.allGrades = [];
     this.records[this.selectedRecord].sections.forEach(section => {
       average = this.calculateAverage(section.grades);
-      section.sectionGrade = parseFloat(((average * section.percentage) / 100).toFixed(2)) ;
-      auxPercentaje = auxPercentaje + section.sectionGrade;
+      section.sectionGrade = parseFloat(((average * section.percentage) / 100).toFixed(2));
+      auxPercentage += section.sectionGrade;
+      this.allGrades = this.allGrades.concat(section.grades);
     });
-    return this.records[this.selectedRecord].finalGrade = parseFloat(auxPercentaje.toFixed(2));
+    this.finalGrade = parseFloat(auxPercentage.toFixed(2));
   }
 
-  showResults(sectionIndex: number) {
+  showSectionResults(sectionIndex: number) {
     this.currentSection = this.records[this.selectedRecord].sections[sectionIndex];
     this.currentIndex = sectionIndex;
     this.showResultsFlag = true;
-    this.selectedSection = sectionIndex;
-    
+    this.calculatePercentage();
+  }
+
+  showFinalResults() {
+    this.showFinalResultsFlag = true;
+    this.calculatePercentage();
   }
 
   closeModal() {
     this.showResultsFlag = false;
+    this.showFinalResultsFlag = false;
   }
-  updateRecord(){    
-    this.recordService.updaterecord(this.records[this.selectedRecord])
+
+  updateRecord() {
+    this.recordService.updaterecord(this.records[this.selectedRecord]);
   }
 }

@@ -1,7 +1,8 @@
 <div class="container">
   <ul class="nav nav-tabs">
     <li *ngFor="let record of records; let i = index" class="nav-item" (click)="selectRecord(i)">
-      <a class="nav-link active" aria-current="page" >{{record.subject.subjectName}}</a>
+      <a class="nav-link active" aria-current="page">{{record.subject.subjectName}}</a>
+     
     </li>
   </ul>
 
@@ -14,6 +15,7 @@
             <div class="section-controls">
               <h3>Sección {{ j + 1 }}</h3>
               <button (click)="removeSection(j)">Eliminar Sección</button>
+              <button (click)="showFinalResults()">Nota Final</button>
             </div>
             <div class="notes-container">
               <div *ngFor="let grade of section.grades; let k = index" class="note-item">
@@ -26,55 +28,59 @@
               <label for="percentage">Porcentaje:</label>
               <input type="number" (change)="calculatePercentage()" [(ngModel)]="section.percentage" placeholder="Porcentaje">
               <span>%</span>
-            </div>
-            <div>
-              <span>
-                Promedio:
-              </span>
-              <span>
-                {{calculateAverage(section.grades)}}
-              </span>
-            </div>
-            <div>
-              <span>
-                Nota de sección:
-              </span>
-              <span>
-                {{section.sectionGrade}}
-              </span>
+              <button class="ms-4" (click)="showSectionResults(j)">Calcular</button>
             </div>
           </div>
-          <div>
-            <span>Nota Final:</span>
-            <span> {{record.finalGrade}}</span>
-          </div>
+      
           <button (click)="addSection()">Agregar Sección</button>
           <button class="ms-4" (click)="updateRecord()">Guardar</button>
         </div>
-        
-        <ng-template #resultTemplate let-section let-i="index">
-          <div class="modal">
-            <div class="modal-content">
-              <span class="close" (click)="closeModal()">&times;</span>
-              <div class="result">
-                <div class="result-box green">
-                  <h3>Promedio</h3>
-                  <p>{{ calculateAverage(section.grades) | number:'1.2-2' }}</p>
-                </div>
-                <div class="result-box green">
-                  <h3>Nota Calculada</h3>
-                  <p></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-        
-        <ng-container *ngIf="showResultsFlag">
-          <ng-container *ngTemplateOutlet="resultTemplate; context: { $implicit: currentSection, index: currentIndex }"></ng-container>
-        </ng-container>
     </div>
   </div>
 
-  
+
+
+  <ng-template #resultTemplate let-section let-i="index">
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <div class="result">
+          <div class="result-box green">
+            <h3>Promedio</h3>
+            <p>{{ calculateAverage(section.grades) | number:'1.2-2' }}</p>
+          </div>
+          <div class="result-box green">
+            <h3>Nota Calculada</h3>
+            <p>{{section.sectionGrade}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #finalResultTemplate>
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <div class="result">
+          <div class="result-box green">
+            <h3>Promedio General</h3>
+            <p>{{ calculateAverage(allGrades) | number:'1.2-2' }}</p>
+          </div>
+          <div class="result-box green">
+            <h3>Nota Final Calculada</h3>
+            <p>{{ finalGrade }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-container *ngIf="showResultsFlag">
+    <ng-container *ngTemplateOutlet="resultTemplate; context: { $implicit: currentSection, index: currentIndex }"></ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="showFinalResultsFlag">
+    <ng-container *ngTemplateOutlet="finalResultTemplate"></ng-container>
+  </ng-container>
 </div>
