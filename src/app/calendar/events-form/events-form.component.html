@@ -4,8 +4,8 @@
     <div class="col-12">
       <div class="row">
         <div class="col-12">
-          <a class="btn btn-danger" *ngIf="event.eventCategory.categoryName == 'Clase'" [routerLink]="[ '/calendar']">Regresar</a>
-          <a class="btn btn-danger"  *ngIf="event.eventCategory.categoryName != 'Clase'" [routerLink]="[ '/pages/event-list']">Regresar</a>
+          <a class="btn btn-danger" *ngIf="event.eventCategory.categoryName?.toLowerCase() == 'clase'" [routerLink]="[ '/calendar']">Regresar</a>
+          <a class="btn btn-danger"  *ngIf="event.eventCategory.categoryName?.toLowerCase() != 'clase'" [routerLink]="[ '/pages/event-list']">Regresar</a>
           <h1>Formulario de Eventos</h1>
         </div>
       </div>
@@ -27,7 +27,7 @@
               <p *ngIf="dateInit.errors?.['required']">La fecha de inicio es obligatoria.</p>
             </div>
           </div>
-          <div *ngIf="!esClase" class="form-group mb-3">
+          <div *ngIf="event.eventCategory.categoryName?.toLowerCase() != 'clase'" class="form-group mb-3">
             <label for="end">Fecha de finalización del evento:</label>
             <input [(ngModel)]="event.end" [(ngModel)]="eventUpdate.end" type="date" class="form-control" name="end" id="end"  (change)="dateHandler()" [formControl]="dateEn">
             <div class="error-message" *ngIf="dateEn.invalid && dateEn.touched">
@@ -108,6 +108,7 @@
       </div>
       <div id="errorDiv"></div>
       <button *ngIf="!updating" (click)="createEvent()" type="submit" class="btn btn-primary">Guardar</button>
+
       <button *ngIf="updating" (click)="createUpdate()" type="submit" class="btn btn-primary">Actualizar</button>
     </div>
 

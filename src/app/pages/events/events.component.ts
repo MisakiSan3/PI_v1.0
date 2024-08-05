@@ -46,6 +46,7 @@ export class EventsComponent implements OnInit {
   deleteEvent(event: EventModel){
 
     this.eventsService.deleteevent(event)
+    this.getEvents()
   }
   /*getSubjects(){
     const userId: string | null =  this.tokenService.getUserIdFromToken() ?? '';

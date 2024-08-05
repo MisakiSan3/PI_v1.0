@@ -143,7 +143,7 @@ export class EventsFormComponent implements OnInit {
   }
 
   createEvent(){
-    if (this.esClase) {
+    if (this.event.eventCategory.categoryName.toLowerCase() === 'clase') {
       this.event.end = this.event.start + 'T' + this.timeEnd + '-05:00';
       this.event.start = this.event.start + 'T' + this.timeStart + '-05:00';
     } else {
@@ -160,7 +160,12 @@ export class EventsFormComponent implements OnInit {
 
   postEvent(){
     try {
-      this.eventService.saveevent(this.event);
+      this.eventService.saveevent(this.event).then;
+      if (this.event.eventCategory.categoryName.toLowerCase() == "clase") {
+        this.router.navigate(['../calendar'])
+     }else {
+      this.router.navigate(['../pages/event-list'])
+     }
       
     } catch (error) {
       console.log(error);
@@ -186,7 +191,7 @@ export class EventsFormComponent implements OnInit {
     try {
       this.eventService.update(this.eventUpdate.id,this.eventUpdate).subscribe(
         responseUpdate => {
-          if (!this.esClase) {
+          if (this.eventUpdate) {
             this.router.navigate(['../pages/event-list'])
           }else{
             this.deleteEvents()
@@ -263,7 +268,12 @@ export class EventsFormComponent implements OnInit {
   async updateEventsF(){
     try {
       await this.eventService.updateevent(this.eventUpdate);
-      window.location.href = '/calendar'
+      if (this.event.eventCategory.categoryName.toLowerCase() == "clase") {
+        this.router.navigate(['../calendar'])
+     }else {
+      this.router.navigate(['../pages/event-list'])
+     }
+     
     } catch (error) {
       console.error('Error actualizando la materia', error);
     }
