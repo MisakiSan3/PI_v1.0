@@ -49,7 +49,7 @@ export class UserService {
 
 
   //firebase
-  readonly collectionUrl: string = "user"
+  readonly collectionUrl: string = "users"
 
   getuserList(): Observable<UserModel[]> {
     const ref = collection(this.firestore, this.collectionUrl)
